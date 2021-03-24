@@ -6,7 +6,7 @@ dataSources:
     name: NiftyInk
     network: xdai
     source:
-      address: '0x4e9b6954d6821CF2e943CdD1b003842dD7423F02'
+      address: '0xB81A12387508506CE22AEA630108106718144807'
       abi: NiftyInk
       startBlock: 1
     mapping:
@@ -37,7 +37,7 @@ dataSources:
     name: NiftyToken
     network: xdai
     source:
-      address: '0xdCcDA1ed16F627cfaC982BbBc65D91475b54020F'
+      address: '0x3827DB0AC7ae03b693E29695D663C77164a7A6Aa'
       abi: NiftyToken
       startBlock: 1
     mapping:
@@ -96,7 +96,7 @@ dataSources:
     name: NiftyMediator
     network: xdai
     source:
-      address: '0x05613F5Bfa43e4313cB960c9c61CCcE0eae3B93B'
+      address: '0x1e575C77F1972E74cc5C880Fb3EE84D4Fee17Bd4'
       abi: NiftyMediator
       startBlock: 1
     mapping:
@@ -120,7 +120,7 @@ dataSources:
     name: Liker
     network: xdai
     source:
-      address: '0x83d5661179A67486f868691aD32704ab18cD566B'
+      address: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4'
       abi: Liker
       startBlock: 1
     mapping:

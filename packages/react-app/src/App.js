@@ -120,9 +120,9 @@ function App() {
               ''
             ) : (
               <>
-                <Col>
+                {/* <Col>
                   <Ramp price={price} address={address} />
-                </Col>
+                </Col> */}
                 <Col>
                   <Button
                     onClick={() => {
@@ -147,13 +147,13 @@ function App() {
               ''
             ) : (
               <>
-                <Col>
+                {/* <Col>
                   <Faucet
                     localProvider={kovanProvider}
                     placeholder={'sidechain faucet'}
                     price={price}
                   />
-                </Col>
+                </Col> */}
               </>
             )}
           </Row>
