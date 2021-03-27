@@ -10,7 +10,6 @@ export { default as Ramp } from "./Ramp.js";
 export { default as Faucet } from "./Faucet.js";
 export { default as Wallet } from "./Wallet.js";
 export { default as Blockie } from "./Blockie.js";
-export { default as Header } from "./Header.js";
 export { default as Timeline } from "./Timeline.js";
 export { default as AdminWidget } from "./AdminWidget.js";
 export { default as Loader } from "./Loader.js";

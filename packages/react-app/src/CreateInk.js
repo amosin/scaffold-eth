@@ -172,7 +172,7 @@ export default function CreateInk(props) {
     const timeInMs = new Date();
     const addressForDescription = !newEns ? props.address : newEns;
     currentInk["description"] =
-      "A Nifty Ink by " +
+      "NFT Minted by " +
       addressForDescription +
       " on " +
       timeInMs.toUTCString();
@@ -186,7 +186,7 @@ export default function CreateInk(props) {
 
     currentInk["drawing"] = drawingHash;
     currentInk["image"] = "https://ipfs.io/ipfs/" + imageHash;
-    currentInk["external_url"] = "https://nifty.ink/" + drawingHash;
+    currentInk["external_url"] = "/" + drawingHash;
     props.setInk(currentInk);
     console.log("Ink:", props.ink);
 

@@ -8,7 +8,7 @@ export default function Footer({ showDrawer }) {
       <ul className="footer-nav">
         <li>
           <a
-            href="https://t.me/joinchat/KByvmRpuA2XzQVYXWICiSg"
+            href="https://t.me/Ativo_Finance"
             target="_blank"
             rel="noopener noreferrer"
           >

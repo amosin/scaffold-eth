@@ -11,7 +11,7 @@ import { RelayProvider } from '@opengsn/gsn';
 //import Portis from "@portis/web3";
 const Web3HttpProvider = require('web3-providers-http');
 
-const INFURA_ID = '9ea7e149b122423991f56257b882261c'; // MY INFURA_ID, SWAP IN YOURS!
+const INFURA_ID = '28351e34c3814fa09a8768cdf9372c6e'; // MY INFURA_ID, SWAP IN YOURS!
 
 const web3Modal = new Web3Modal({
   network: 'mainnet', // optional
@@ -176,19 +176,19 @@ export default function Account(props) {
     if (web3Modal.cachedProvider) {
       modalButtons = (
         <Button
+        className="btn btn-outline-primary rounded-pill"
           style={{ verticalAlign: 'top', marginLeft: 8, marginTop: 4 }}
-          shape={'round'}
           size={'large'}
           onClick={logoutOfWeb3Modal}
         >
-          Logout
+          Disconect 
         </Button>
       );
     } else {
       modalButtons = (
         <Button
+          className="btn btn-outline-primary rounded-pill"
           style={{ verticalAlign: 'top', marginLeft: 8, marginTop: 4 }}
-          shape={'round'}
           size={'large'}
           type={props.minimized ? 'default' : 'primary'}
           onClick={loadWeb3Modal}

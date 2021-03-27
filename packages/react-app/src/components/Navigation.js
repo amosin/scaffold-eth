@@ -1,36 +1,56 @@
-import { Button, Col, Row } from 'antd';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../styles/navigation.css';
+import Logo from '../assets/ativoCoinLogo.png'
+import "../styles/navigation.css"
 
 function Navigation({ address }) {
   return (
-    <header className="site-nav">
-      <Row align="middle" justify="space-between">
-        <Col xs={24} lg={12}>
-          <div className="logo">
-            <NavLink to="/">Logo</NavLink>
-          </div>
-        </Col>
-        <Col xs={24} lg={12}>
-          <div className="nav-menu-wrapper flex-center">
-            <ul className="nav-menu">
-              <li>
-                <NavLink to={'/artist/' + address}>My Art</NavLink>
-              </li>
-              <li>
-                <NavLink to="/holdings">Holdings</NavLink>
-              </li>
-            </ul>
-            <NavLink to="/create-art">
-              <Button type="primary" size="large" shape="round">
-                Upload Your Art
-              </Button>
-            </NavLink>
-          </div>
-        </Col>
-      </Row>
-    </header>
+
+    <nav className="navbar navbar-expand-lg navbar-light bg-dark">
+      <div className="logo">
+        <a className="navbar-brand" href="/"><img src={Logo} alt="NFT.Ativo.Finance" className="logo-img" /> NFTs </a>
+      </div>
+
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+        </button>
+        
+      <div className="menu-right">
+       
+
+          
+          <div className="collapse navbar-collapse" id="navbarNavDropdown">
+              
+              <ul className="navbar-nav">
+                
+                  <NavLink exact to="/recent">
+                    <li className="nav-item nav-link btn btn-outline-primary">
+                      Latest
+                    </li>
+                  </NavLink>
+
+                  <li className="nav-item">
+                    <NavLink className="nav-link btn btn-outline-primary" to={'/artist/' + address}>My Assets</NavLink>
+                  </li>
+                
+                  <NavLink exact to="/holdings">
+                  <li className="nav-item nav-link btn btn-outline-primary">
+                  Holdings
+                  </li>
+                  </NavLink>
+
+                <NavLink className="nav-link" to="/create-art">
+                <li className="nav-link btn btn-outline-primary rounded-pill">
+                  Create
+                </li>
+                </NavLink>
+
+              </ul>
+            </div>
+        </div>
+
+    </nav>
+    
   );
 }
 

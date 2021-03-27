@@ -68,8 +68,10 @@ export default function AllInks(props) {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <div style={{ width: 600, margin: "0 auto" }}>
+    <div>
+      <h1 style={{ padding: 0, textAlign: "center", listStyle: "none", color: "white"}}> LATEST MINTED NFTs </h1>
       <div className="inks-grid">
+      
         <ul style={{ padding: 0, textAlign: "center", listStyle: "none" }}>
           {inks
             ? Object.keys(inks)
@@ -88,7 +90,7 @@ export default function AllInks(props) {
                       <img
                         src={inks[ink].metadata.image}
                         alt={inks[ink].metadata.name}
-                        width="120"
+                        width="240"
                       />
                     </Link>
                   </li>

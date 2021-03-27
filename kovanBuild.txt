@@ -1,0 +1,214 @@
+➜  xnft git:(xnft-to-da-moon) ✗ yarn run newdeploykovan
+yarn run v1.22.5
+$ cd packages/buidler && npx buidler run scripts/newdeploy.js --network kovan && npx buidler run scripts/publish.js
+All contracts have already been compiled, skipping compilation.
+📡 Deploy 
+
+🪐 DEPLOYING ON NETWORK:  kovan
+📄 Liker
+Liker deployed to: 0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4
+
+
+📄 NiftyRegistry
+NiftyRegistry deployed to: 0xe12C4777D3E07bF563B61A7e9813044053B18a43
+
+
+📄 NiftyInk
+NiftyInk deployed to: 0xB81A12387508506CE22AEA630108106718144807
+
+
+📄 NiftyToken
+NiftyToken deployed to: 0x3827DB0AC7ae03b693E29695D663C77164a7A6Aa
+
+
+📄 NiftyMediator
+NiftyMediator deployed to: 0x1e575C77F1972E74cc5C880Fb3EE84D4Fee17Bd4
+
+
+setBridgeMediatorAddress 0x1e575C77F1972E74cc5C880Fb3EE84D4Fee17Bd4
+All contracts have already been compiled, skipping compilation.
+Publishing AMBMediator to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/AMBMediator.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/AMBMediator.address' }
+Publishing IAMB to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/IAMB.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/IAMB.address' }
+Publishing INiftyInk to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/INiftyInk.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/INiftyInk.address' }
+Publishing INiftyRegistry to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/INiftyRegistry.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/INiftyRegistry.address' }
+Publishing INiftyToken to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/INiftyToken.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/INiftyToken.address' }
+Publishing ITokenManagement to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/ITokenManagement.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/ITokenManagement.address' }
+Publishing Liker to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4',
+  NiftyInkAddress: '0x182E0a944EcC928eAb0ca69044eFC0d53E590a8d',
+  NiftyMediatorAddress: '0x3a6C05CF3Bc53Eadc571A2A9284b6EE7d17d3757',
+  NiftyRegistryAddress: '0x90f03EF1E21e94Ec96E1cce4Fbf7dC88909d7F90',
+  NiftyTokenAddress: '0xe6De2266f9B1595518CC644DE2ac0F0b1201eE94',
+  NiftyMainAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4' }
+../niftygraph/config/config.json
+Publishing NFTINK to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/NFTINK.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/NFTINK.address' }
+Publishing NiftyInk to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4',
+  NiftyInkAddress: '0xB81A12387508506CE22AEA630108106718144807',
+  NiftyMediatorAddress: '0x3a6C05CF3Bc53Eadc571A2A9284b6EE7d17d3757',
+  NiftyRegistryAddress: '0x90f03EF1E21e94Ec96E1cce4Fbf7dC88909d7F90',
+  NiftyTokenAddress: '0xe6De2266f9B1595518CC644DE2ac0F0b1201eE94',
+  NiftyMainAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4' }
+../niftygraph/config/config.json
+Publishing NiftyMain to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4',
+  NiftyInkAddress: '0xB81A12387508506CE22AEA630108106718144807',
+  NiftyMediatorAddress: '0x3a6C05CF3Bc53Eadc571A2A9284b6EE7d17d3757',
+  NiftyRegistryAddress: '0x90f03EF1E21e94Ec96E1cce4Fbf7dC88909d7F90',
+  NiftyTokenAddress: '0xe6De2266f9B1595518CC644DE2ac0F0b1201eE94',
+  NiftyMainAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4' }
+../niftygraph/config/config.json
+Publishing NiftyMediator to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4',
+  NiftyInkAddress: '0xB81A12387508506CE22AEA630108106718144807',
+  NiftyMediatorAddress: '0x1e575C77F1972E74cc5C880Fb3EE84D4Fee17Bd4',
+  NiftyRegistryAddress: '0x90f03EF1E21e94Ec96E1cce4Fbf7dC88909d7F90',
+  NiftyTokenAddress: '0xe6De2266f9B1595518CC644DE2ac0F0b1201eE94',
+  NiftyMainAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4' }
+../niftygraph/config/config.json
+Publishing NiftyRegistry to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4',
+  NiftyInkAddress: '0xB81A12387508506CE22AEA630108106718144807',
+  NiftyMediatorAddress: '0x1e575C77F1972E74cc5C880Fb3EE84D4Fee17Bd4',
+  NiftyRegistryAddress: '0xe12C4777D3E07bF563B61A7e9813044053B18a43',
+  NiftyTokenAddress: '0xe6De2266f9B1595518CC644DE2ac0F0b1201eE94',
+  NiftyMainAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4' }
+../niftygraph/config/config.json
+Publishing NiftyToken to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4',
+  NiftyInkAddress: '0xB81A12387508506CE22AEA630108106718144807',
+  NiftyMediatorAddress: '0x1e575C77F1972E74cc5C880Fb3EE84D4Fee17Bd4',
+  NiftyRegistryAddress: '0xe12C4777D3E07bF563B61A7e9813044053B18a43',
+  NiftyTokenAddress: '0x3827DB0AC7ae03b693E29695D663C77164a7A6Aa',
+  NiftyMainAddress: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4' }
+../niftygraph/config/config.json
+Publishing ValidSignatureTester to ../react-app/src/contracts
+{ Error: ENOENT: no such file or directory, open '/Users/andremosin/playground/xnft/packages/buidler/artifacts/ValidSignatureTester.address'
+    at Object.openSync (fs.js:443:3)
+    at Object.readFileSync (fs.js:343:35)
+    at fs.readdirSync.forEach (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:32:12)
+    at Array.forEach (<anonymous>)
+    at main (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:12:31)
+    at Object.<anonymous> (/Users/andremosin/playground/xnft/packages/buidler/scripts/publish.js:85:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path:
+   '/Users/andremosin/playground/xnft/packages/buidler/artifacts/ValidSignatureTester.address' }
+✨  Done in 144.51s.

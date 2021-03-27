@@ -5,6 +5,7 @@ import { ethers } from 'ethers';
 import { Provider as JotaiProvider } from 'jotai';
 import React, { useState } from 'react';
 import { ApolloProvider } from 'react-apollo';
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 import { Faucet, Ramp } from './components';
 import { useContractLoader } from './hooks';
@@ -123,7 +124,7 @@ function App() {
                 {/* <Col>
                   <Ramp price={price} address={address} />
                 </Col> */}
-                <Col>
+                {/* <Col>
                   <Button
                     onClick={() => {
                       window.open('https://ethgasstation.info/');
@@ -140,7 +141,7 @@ function App() {
                     </span>
                     {parseInt(gasPrice) / 10 ** 9}g
                   </Button>
-                </Col>
+                </Col> */}
               </>
             )}
             {process.env.REACT_APP_NETWORK_NAME ? (

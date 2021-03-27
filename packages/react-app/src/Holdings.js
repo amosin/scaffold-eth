@@ -230,6 +230,7 @@ export default function Holdings(props) {
                       style={{
                         margin: "10px 0px 5px 0px",
                         fontWeight: "700",
+                        color: "white",
                       }}
                     >
                       {tokens[id].ink.metadata.name.length > 18

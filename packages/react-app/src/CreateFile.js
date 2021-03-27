@@ -108,7 +108,7 @@ export default function CreateFile(props) {
     const timeInMs = new Date();
     const addressForDescription = !newEns ? props.address : newEns;
     currentInk["description"] =
-      "A Nifty Ink by " +
+      "NFT Minted by " +
       addressForDescription +
       " on " +
       timeInMs.toUTCString();
@@ -168,8 +168,8 @@ export default function CreateFile(props) {
   };
 
   const top = (
-    <div>
-      <Typography.Title level={3} style={{ marginBottom: 25 }}>Upload your own art</Typography.Title>
+    <div><br></br>
+      <Typography.Title level={3} style={{ color: "white", marginBottom: 25 }}>Upload your own art</Typography.Title>
       <Form
         layout={"inline"}
         name="createFile"

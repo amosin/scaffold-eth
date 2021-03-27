@@ -5,7 +5,6 @@ import { ADMIN_INKS_QUERY } from './apollo/queries';
 import { Loader } from './components';
 import { isBlocklisted } from './helpers';
 import { useUserProvider } from './hooks';
-import './styles/inks.css';
 
 const ADMIN_ADDRESSES = ['0x859c736870af2abe057265a7a5685ae7b6c94f15'];
 

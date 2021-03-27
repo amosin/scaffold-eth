@@ -22,8 +22,8 @@ const ipfsConfigInfura = {
   protocol: 'https',
 };
 const ipfsConfig = {
-  host: 'ipfs.nifty.ink',
-  port: '3001',
+  host: 'ipfs.infura.io',
+  port: '5001',
   protocol: 'https',
   timeout: 2500,
 };
@@ -105,9 +105,9 @@ export default function NftyWallet(props) {
               position: 'fixed',
               textAlign: 'right',
               right: 0,
-              bottom: 20,
-              padding: 10,
-              backgroundColor: '#FFFFFF',
+              bottom: 5,
+              padding: 7,
+              backgroundColor: 'rgb(21, 43, 68)',
               borderRadius: 16,
             }}
           >

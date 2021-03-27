@@ -47,6 +47,7 @@
     "newdeployxdai": "cd packages/buidler && npx buidler run scripts/newdeploy.js --network xdai",
     "newdeploymainnet": "cd packages/buidler && npx buidler run scripts/newdeploy.js --network mainnet",
     "analyze": "source-map-explorer 'packages/react-app/build/static/js/*.js'",
+    "flattentoken": "cd packages/buidler && npx buidler flatten NiftyToken.sol",
     "flatten": "cd packages/buidler && npx buidler flatten ",
     "setprice": "cd packages/buidler && npx buidler run scripts/setPrice.js --network xdai",
     "setregistry": "cd packages/buidler && npx buidler run scripts/setRegistry.js --network xdai",
@@ -54,11 +55,11 @@
   },
   "devDependencies": {
     "@nomiclabs/buidler": "^1.3.3",
+    "@nomiclabs/buidler-ethers": "^2.0.0",
     "@nomiclabs/buidler-truffle5": "^1.3.3",
     "@nomiclabs/buidler-web3": "^1.3.3",
-    "@nomiclabs/buidler-ethers": "2.0.0",
     "@opengsn/gsn": "2.0.0-alpha.3-patch.2",
-    "ethers": "^5.0.7"
+    "ethers": "^5.0.32"
   },
   "workspaces": {
     "packages": [
