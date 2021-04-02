@@ -29,6 +29,7 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
         uint256 weight,
         string fileUrl
     );
+
     event contractAdded(address targetContract, address contractOwner);
     event contractRemoved(address targetContract, address contractOwner);
 
@@ -50,6 +51,7 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
     mapping(address => EnumerableSet.UintSet) private addressLikes;
     mapping(uint256 => EnumerableSet.UintSet) private targetLikes;
     mapping(address => EnumerableSet.UintSet) private contractLikes;
+    mapping(uint256 => uint256) public targetWeightLikes;
 
     constructor() public {
         weighterc20 = IERC20(0x6e34F6FB7Fffe10390422Ee0dDE04A03e446843e);
@@ -124,6 +126,7 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
         addressLikes[liker].add(likeId);
         targetLikes[targetId].add(likeId);
         contractLikes[contractAddress].add(likeId);
+        addLikedWeighByTarget(weight, target);
 
         emit liked(
             likeId,
@@ -141,7 +144,7 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
         uint256 target,
         string memory _fileUrl
     ) public returns (uint256) {
-        uint256 weight = weighterc20.balanceOf(_msgSender());
+        uint256 weight = weighterc20.balanceOf(msg.sender);
         return
             _newLike(contractAddress, target, _msgSender(), weight, _fileUrl);
     }
@@ -169,7 +172,7 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
             isArtistSignature || !checkSignatureFlag,
             "Unable to verify the artist signature"
         );
-        uint256 weight = weighterc20.balanceOf(_msgSender());
+        uint256 weight = weighterc20.balanceOf(msg.sender);
         return _newLike(contractAddress, target, liker, weight, _fileUrl);
     }
 
@@ -200,6 +203,10 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
 
     function getLikeIdByIndex(uint256 index) public view returns (uint256) {
         return likeIds.at(index);
+    }
+
+    function addLikedWeighByTarget(uint256 weight, uint256 target) internal {
+        targetWeightLikes[target] = targetWeightLikes[target] + weight;
     }
 
     function getLikeInfoById(uint256 likeId)
