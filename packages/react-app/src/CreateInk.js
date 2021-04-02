@@ -228,7 +228,7 @@ export default function CreateInk(props) {
       props.setViewDrawing(LZ.decompress(props.drawing));
       setDrawingSize(10000);
       props.setDrawing("");
-      history.push("/ink/" + drawingHash);
+      history.push("/assets/" + drawingHash);
 
       Promise.all([
         drawingResultInfura,

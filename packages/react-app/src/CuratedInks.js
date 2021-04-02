@@ -85,7 +85,7 @@ export default function CuratedInks({ localProvider, injectedProvider }) {
           .sort((a, b) => b - a)
           .map((ink) => (
             <div className="ink-item" key={inks[ink].id}>
-              <Link to={'ink/' + inks[ink].id} style={{ color: 'black' }}>
+              <Link to={'assets/' + inks[ink].id} style={{ color: 'black' }}>
                 <img
                   src={inks[ink].metadata.image}
                   alt={inks[ink].metadata.name}

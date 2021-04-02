@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: NiftyInk
-    network: kovan
+    network: xdai
     source:
-      address: '0xB81A12387508506CE22AEA630108106718144807'
+      address: '0x7EAD8282158Dd6312906a77eb6C3d59606cBEB98'
       abi: NiftyInk
-      startBlock: 24040980
+      startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -35,11 +35,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: NiftyToken
-    network: kovan
+    network: xdai
     source:
-      address: '0x3827DB0AC7ae03b693E29695D663C77164a7A6Aa'
+      address: '0xa8Fa8fFac0904aa020415807eE6516E887D69770'
       abi: NiftyToken
-      startBlock: 24040980
+      startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -94,11 +94,11 @@ dataSources:
 #      file: ./src/mapping.ts
   - kind: ethereum/contract
     name: NiftyMediator
-    network: kovan
+    network: xdai
     source:
-      address: '0x1e575C77F1972E74cc5C880Fb3EE84D4Fee17Bd4'
+      address: '0x9E272CEf956F50b8af46c41160505259b892a5B2'
       abi: NiftyMediator
-      startBlock: 24040980
+      startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -118,11 +118,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Liker
-    network: kovan
+    network: xdai
     source:
-      address: '0xBF613e9F8F797df72D63d481Ac3FEa023d9a25C4'
+      address: '0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA'
       abi: Liker
-      startBlock: 24040980
+      startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -133,6 +133,6 @@ dataSources:
         - name: Liker
           file: ./abis/Liker.json
       eventHandlers:
-        - event: liked(uint256,address,uint256,uint256,address,string)
+        - event: liked(uint256,address,uint256,uint256,address,uint256,string)
           handler: handleliked
       file: ./src/mapping.ts

@@ -23,14 +23,14 @@ function Navigation({ address }) {
               
               <ul className="navbar-nav">
                 
-                  <NavLink exact to="/recent">
+                  <NavLink exact to="/latest">
                     <li className="nav-item nav-link btn btn-outline-primary">
                       Latest
                     </li>
                   </NavLink>
 
                   <li className="nav-item">
-                    <NavLink className="nav-link btn btn-outline-primary" to={'/artist/' + address}>My Assets</NavLink>
+                    <NavLink className="nav-link btn btn-outline-primary" to={'/accounts/' + address}>My Assets</NavLink>
                   </li>
                 
                   <NavLink exact to="/holdings">
@@ -39,7 +39,7 @@ function Navigation({ address }) {
                   </li>
                   </NavLink>
 
-                <NavLink className="nav-link" to="/create-art">
+                <NavLink className="nav-link" to="/create-asset">
                 <li className="nav-link btn btn-outline-primary rounded-pill">
                   Create
                 </li>

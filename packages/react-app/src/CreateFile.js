@@ -7,6 +7,7 @@ import {
   Input,
   InputNumber,
   Form,
+  Space,
   message,
   Typography,
 } from "antd";
@@ -19,15 +20,20 @@ import {
 import { useAtom } from "jotai";
 import { Uploader } from "./components";
 import { imageUrlAtom } from "./hooks/Uploader";
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const Hash = require("ipfs-only-hash");
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
+
+
 
 export default function CreateFile(props) {
   let history = useHistory();
   const [sending, setSending] = useState(false);
   const [name, setName] = useState("");
   const [number, setNumber] = useState(0);
+  const [attribute, setAttribute] = useState([]);
+  const [attributeValue, setAttributeValue] = useState([]);
   const [imageUrl, setImageUrl] = useAtom(imageUrlAtom);
 
   const mintInk = async (inkUrl, jsonUrl, limit) => {
@@ -98,6 +104,11 @@ export default function CreateFile(props) {
         value: values.limit.toString(),
       },
     ];
+    if (values.attributes) {
+      values.attributes.forEach(attrib => currentInk["attributes"].push(attrib));
+    }
+    
+
     currentInk["name"] = values.title;
     let newEns;
     try {
@@ -153,7 +164,7 @@ export default function CreateFile(props) {
       });
 
       setSending(false);
-      history.push("/ink/" + imageHash);
+      history.push("/assets/" + imageHash);
 
       Promise.all([imageResultInfura, inkResultInfura]).then((values) => {
         console.log("INFURA FINISHED UPLOADING!", values);
@@ -167,11 +178,12 @@ export default function CreateFile(props) {
     console.log("errorInfo:", errorInfo);
   };
 
+  
   const top = (
     <div><br></br>
-      <Typography.Title level={3} style={{ color: "white", marginBottom: 25 }}>Upload your own art</Typography.Title>
+      <Typography.Title level={3} style={{ color: "white", marginBottom: 25 }}>Upload File to be Minted</Typography.Title>
       <Form
-        layout={"inline"}
+        layout={"horizontal"}
         name="createFile"
         onFinish={createInk}
         onFinishFailed={onFinishFailed}
@@ -205,6 +217,45 @@ export default function CreateFile(props) {
             precision={0}
           />
         </Form.Item>
+        <br></br>
+        <Form.List name="attributes">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(field => (
+              <Space key={field.key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                <Form.Item
+                  {...field}
+                  name={[field.name, 'trait_type']}
+                  fieldKey={[field.fieldKey, 'trait_type']}
+                  rules={[{ required: true, message: 'Missing attribute' }]}
+                >
+                  <Input 
+                  onChange={(e) => setAttribute(e.target.value)}
+                  placeholder="Custom Attributes" 
+                  />
+                </Form.Item>
+                <Form.Item
+                  {...field}
+                  name={[field.name, 'value']}
+                  fieldKey={[field.fieldKey, 'value']}
+                  rules={[{ required: true, message: 'Missing value' }]}
+                >
+                  <Input 
+                  onChange={(e) => setAttributeValue(e.target.value)}
+                  placeholder="Value" 
+                  />
+                </Form.Item>
+                <MinusCircleOutlined onClick={() => remove(field.name)} />
+              </Space>
+            ))}
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Add Custom Attribute
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
 
         <Form.Item>
           <Button
@@ -216,7 +267,10 @@ export default function CreateFile(props) {
             Upload
           </Button>
         </Form.Item>
+
+        
       </Form>
+
     </div>
   );
 

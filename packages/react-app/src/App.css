@@ -25,6 +25,9 @@ body {
   width: auto;
 }
 
+.ant-upload.ant-upload-drag {
+  height: 300px;
+}
 .network-banner {
   position: fixed;
   top: 0;
@@ -76,4 +79,32 @@ body {
 
 h2 {
   color: #e4e4e4;
+}
+
+h3.ant-typography,
+.ant-typography h3 {
+  margin-bottom: 0.5em;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.ant-typography {
+  color: #ffffff;
+}
+
+.accountsCotent {
+  margin: 0px auto;
+  margin-top: 10px;
+}
+
+.inks-grid {
+}
+
+.each-asset {
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }

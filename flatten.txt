@@ -3927,4 +3927,4 @@ contract ValidSignatureTester {
     }
   }
 }
-Done in 1.75s.
+Done in 1.96s.

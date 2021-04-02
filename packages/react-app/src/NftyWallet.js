@@ -136,7 +136,7 @@ export default function NftyWallet(props) {
             <Route path="/debug">
               <DebugContracts {...props} />
             </Route>
-            <Route path="/recent">
+            <Route path="/latest">
               <AllInks />
             </Route>
             {/* <Route path="/curated">
@@ -152,11 +152,11 @@ export default function NftyWallet(props) {
               />
             </Route>
 
-            <Route path="/artist/:address">
+            <Route path="/accounts/:address">
               <Artist {...props} />
             </Route>
 
-            <Route path="/create-art">
+            <Route path="/create-asset">
               <CreateFile
                 {...props}
                 key={renderKey}
@@ -216,7 +216,7 @@ export default function NftyWallet(props) {
             </div>
           </Route> */}
 
-            <Route path="/ink/:hash">
+            <Route path="/assets/:hash">
               <div>
                 <ViewInk
                   {...props}
@@ -254,7 +254,7 @@ export default function NftyWallet(props) {
             <Route
               path="/:hash(Qm[A-Z]\w+)"
               render={(props) => (
-                <Redirect to={`/ink/${props.match.params.hash}`} />
+                <Redirect to={`/assets/${props.match.params.hash}`} />
               )}
             />
           </Switch>

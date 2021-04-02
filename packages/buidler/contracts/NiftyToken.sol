@@ -12,7 +12,11 @@ import "./INiftyInk.sol";
 import "./SignatureChecker.sol";
 
 contract NiftyToken is BaseRelayRecipient, ERC721, SignatureChecker {
-    constructor() public ERC721("ATIVO NFT", "ANFT") {
+    // Fee reserve address.
+    address payable public feereserveaddress;
+
+    constructor(address payable _feeaddr) public ERC721("ATIVO NFT", "ANFT") {
+        feereserveaddress = _feeaddr;
         _setBaseURI("ipfs://ipfs/");
         setCheckSignatureFlag(true);
     }
@@ -20,6 +24,24 @@ contract NiftyToken is BaseRelayRecipient, ERC721, SignatureChecker {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     using SafeMath for uint256;
+
+    // Add fee for the Marketplace transfers
+    uint128 public marketFee = 200; // initial 2% fee in basis points (parts per 10,000)
+
+    // Update fee address by the previous fee addr.
+    function updateFeeaddr(address payable _feeaddr) public {
+        require(msg.sender == feereserveaddress, "dev: wut?");
+        feereserveaddress = _feeaddr;
+    }
+
+    function setMarketFee(uint128 _value) public onlyOwner {
+        marketFee = _value;
+    }
+
+    function calculateFee(uint256 _value) public view returns (uint256) {
+        require((_value.mul(marketFee) >= 10000), "_value too small");
+        return _value.mul(marketFee).div(10000);
+    }
 
     address public niftyRegistry;
 
@@ -203,7 +225,14 @@ contract NiftyToken is BaseRelayRecipient, ERC721, SignatureChecker {
         address _buyer = _msgSender();
         uint256 _tokenId = _mintInkToken(_buyer, _inkUrl, _jsonUrl);
         //Note: a pull mechanism would be safer here: https://docs.openzeppelin.com/contracts/2.x/api/payment#PullPayment
-        _artist.transfer(msg.value);
+
+        // calculate fees
+        uint256 fees = calculateFee(msg.value);
+
+        // pay seller minus fees
+        _artist.transfer(msg.value.sub(fees));
+        // send fee to feereserveaddress feeaddr
+        feereserveaddress.transfer(fees);
         emit boughtInk(_tokenId, _inkUrl, _buyer, msg.value);
         return _tokenId;
     }

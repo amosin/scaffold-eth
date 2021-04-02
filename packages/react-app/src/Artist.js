@@ -23,7 +23,7 @@ export default function Artist(props) {
     try {
       const newAddress = ethers.utils.getAddress(values["address"]);
       setInks([]);
-      history.push("/artist/" + newAddress);
+      history.push("/accounts/" + newAddress);
     } catch (e) {
       console.log("not an address");
       notification.open({
@@ -55,7 +55,7 @@ export default function Artist(props) {
           >
             <AddressInput
               ensProvider={props.mainnetProvider}
-              placeholder={"Search artist"}
+              placeholder={"Search account"}
             />
           </Form.Item>
 
@@ -95,7 +95,7 @@ export default function Artist(props) {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <div style={{ maxWidth: 700, margin: "0 auto" }}>
+    <div className="accountsCotent">
       <div>
         <Row style={{ textAlign: "center" }}>
           <Col span={12} offset={6}>
@@ -139,6 +139,7 @@ export default function Artist(props) {
             ? inks.map((ink) => (
                 <li
                   key={ink.id}
+                  className="each-asset"
                   style={{
                     display: "inline-block",
                     verticalAlign: "top",
@@ -147,23 +148,26 @@ export default function Artist(props) {
                     border: "1px solid #e5e5e6",
                     borderRadius: "10px",
                     fontWeight: "bold",
+                    height: "auto",
                   }}
                 >
                   <Link
-                    to={{ pathname: "/ink/" + ink.id }}
+                    to={{ pathname: "/assets/" + ink.id }}
                     style={{ color: "black" }}
                   >
-                    <img
+                    <div className="assetImage">
+                      <img
                       src={ink.metadata.image}
                       alt={ink.metadata.name}
-                      width="150"
+                      width="300"
                       style={{
                         border: "1px solid #e5e5e6",
                         borderRadius: "10px",
                       }}
                     />
+                    </div>
                     <h3
-                      style={{ margin: "10px 0px 5px 0px", fontWeight: "700" }}
+                      style={{ margin: "10px 0px 5px 0px", fontWeight: "700", color: "#ffffff" }}
                     >
                       {ink.metadata.name.length > 18
                         ? ink.metadata.name.slice(0, 15).concat("...")

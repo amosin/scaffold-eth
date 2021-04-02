@@ -6,7 +6,7 @@ dataSources:
     name: NiftyInk
     network: xdai
     source:
-      address: '{{NiftyInkAddress}}'
+      address: '0x7EAD8282158Dd6312906a77eb6C3d59606cBEB98'
       abi: NiftyInk
       startBlock: 1
     mapping:
@@ -37,7 +37,7 @@ dataSources:
     name: NiftyToken
     network: xdai
     source:
-      address: '{{NiftyTokenAddress}}'
+      address: '0xa8Fa8fFac0904aa020415807eE6516E887D69770'
       abi: NiftyToken
       startBlock: 1
     mapping:
@@ -96,7 +96,7 @@ dataSources:
     name: NiftyMediator
     network: xdai
     source:
-      address: '{{NiftyMediatorAddress}}'
+      address: '0x9E272CEf956F50b8af46c41160505259b892a5B2'
       abi: NiftyMediator
       startBlock: 1
     mapping:
@@ -120,7 +120,7 @@ dataSources:
     name: Liker
     network: xdai
     source:
-      address: '{{LikerAddress}}'
+      address: '0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA'
       abi: Liker
       startBlock: 1
     mapping:
@@ -133,6 +133,6 @@ dataSources:
         - name: Liker
           file: ./abis/Liker.json
       eventHandlers:
-        - event: liked(uint256,address,uint256,uint256,address,uint256,string)
+        - event: liked(uint256,address,uint256,uint256,address,string)
           handler: handleliked
       file: ./src/mapping.ts

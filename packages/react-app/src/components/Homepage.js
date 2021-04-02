@@ -15,7 +15,7 @@ function Homepage({ localProvider, injectedProvider }) {
             ante tellus, condimentum eget ante vitae, dignissim fermentum dui.
           </p>
           <p className="text-center">
-            <NavLink to="/create-art">
+            <NavLink to="/create-asset">
               <Button type="primary" shape="round" className="button--xl">
                 Upload Your Art
               </Button>

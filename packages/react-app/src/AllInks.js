@@ -86,7 +86,7 @@ export default function AllInks(props) {
                       fontWeight: "bold",
                     }}
                   >
-                    <Link to={"ink/" + inks[ink].id} style={{ color: "black" }}>
+                    <Link to={"assets/" + inks[ink].id} style={{ color: "black" }}>
                       <img
                         src={inks[ink].metadata.image}
                         alt={inks[ink].metadata.name}

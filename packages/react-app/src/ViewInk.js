@@ -337,7 +337,7 @@ export default function ViewInk(props) {
         (data.ink.count ? data.ink.count : "0") +
         "/" +
         data.ink.limit +
-        " minted";
+        " created";
     }
 
     if (data && data.ink) {
@@ -512,10 +512,10 @@ export default function ViewInk(props) {
         <>
           <Row style={{ justifyContent: "center", marginTop: -16 }}>
             <Space>
-              <Link to={`/artist/${data.ink.artist.id}`}>
+              <Link to={`/accounts/${data.ink.artist.id}`}>
                 <Typography>
-                  <span style={{ verticalAlign: "middle", fontSize: 16 }}>
-                    {" artist: "}
+                  <span style={{ verticalAlign: "middle", fontSize: 16, color: "#FFFFFF" }}>
+                    {" account: "}
                   </span>
                 </Typography>
                 <Address
@@ -560,11 +560,11 @@ export default function ViewInk(props) {
         }}
       >
         <Typography.Text
-          style={{ color: "#222222" }}
+          style={{ color: "#FFFFFF" }}
           copyable={{ text: inkJson ? inkJson.external_url : "" }}
           style={{ verticalAlign: "middle", paddingLeft: 5, fontSize: 28 }}
         >
-          <a href={"/" + hash} style={{ color: "#222222" }}>
+          <a href={"/" + hash} style={{ color: "#FFFFFF" }}>
             {inkJson ? inkJson.name : <Spin />}
           </a>
         </Typography.Text>

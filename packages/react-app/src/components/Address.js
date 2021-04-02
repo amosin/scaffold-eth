@@ -52,7 +52,7 @@ export default function Address(props) {
     return (
       <span style={{ verticalAlign: "middle" }}>
         {clickable ? (
-          <a style={{ color: "#222222" }} href={blockExplorer + props.value}>
+          <a style={{ color: "#FFFFFF" }} href={blockExplorer + props.value}>
             <Blockies seed={props.value.toLowerCase()} size={8} scale={2} />
           </a>
         ) : (
@@ -70,7 +70,7 @@ export default function Address(props) {
         copyable={{ text: props.value }}
       >
         {clickable ? (
-          <a style={{ color: "#222222" }} href={blockExplorer + props.value}>
+          <a style={{ color: "#FFFFFF" }} href={blockExplorer + props.value}>
             {displayAddress}
           </a>
         ) : (
@@ -82,7 +82,7 @@ export default function Address(props) {
     text = (
       <Text copyable={{ text: props.value }}>
         {clickable ? (
-          <a style={{ color: "#222222" }} href={blockExplorer + props.value}>
+          <a style={{ color: "#FFFFFF" }} href={blockExplorer + props.value}>
             {displayAddress}
           </a>
         ) : (

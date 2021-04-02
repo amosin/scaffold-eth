@@ -17,7 +17,8 @@ async function main() {
     const Liker = await deploy("Liker")
     const NiftyRegistry = await deploy("NiftyRegistry")
     const NiftyInk = await deploy("NiftyInk")
-    const NiftyToken = await deploy("NiftyToken")
+    const AtivoToken = await deploy("AtivoToken")
+    const NiftyToken = await deploy("NiftyToken",["0x9F5DF201bD1DA82E30542896B9412Db24cbb94c1"])
     const NiftyMediator = await deploy("NiftyMediator")
 
     //console.log("💽Loading local contract that are already deployed...")
@@ -36,6 +37,9 @@ async function main() {
     await NiftyToken.setNiftyRegistry(NiftyRegistry.address)
     await NiftyMediator.setNiftyRegistry(NiftyRegistry.address)
     await Liker.addContract(NiftyInk.address)
+
+    const NiftyMain = await deploy("NiftyMain")
+    
     if(bre.network.name.indexOf("kovan")>=0){
       /*await NiftyMediator.setBridgeContract("0xFe446bEF1DbF7AFE24E81e05BC8B271C1BA9a560")
       await NiftyInk.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")

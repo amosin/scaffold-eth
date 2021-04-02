@@ -214,7 +214,7 @@ export default function Holdings(props) {
                   }}
                 >
                   <Link
-                    to={"ink/" + tokens[id].ink.id}
+                    to={"assets/" + tokens[id].ink.id}
                     style={{ color: "black" }}
                   >
                     <img
