@@ -415,11 +415,11 @@ export default function ViewInk(props) {
                     <></>
                   )}
                   {sendInkButton(item.owner, item.id)}
-                  {relayTokenButton(
+                  {/* {relayTokenButton(
                     item.network === "mainnet",
                     item.owner,
                     item.id
-                  )}
+                  )} */}
                   <div style={{ marginLeft: 4, marginTop: 4 }}>
                     <NiftyShop
                       injectedProvider={props.injectedProvider}

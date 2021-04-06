@@ -289,14 +289,14 @@ export default function Holdings(props) {
                             <SendOutlined /> Transfer Ownership
                             </Button>
                         </Popover>
-                        <UpgradeInkButton
+                        {/* <UpgradeInkButton
                           tokenId={tokens[id].id}
                           injectedProvider={props.injectedProvider}
                           gasPrice={props.gasPrice}
                           upgradePrice={props.upgradePrice}
                           transactionConfig={props.transactionConfig}
                           buttonSize="small"
-                        />
+                        /> */}
                       </>
                     ) : (
                         <Button
