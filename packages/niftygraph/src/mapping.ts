@@ -352,10 +352,12 @@ export function handleownershipChange(event: ownershipChange): void {
 }
 
 export function handleliked(event: liked): void {
-let file = File.load(event.params.fileUrl);
-let likers = file.likers;
-likers.push(event.params.liker.toHexString());
-file.likers = likers;
-file.save();
+  let file = File.load(event.params.fileUrl);
+  let likers = file.likers;
+  let likersWeight = file.likersWeight;
+  likersWeight.push(event.params.weight.toHexString());
+  likers.push(event.params.liker.toHexString());
+  file.likers = likers;
+  file.save();
 }
 

@@ -259,7 +259,7 @@ export default function Account(props) {
   }, []);
 
   return (
-    <div>
+    <div className="burner-wallet">
       <span>
         {props.address ? (
           <Address value={props.address} ensProvider={props.mainnetProvider} />

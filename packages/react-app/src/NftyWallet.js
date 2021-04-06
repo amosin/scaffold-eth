@@ -14,6 +14,7 @@ import Holdings from './Holdings.js';
 import { useContractReader, useLocalStorage } from './hooks';
 import ViewInk from './ViewInk.js';
 
+
 const Web3HttpProvider = require('web3-providers-http');
 
 const ipfsConfigInfura = {
@@ -99,18 +100,7 @@ export default function NftyWallet(props) {
         <div className="content">
           <Navigation address={props.address} />
           {/* {process.env.REACT_APP_NETWORK_NAME && supportButton}*/}
-          <div
-            style={{
-              zIndex: 99,
-              position: 'fixed',
-              textAlign: 'right',
-              right: 0,
-              bottom: 5,
-              padding: 7,
-              backgroundColor: 'rgb(21, 43, 68)',
-              borderRadius: 16,
-            }}
-          >
+          <div className="wallet-info">
             <Account
               address={props.address}
               setAddress={props.setAddress}

@@ -10,6 +10,7 @@ import './App.css';
 import { Faucet, Ramp } from './components';
 import { useContractLoader } from './hooks';
 import NftyWallet from './NftyWallet.js';
+import detectEthereumProvider from '@metamask/detect-provider'
 
 if (!process.env.REACT_APP_GRAPHQL_ENDPOINT) {
   throw new Error(
@@ -67,7 +68,7 @@ if (process.env.REACT_APP_NETWORK_NAME) {
     );
   }
 } else {
-  networkBanner = <div className="network-banner">localhost</div>;
+  networkBanner = <div className="network-banner">Network: Polygon</div>;
   // localProvider = mainnetProvider; //new ethers.providers.JsonRpcProvider("http://localhost:8545");
   localProvider = new ethers.providers.JsonRpcProvider('http://localhost:8546');
   kovanProvider = new ethers.providers.JsonRpcProvider('http://localhost:8546'); // yarn run sidechain
@@ -88,7 +89,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <JotaiProvider>
-        {networkBanner}
+        
         <NftyWallet
           address={address}
           setAddress={setAddress}
@@ -168,6 +169,7 @@ function App() {
             />
           )}
         </div>
+        {networkBanner}
       </JotaiProvider>
     </ApolloProvider>
   );

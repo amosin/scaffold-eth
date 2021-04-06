@@ -37,6 +37,43 @@ export const INKS_QUERY = gql`
   }
 `;
 
+export const EXPLORE_QUERY = gql`
+  query inks($first: Int, $skip: Int, $orderBy: String, $orderDirection: String, $filters: Ink_filter, $liker: String) {
+    inks(first: $first, skip: $skip where: $filters, orderBy: $orderBy, orderDirection: $orderDirection) {
+      id
+      inkNumber
+      createdAt
+      jsonUrl
+      bestPrice
+      bestPriceSource
+      bestPriceSetAt
+      count
+      limit
+      likeCount
+      likes(where: {liker: $liker}) {
+        id
+      }
+      artist {
+        id
+        address
+      }
+    }
+  }
+`;
+
+export const INK_LIKES_QUERY = gql`
+query likes($inks: [BigInt], $liker: String) {
+  inks(first: 1000, where: {inkNumber_in: $inks}) {
+    id
+    inkNumber
+    likeCount
+    likes(where: {liker: $liker}) {
+      id
+    }
+  }
+}`
+
+
 export const ADMIN_INKS_QUERY = gql`
     query inks($first: Int, $skip: Int, $admins: [String!]) {
         inks: files(first: $first, skip: $skip, orderBy: createdAt, orderDirection: desc, where: { likers_contains: $admins }) {
