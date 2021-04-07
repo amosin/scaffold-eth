@@ -87,5 +87,15 @@ export const NETWORKS = {
     rpcUrl: "https://rpc-mainnet.maticvigil.com",
     faucet: "https://faucet.matic.network/",
     blockExplorer: "https://explorer-mainnet.maticvigil.com//",
+  },
+  mumbai: {
+    name: "mumbai",
+    color: '#2bbdf7',
+    chainId: 80001,
+    price: 1,
+    gasPrice:1000000000,
+    rpcUrl: "https://rpc-mumbai.maticvigil.com",
+    faucet: "https://faucet.matic.network/",
+    blockExplorer: "https://explorer-mumbai.maticvigil.com//",
   }
 };

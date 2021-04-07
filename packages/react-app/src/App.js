@@ -53,6 +53,11 @@ if (process.env.REACT_APP_NETWORK_NAME) {
     localProvider = new ethers.providers.JsonRpcProvider(
       'https://sokol.poa.network'
     );
+  } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
+    console.log('THIS IS MUMBAI NETWORK');
+    localProvider = new ethers.providers.JsonRpcProvider(
+      'https://rpc-mumbai.maticvigil.com'
+    );
     kovanProvider = new ethers.providers.InfuraProvider(
       'kovan',
       '9ea7e149b122423991f56257b882261c'
