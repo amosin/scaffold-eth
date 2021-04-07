@@ -1,29 +1,29 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import Logo from '../assets/ativoCoinLogo.png'
 import "../styles/navigation.css"
 import { Account } from './';
 
 function Navigation({ address }) {
   return (
-    <>
+
     <nav className="navbar navbar-expand-lg navbar-light bg-dark">
       <div className="navbar-brand">
-        <a  href="/"><img src={Logo} alt="NFT.Ativo.Finance" className="logo-img" /> <span className="sitename-lower"> NFT Market </span> </a>
+        <a  href="/"><img src={Logo} alt="NFT.Ativo.Finance" className="logo-img" /> <span className="sitename-lower"> NFT Factory </span> </a>
 
       </div>
 
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-        </button>
+    <span className="navbar-toggler-icon my-toggler"></span>
+    </button>
         
       <div className="menu-right">
        
 
           
-          <div className="collapse navbar-collapse" id="navbarNavDropdown">
+      <div className="collapse navbar-collapse" id="navbarNav">
               
-              <ul className="navbar-nav">
+              <ul className="navbar-nav ml-auto">
                 
                   <NavLink exact to="/latest">
                     <li className="nav-item nav-link btn btn-lg btn-outline-primary">
@@ -52,7 +52,7 @@ function Navigation({ address }) {
         </div>
 
     </nav>
-    </>
+
   );
 }
 

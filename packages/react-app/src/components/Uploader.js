@@ -21,6 +21,7 @@ const Uploader = () => {
   );
 
   return (
+    <div className="uploader">
     <Upload.Dragger
       name="avatar"
       listType="picture-card"
@@ -36,6 +37,7 @@ const Uploader = () => {
         uploadButton
       )}
     </Upload.Dragger>
+    </div>
   );
 };
 

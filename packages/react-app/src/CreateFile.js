@@ -20,7 +20,7 @@ import {
 import { useAtom } from "jotai";
 import { Uploader } from "./components";
 import { imageUrlAtom } from "./hooks/Uploader";
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusCircleTwoTone, PlusOutlined } from '@ant-design/icons';
 
 const Hash = require("ipfs-only-hash");
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
@@ -221,6 +221,7 @@ export default function CreateFile(props) {
         <Form.List name="attributes">
         {(fields, { add, remove }) => (
           <>
+          
             {fields.map(field => (
               <Space key={field.key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                 <Form.Item
@@ -245,11 +246,11 @@ export default function CreateFile(props) {
                   placeholder="Value" 
                   />
                 </Form.Item>
-                <MinusCircleOutlined onClick={() => remove(field.name)} />
+                <MinusCircleTwoTone onClick={() => remove(field.name)} />
               </Space>
             ))}
             <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              <Button type="dashed" shape="round" ghost="true" onClick={() => add()} block icon={<PlusOutlined />}>
                 Add Custom Attribute
               </Button>
             </Form.Item>
@@ -275,14 +276,10 @@ export default function CreateFile(props) {
   );
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        maxWidth: "600px",
-        margin: "0 auto",
-      }}
-    >
+    <div  className="createfile">
+       <div  className="createfile-right">
       {top}
+      </div>
       <Uploader />
     </div>
   );

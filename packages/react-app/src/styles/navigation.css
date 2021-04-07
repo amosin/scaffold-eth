@@ -5,8 +5,6 @@
 
 /* mobile */
 .navbar {
-  padding: 0px;
-  height: 90px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -38,6 +36,15 @@
   display: flex;
   flex-direction: row;
   margin-right: 530px;
+}
+
+@media (max-width: 1079px) {
+  .menu-right {
+    margin-right: 0px;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -76,3 +83,10 @@
   font-size: xx-large;
   transition: all 0.25s ease-out;
 }
+
+/* .navbar-nav .nav-link {
+  text-align: center;
+  width: 500px;
+  background-color: red;
+  align-content: center;
+} */

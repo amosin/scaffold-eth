@@ -166,7 +166,7 @@ export default function Holdings(props) {
   }
 
   return (
-    <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
+    <div className="holdings">
       <Row>
         <Col span={12}>
           <p style={{ margin: 0 }}>
@@ -220,7 +220,7 @@ export default function Holdings(props) {
                     <img
                       src={tokens[id].ink.metadata.image}
                       alt={tokens[id].ink.metadata.name}
-                      width="150"
+                      width="300"
                       style={{
                         border: "1px solid #e5e5e6",
                         borderRadius: "10px",

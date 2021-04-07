@@ -26,17 +26,23 @@ body {
 }
 
 .ant-upload.ant-upload-drag {
-  height: 300px;
+  height: 100%;
 }
 .network-banner {
   position: absolute;
   top: 0;
   right: 0;
-  margin-right: 50px;
-  color: white;
+  margin-right: 35px;
+  color: black;
+  font-weight: bold;
   right: 0;
   text-align: center;
-  background-color: #06061b;
+  background: #73ad21;
+  border-color: white !important;
+  border-radius: 25px;
+  padding: 1px;
+  height: 25px;
+  margin-top: 1px;
 }
 
 .site-main {
@@ -144,11 +150,15 @@ h3.ant-typography,
 
 .allinks-main {
   margin-top: 10px;
+  justify-content: center;
+  max-width: 1250px;
+  margin: 0 auto;
 }
 
 .allinks-main h1 {
   color: mix(#fff, #e91e63, 85%);
-  font-size: xxx-large;
+  margin-top: 10px;
+  font-size: xx-large;
   font-weight: 900;
   text-shadow: -0.0075em 0.0075em 0 mix(#fff, #e91e63, 94%),
     0.005em 0.005em 0 mix(#fff, #e91e63, 60%),
@@ -158,4 +168,23 @@ h3.ant-typography,
     0.025em 0.025em 0 mix(#fff, #e91e63, 68%),
     0.03em 0.03em 0 mix(#fff, #e91e63, 70%),
     0.035em 0.035em 0 mix(#fff, #e91e63, 72%);
+}
+
+.holdings {
+  align-content: center;
+  max-width: 700px;
+  text-align: center;
+  margin: 15px auto;
+}
+
+.createfile {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ant-switch {
+  background-color: red;
+  border-color: white !important;
+  margin: 5px;
 }
