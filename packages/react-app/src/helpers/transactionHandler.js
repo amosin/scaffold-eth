@@ -93,7 +93,7 @@ export async function transactionHandler(c) {
         if (c["payment"]) {
           metaData["value"] = c["payment"];
         }
-
+        console.log('r w here?')
         let result = await contract[c["regularFunction"]](
           ...c["regularFunctionArgs"],
           metaData

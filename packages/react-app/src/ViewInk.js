@@ -326,6 +326,7 @@ export default function ViewInk(props) {
               <BurnTokenForm
                 tokenId={tokenId}
                 address={props.address}
+                inkUrl={hash}
                 mainnetProvider={props.mainnetProvider}
                 injectedProvider={props.injectedProvider}
                 transactionConfig={props.transactionConfig}
@@ -415,7 +416,7 @@ export default function ViewInk(props) {
                   <RocketOutlined /> View on OpenSea
                 </Button>
               );
-
+              //console.log(item.owner);
               return (
                 <List.Item>
                   <Address

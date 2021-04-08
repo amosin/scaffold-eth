@@ -12,9 +12,9 @@ console.log("🪐 WORKING ON NETWORK: ",bre.network.name)
 
 async function main() {
     if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
-        const niftytoken = await NiftyToken.at('0xa57A27220A64ec7a824a800f76540490eBD42C9a')
-        const liker = await Liker.at('0x2AA14E211a2D1910A8Ed200Da0Cd7cC691780283')
-        const ativoToken = await AtivoToken.at('0xa45a93259d2D1f7BE1D5CbDF1f37E51135012ae5')
+        const niftytoken = await NiftyToken.at('0x009a8a0aBAb77841Fb4297F9FcA61F1deF3ed642')
+        const liker = await Liker.at('0xF681C4462b1126088fb402212b9c956579387Df1')
+        const ativoToken = await AtivoToken.at('0xD320C26a63629cd47f9b813cE035a4A3Aae7bD80')
         
         //const accounts = await web3.eth.getAccounts()
 
@@ -52,17 +52,27 @@ async function main() {
         // console.log('Weight ID1: ' + weightid1)
 
         // const result = await liker.getPastEvents(
-        //   'checkWeight',
+        //   'likedWeightBalance',
         //   {fromBlock: 0}
         // );
-        // console.log('\n Number of Events: ' + result.length)
-        // result.forEach(element => {
-        //   console.log(element.returnValues);
-        // });
-        
 
-        const totalSupply = await niftytoken.burn(9);
-        console.log(totalSupply);
+        const result = await niftytoken.getPastEvents(
+          'burnedToken',
+          {fromBlock: 0}
+        );
+        console.log('\n Number of Events: ' + result.length)
+        result.forEach(element => {
+          if (element.returnValues.inkUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
+            console.log('NFT GONE')
+          }
+        });
+        
+        // Burn
+        // const resultT = await niftytoken.burnToken("4", "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk");
+        // console.log(resultT);
+
+        // const resultT = await niftytoken.filesOfThisAddress("0xc783df8a850f42e7F7e57013759C285caa701eB6");
+        // console.log(resultT);
 
         exit()
     }

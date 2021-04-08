@@ -30,6 +30,8 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
         string fileUrl
     );
 
+    event likedWeightBalance(uint256 targetId, uint256 weight);
+
     event contractAdded(address targetContract, address contractOwner);
     event contractRemoved(address targetContract, address contractOwner);
 
@@ -207,6 +209,7 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
 
     function addLikedWeighByTarget(uint256 weight, uint256 target) internal {
         targetWeightLikes[target] = targetWeightLikes[target] + weight;
+        emit likedWeightBalance(target, targetWeightLikes[target]);
     }
 
     function getLikeInfoById(uint256 likeId)

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, notification } from "antd";
 import { AddressInput } from "./components";
-import { burnToken } from "./helpers";
+import { transactionHandler } from "./helpers";
 import { useContractLoader } from "./hooks";
 
 export default function BurnTokenForm(props) {
@@ -13,8 +13,8 @@ export default function BurnTokenForm(props) {
     console.log("Success:", props.tokenId);
 
     let contractName = "NiftyToken";
-    let regularFunction = "burn";
-    let regularFunctionArgs = props.tokenId;
+    let regularFunction = "burnToken";
+    let regularFunctionArgs = [props.tokenId, props.inkUrl];
 
     let txConfig = {
       ...props.transactionConfig,
@@ -35,15 +35,15 @@ export default function BurnTokenForm(props) {
         mainnetBytecode === "0x00"
       ) {
         console.log("yes now we try");
-        result = await burnToken(txConfig);
+        result = await transactionHandler(txConfig);
         console.log('Result: ' + result);
         notification.open({
-          message: "👋 Sending successful!",
-          description: "👀 Sent to " + values["to"],
+          message: "👋 Burn successful!",
+          description: "👀 The supply has been decreased",
         });
       } else {
         notification.open({
-          message: "📛 Sorry! Unable to send to this address",
+          message: "📛 Sorry! Unable to Burn",
           description: "This address is a smart contract 📡",
         });
       }

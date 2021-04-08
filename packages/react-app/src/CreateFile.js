@@ -7,6 +7,7 @@ import {
   Input,
   InputNumber,
   Form,
+  Modal,
   Space,
   message,
   Typography,
@@ -147,7 +148,31 @@ export default function CreateFile(props) {
         values.limit.toString()
       );
     } catch (e) {
-      console.log(e);
+      if (e.data.code === -32603) {
+        Modal.error({
+          title: "This NFT already exists!",
+          content: (
+            <>
+            <p>You are trying to create a NFT that already exists.</p>
+              <p>
+                It's supposed to be a NON FUNGIBLE TOKEN right? try another file...
+              </p>
+            </>
+          ),
+        });
+      } else {
+        Modal.error({
+          title: "something went wrong!",
+          content: (
+            <>
+            {e.data.message}
+            </>
+          ),
+        });
+      }
+     
+      
+      console.log(e.data.message);
       setSending(false);
     }
 

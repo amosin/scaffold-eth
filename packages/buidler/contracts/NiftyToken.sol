@@ -67,8 +67,7 @@ contract NiftyToken is
     uint128 public marketFee = 200; // initial 2% fee in basis points (parts per 10,000)
 
     // Update fee address by the previous fee addr.
-    function updateFeeaddr(address payable _feeaddr) public {
-        require(msg.sender == feereserveaddress, "dev: wut?");
+    function updateFeeaddr(address payable _feeaddr) public onlyOwner {
         feereserveaddress = _feeaddr;
     }
 
@@ -92,6 +91,7 @@ contract NiftyToken is
     }
 
     event mintedInk(uint256 id, string inkUrl, address to);
+    event burnedToken(uint256 id, string inkUrl, address to);
     event boughtInk(uint256 id, string inkUrl, address buyer, uint256 price);
     event boughtToken(uint256 id, string inkUrl, address buyer, uint256 price);
     event lockedInk(uint256 id, address recipient);
@@ -364,6 +364,15 @@ contract NiftyToken is
         returns (address payable)
     {
         return BaseRelayRecipient._msgSender();
+    }
+
+    function burnToken(uint256 _tokenId, string memory _inkUrl) public {
+        require(
+            _msgSender() == ownerOf(_tokenId),
+            "NFTYard: INVALID_TOKEN_OWNER"
+        );
+        burn(_tokenId);
+        emit burnedToken(_tokenId, _inkUrl, _msgSender());
     }
 
     /**
