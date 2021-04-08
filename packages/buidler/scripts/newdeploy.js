@@ -18,8 +18,12 @@ async function main() {
     const NiftyRegistry = await deploy("NiftyRegistry")
     const NiftyInk = await deploy("NiftyInk")
     const AtivoToken = await deploy("AtivoToken")
-    const NiftyToken = await deploy("NiftyToken",["0x9F5DF201bD1DA82E30542896B9412Db24cbb94c1"])
+    const NiftyToken = await deploy("NiftyToken",["0x9F5DF201bD1DA82E30542896B9412Db24cbb94c1","0x2e5e27d50EFa501D90Ad3638ff8441a0C0C0d75e"])
     const NiftyMediator = await deploy("NiftyMediator")
+
+    // USE ChildChainManagerProxy
+    //https://static.matic.network/network/testnet/mumbai/index.json
+    //https://static.matic.network/network/mainnet/v1/index.json
 
     //console.log("💽Loading local contract that are already deployed...")
     //const Liker = await ethers.getContractAt("Liker","0xBD0621dcb64e1EEd503f709422b019B2fA197aF6")

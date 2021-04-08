@@ -4,14 +4,13 @@ import { Modal, notification } from "antd";
 import { getSignature } from "./getSignature";
 import { default as Transactor } from "./Transactor";
 
-export async function transactionHandler(c) {
+export async function burnToken(c) {
   try {
     function chainWarning(network, chainId) {
       Modal.warning({
         title: "MetaMask Network Mismatch",
         content: (
           <>
-          <p>You are using {network}</p>
             <p>
               Nifty Ink is built on xDai: please change your MetaMask Network to
               point to the{" "}
@@ -28,12 +27,11 @@ export async function transactionHandler(c) {
       });
     }
 
-    function showXDaiModal(network) {
+    function showXDaiModal() {
       Modal.info({
         title: "You need some xDai to make this transaction!",
         content: (
           <span>
-            <p>You are using {network}</p>
             {" "}
             Nifty.ink runs on xDAI.{" "}
             <a target="_blank" href={"https://xdai.io"}>
@@ -56,19 +54,23 @@ export async function transactionHandler(c) {
       c["contractName"] +
       ".address.js");
     let contractAbi = require("../contracts/" + c["contractName"] + ".abi.js");
+   
+    var balance; 
+    if (c["localProvider"].getBalance(c["address"])) {
+      balance = await c["localProvider"].getBalance(c["address"]);
+    }
 
-    let balance = await c["localProvider"].getBalance(c["address"]);
-    console.log("artist balance", balance);
+    //console.log("artist balance", balance);
     let injectedNetwork = await c["injectedProvider"].getNetwork();
     let localNetwork = await c["localProvider"].getNetwork();
-    console.log("networkcomparison", injectedNetwork, localNetwork);
+    //console.log("networkcomparison", injectedNetwork, localNetwork);
 
     if (
       c["payment"] &&
       parseFloat(ethers.utils.formatEther(balance)) <
         parseFloat(ethers.utils.formatEther(c["payment"]))
     ) {
-      showXDaiModal(injectedNetwork.name);
+      showXDaiModal();
       let m =
         "You need more than " +
         ethers.utils.formatEther(c["payment"]) +
@@ -93,15 +95,18 @@ export async function transactionHandler(c) {
         if (c["payment"]) {
           metaData["value"] = c["payment"];
         }
+         
+        // burn works here
+        let result = await contract[c["regularFunction"]](c["regularFunctionArgs"]);
 
-        let result = await contract[c["regularFunction"]](
-          ...c["regularFunctionArgs"],
-          metaData
-        );
+        // let result = await contract[c["regularFunction"]](
+        //   ...c["regularFunctionArgs"],
+        //   metaData
+        // );
         console.log("Regular RESULT!!!!!!", result);
         return result;
       } else {
-        chainWarning(injectedNetwork.name, injectedNetwork.chainId);
+        chainWarning();
         throw "Got xDai, but Metamask is on the wrong network";
       }
     } else if (process.env.REACT_APP_USE_GSN === "true") {
@@ -152,7 +157,7 @@ export async function transactionHandler(c) {
         throw "Metamask is on the wrong network";
       }
     } else {
-      showXDaiModal(injectedNetwork.name);
+      showXDaiModal();
       throw "Need XDai";
     }
   } catch (e) {
