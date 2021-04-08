@@ -20,6 +20,7 @@ import {
   RocketOutlined,
   SyncOutlined,
   LinkOutlined,
+  FireOutlined
 } from "@ant-design/icons";
 import { useContractLoader } from "./hooks";
 import {
@@ -27,6 +28,7 @@ import {
   transactionHandler,
 } from "./helpers";
 import SendInkForm from "./SendInkForm.js";
+import BurnTokenForm from "./BurnTokenForm.js";
 import LikeButton from "./LikeButton.js";
 import NiftyShop from "./NiftyShop.js";
 import UpgradeInkButton from "./UpgradeInkButton.js";
@@ -312,6 +314,34 @@ export default function ViewInk(props) {
       }
     };
 
+
+    const burnToken = (tokenOwnerAddress, tokenId) => {
+      if (
+        props.address &&
+        tokenOwnerAddress.toLowerCase() === props.address.toLowerCase()
+      ) {
+        return (
+          <Popover
+            content={
+              <BurnTokenForm
+                tokenId={tokenId}
+                address={props.address}
+                inkUrl={hash}
+                mainnetProvider={props.mainnetProvider}
+                injectedProvider={props.injectedProvider}
+                transactionConfig={props.transactionConfig}
+              />
+            }
+            title="Burn Token"
+          >
+            <Button type="danger" style={{ margin: 4, marginBottom: 12 }}>
+              <SendOutlined /> <FireOutlined />
+            </Button>
+          </Popover>
+        );
+      }
+    };
+
     const relayTokenButton = (relayed, tokenOwnerAddress, tokenId) => {
       if (
         props.address &&
@@ -329,6 +359,8 @@ export default function ViewInk(props) {
         );
       }
     };
+
+    
 
     if (data.ink && data.ink.limit === "0") {
       mintDescription = (data.ink.count ? data.ink.count : "0") + " minted";
@@ -384,7 +416,7 @@ export default function ViewInk(props) {
                   <RocketOutlined /> View on OpenSea
                 </Button>
               );
-
+              //console.log(item.owner);
               return (
                 <List.Item>
                   <Address
@@ -405,6 +437,7 @@ export default function ViewInk(props) {
                   >
                     <LinkOutlined />
                   </a>
+                  
                   {mainnetTokens[item.id] ? (
                     openseaButton
                   ) : item.network === "mainnet" ? (
@@ -415,6 +448,7 @@ export default function ViewInk(props) {
                     <></>
                   )}
                   {sendInkButton(item.owner, item.id)}
+                  {burnToken(item.owner, item.id)}
                   {/* {relayTokenButton(
                     item.network === "mainnet",
                     item.owner,

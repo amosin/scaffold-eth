@@ -13,6 +13,7 @@ async function main() {
 
   console.log("🪐 DEPLOYING ON NETWORK: ",bre.network.name)
 
+
   if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("mumbai")>=0|| bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
     // const Liker = await deploy("Liker")
     // const NiftyRegistry = await deploy("NiftyRegistry")
@@ -20,6 +21,10 @@ async function main() {
     //const AtivoToken = await deploy("AtivoToken")
     // const NiftyToken = await deploy("NiftyToken",["0xF1B471055629E172a59C488a50F38BFc668B1A76"])
     // const NiftyMediator = await deploy("NiftyMediator")
+
+    // USE ChildChainManagerProxy
+    //https://static.matic.network/network/testnet/mumbai/index.json
+    //https://static.matic.network/network/mainnet/v1/index.json
 
     //console.log("💽Loading local contract that are already deployed...")
     const Liker = await ethers.getContractAt("Liker","0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA")

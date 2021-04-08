@@ -52,14 +52,27 @@ async function main() {
         // console.log('Weight ID1: ' + weightid1)
 
         // const result = await liker.getPastEvents(
-        //   'checkWeight',
+        //   'likedWeightBalance',
         //   {fromBlock: 0}
         // );
-        // console.log('\n Number of Events: ' + result.length)
-        // result.forEach(element => {
-        //   console.log(element.returnValues);
-        // });
+
+        const result = await niftytoken.getPastEvents(
+          'burnedToken',
+          {fromBlock: 0}
+        );
+        console.log('\n Number of Events: ' + result.length)
+        result.forEach(element => {
+          if (element.returnValues.inkUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
+            console.log('NFT GONE')
+          }
+        });
         
+        // Burn
+        // const resultT = await niftytoken.burnToken("4", "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk");
+        // console.log(resultT);
+
+        // const resultT = await niftytoken.filesOfThisAddress("0xc783df8a850f42e7F7e57013759C285caa701eB6");
+        // console.log(resultT);
 
         exit()
     }
