@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
 import { usePoller } from "../hooks";
+import MaticLogo from "../images/matic_network.png";
 
 export default function Balance(props) {
   const [dollarMode, setDollarMode] = useState(true);
@@ -41,7 +42,7 @@ export default function Balance(props) {
   let displayBalance = floatBalance.toFixed(4);
 
   if (props.dollarMultiplier && dollarMode) {
-    displayBalance = "$" + (floatBalance * props.dollarMultiplier).toFixed(2);
+    displayBalance = "" + (floatBalance * props.dollarMultiplier).toFixed(2);
   }
 
   return (
@@ -56,7 +57,7 @@ export default function Balance(props) {
         setDollarMode(!dollarMode);
       }}
     >
-      {displayBalance}
+      <img src={MaticLogo} width="25" height="25"></img>{displayBalance}
     </span>
   );
 }

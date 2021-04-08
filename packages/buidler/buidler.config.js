@@ -241,6 +241,13 @@ module.exports = {
         mnemonic: DEPLOY_ACCOUNT
       },
     },
+    mumbai: {
+      url: 'https://rpc-mumbai.maticvigil.com',
+      accounts: {
+        gasPrice: 10000000000,
+        mnemonic: DEPLOY_ACCOUNT
+      },
+    },
     xdai: {
       url: 'https://dai.poa.network',
       gasPrice: 1100000000,

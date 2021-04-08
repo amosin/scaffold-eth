@@ -13,34 +13,36 @@ async function main() {
 
   console.log("🪐 DEPLOYING ON NETWORK: ",bre.network.name)
 
-  if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
-    const Liker = await deploy("Liker")
-    const NiftyRegistry = await deploy("NiftyRegistry")
-    const NiftyInk = await deploy("NiftyInk")
-    const AtivoToken = await deploy("AtivoToken")
-    const NiftyToken = await deploy("NiftyToken",["0x9F5DF201bD1DA82E30542896B9412Db24cbb94c1","0x2e5e27d50EFa501D90Ad3638ff8441a0C0C0d75e"])
-    const NiftyMediator = await deploy("NiftyMediator")
+
+  if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("mumbai")>=0|| bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
+    // const Liker = await deploy("Liker")
+    // const NiftyRegistry = await deploy("NiftyRegistry")
+    //const NiftyInk = await deploy("NiftyInk")
+    //const AtivoToken = await deploy("AtivoToken")
+    // const NiftyToken = await deploy("NiftyToken",["0xF1B471055629E172a59C488a50F38BFc668B1A76"])
+    // const NiftyMediator = await deploy("NiftyMediator")
 
     // USE ChildChainManagerProxy
     //https://static.matic.network/network/testnet/mumbai/index.json
     //https://static.matic.network/network/mainnet/v1/index.json
 
     //console.log("💽Loading local contract that are already deployed...")
-    //const Liker = await ethers.getContractAt("Liker","0xBD0621dcb64e1EEd503f709422b019B2fA197aF6")
-    //const NiftyRegistry = await ethers.getContractAt("NiftyRegistry","0x63d6151DC9aAf6AD66DfFc42ad1eA65A6a2EFC68")
-    //const NiftyInk = await ethers.getContractAt("NiftyInk","0x49dE55fbA08af88f55EB797a456fdf76B151c8b0")
-    //const NiftyToken = await ethers.getContractAt("NiftyToken","0xCF964c89f509a8c0Ac36391c5460dF94B91daba5")
-    //const NiftyMediator = await ethers.getContractAt("NiftyMediator","0x73cA9C4e72fF109259cf7374F038faf950949C51")
+    const Liker = await ethers.getContractAt("Liker","0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA")
+    const NiftyRegistry = await ethers.getContractAt("NiftyRegistry","0x78639e04Fe88c6e9Fea99399132A57EfE88EDb87")
+    const NiftyInk = await ethers.getContractAt("NiftyInk","0x7EAD8282158Dd6312906a77eb6C3d59606cBEB98")
+    const AtivoToken = await ethers.getContractAt("NiftyInk","0xAf6fDB5573Ac4A7E83E6761A738A7E0bE2c527F4")
+    const NiftyToken = await ethers.getContractAt("NiftyToken","0xa8Fa8fFac0904aa020415807eE6516E887D69770")
+    const NiftyMediator = await ethers.getContractAt("NiftyMediator","0x9E272CEf956F50b8af46c41160505259b892a5B2")
 
 
-    await NiftyRegistry.setInkAddress(NiftyInk.address)
-    await NiftyRegistry.setTokenAddress(NiftyToken.address)
-    console.log("setBridgeMediatorAddress",NiftyMediator.address)
-    await NiftyRegistry.setBridgeMediatorAddress(NiftyMediator.address)
-    await NiftyInk.setNiftyRegistry(NiftyRegistry.address)
-    await NiftyToken.setNiftyRegistry(NiftyRegistry.address)
-    await NiftyMediator.setNiftyRegistry(NiftyRegistry.address)
-    await Liker.addContract(NiftyInk.address)
+    // await NiftyRegistry.setInkAddress(NiftyInk.address)
+    // await NiftyRegistry.setTokenAddress(NiftyToken.address)
+    // console.log("setBridgeMediatorAddress",NiftyMediator.address)
+    // await NiftyRegistry.setBridgeMediatorAddress(NiftyMediator.address)
+    // await NiftyInk.setNiftyRegistry(NiftyRegistry.address)
+    // await NiftyToken.setNiftyRegistry(NiftyRegistry.address)
+    // await NiftyMediator.setNiftyRegistry(NiftyRegistry.address)
+    // await Liker.addContract(NiftyInk.address)
 
     const NiftyMain = await deploy("NiftyMain")
     

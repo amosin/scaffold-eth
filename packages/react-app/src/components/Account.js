@@ -84,6 +84,16 @@ export default function Account(props) {
     }
     */
 
+
+  // Get user current network... inform if wrong...
+  // useEffect(() => {
+  //   getNetworkName();
+  // });
+  // const getNetworkName = async () => {
+  //   let network = await props.injectedProvider.getNetwork();
+  //   console.log(network.name)
+  // }
+
   const createBurnerIfNoAddress = async () => {
     if (
       !props.injectedProvider &&
@@ -99,6 +109,8 @@ export default function Account(props) {
         burner = new BurnerProvider(
           'https://kovan.infura.io/v3/9ea7e149b122423991f56257b882261c'
         ); //new ethers.providers.InfuraProvider("kovan", "9ea7e149b122423991f56257b882261c")
+      } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
+        burner = new BurnerProvider('https://rpc-mumbai.maticvigil.com');
       } else {
         burner = new BurnerProvider('http://localhost:8546'); //
       }
@@ -238,6 +250,8 @@ export default function Account(props) {
             'kovan',
             '9ea7e149b122423991f56257b882261c'
           );
+        } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
+          origProvider = new Web3HttpProvider('https://rpc-mumbai.maticvigil.com');
         } else {
           origProvider = new ethers.providers.JsonRpcProvider(
             'http://localhost:8546'
