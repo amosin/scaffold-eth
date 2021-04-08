@@ -54,13 +54,13 @@ if (process.env.REACT_APP_NETWORK_NAME) {
       'https://sokol.poa.network'
     );
   } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
+    networkBanner = <div className="network-banner">Network: Mumbai</div>;
     console.log('THIS IS MUMBAI NETWORK');
     localProvider = new ethers.providers.JsonRpcProvider(
       'https://rpc-mumbai.maticvigil.com'
     );
-    kovanProvider = new ethers.providers.InfuraProvider(
-      'kovan',
-      '9ea7e149b122423991f56257b882261c'
+    kovanProvider = new ethers.providers.JsonRpcProvider(
+      'https://rpc-mumbai.maticvigil.com'
     );
   } else {
     localProvider = new ethers.providers.InfuraProvider(
@@ -92,9 +92,9 @@ function App() {
   const readKovanContracts = useContractLoader(kovanProvider);
 
   return (
+    
     <ApolloProvider client={client}>
       <JotaiProvider>
-        
         <NftyWallet
           address={address}
           setAddress={setAddress}

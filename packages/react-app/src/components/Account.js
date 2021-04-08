@@ -84,6 +84,16 @@ export default function Account(props) {
     }
     */
 
+
+  // Get user current network... inform if wrong...
+  // useEffect(() => {
+  //   getNetworkName();
+  // });
+  // const getNetworkName = async () => {
+  //   let network = await props.injectedProvider.getNetwork();
+  //   console.log(network.name)
+  // }
+
   const createBurnerIfNoAddress = async () => {
     if (
       !props.injectedProvider &&

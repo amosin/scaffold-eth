@@ -22,7 +22,11 @@ contract Authorizable is Ownable {
 }
 
 // AtivoToken with Governance.
-contract AtivoToken is ERC20("Ativo Token", "ATIVO"), Ownable, Authorizable {
+contract AtivoToken is
+    ERC20("Ativo Token Test1", "ATV1"),
+    Ownable,
+    Authorizable
+{
     uint256 private _cap = 10000000e18;
     uint256 public manualMinted = 0;
     uint256 public manualMintLimit = 5000000e18;

@@ -11,6 +11,7 @@ export async function transactionHandler(c) {
         title: "MetaMask Network Mismatch",
         content: (
           <>
+          <p>You are using {network}</p>
             <p>
               Nifty Ink is built on xDai: please change your MetaMask Network to
               point to the{" "}
@@ -27,11 +28,12 @@ export async function transactionHandler(c) {
       });
     }
 
-    function showXDaiModal() {
+    function showXDaiModal(network) {
       Modal.info({
         title: "You need some xDai to make this transaction!",
         content: (
           <span>
+            <p>You are using {network}</p>
             {" "}
             Nifty.ink runs on xDAI.{" "}
             <a target="_blank" href={"https://xdai.io"}>
@@ -66,7 +68,7 @@ export async function transactionHandler(c) {
       parseFloat(ethers.utils.formatEther(balance)) <
         parseFloat(ethers.utils.formatEther(c["payment"]))
     ) {
-      showXDaiModal();
+      showXDaiModal(injectedNetwork.name);
       let m =
         "You need more than " +
         ethers.utils.formatEther(c["payment"]) +
@@ -99,7 +101,7 @@ export async function transactionHandler(c) {
         console.log("Regular RESULT!!!!!!", result);
         return result;
       } else {
-        chainWarning();
+        chainWarning(injectedNetwork.name, injectedNetwork.chainId);
         throw "Got xDai, but Metamask is on the wrong network";
       }
     } else if (process.env.REACT_APP_USE_GSN === "true") {
@@ -150,7 +152,7 @@ export async function transactionHandler(c) {
         throw "Metamask is on the wrong network";
       }
     } else {
-      showXDaiModal();
+      showXDaiModal(injectedNetwork.name);
       throw "Need XDai";
     }
   } catch (e) {

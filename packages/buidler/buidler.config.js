@@ -244,6 +244,7 @@ module.exports = {
     mumbai: {
       url: 'https://rpc-mumbai.maticvigil.com',
       accounts: {
+        gasPrice: 10000000000,
         mnemonic: DEPLOY_ACCOUNT
       },
     },
