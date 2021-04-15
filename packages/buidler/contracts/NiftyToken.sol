@@ -47,7 +47,7 @@ contract NiftyToken is
 
     constructor(address payable _feeaddr, address childChainManager)
         public
-        ERC721("ATIVO NFT Test2", "ANFT2")
+        ERC721("AtivoNFTv1", "ANFT1")
     {
         feereserveaddress = _feeaddr;
         _setBaseURI("ipfs://ipfs/");

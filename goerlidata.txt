@@ -1,0 +1,5 @@
+MintableAssetProxy: 0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA
+
+Granted role: https://goerli.etherscan.io/tx/0xf17d9d4311cb7fcc262fb870238ea563fafb41fb4fab8423885fe93e89285fb8#eventlog
+
+

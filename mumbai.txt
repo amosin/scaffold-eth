@@ -1,0 +1,31 @@
+Compiled 51 contracts successfully
+📡 Deploy 
+
+🪐 DEPLOYING ON NETWORK:  mumbai
+📄 Liker
+Liker deployed to: 0xb8AA6aA5f253Cd62991A55DC833e90422cfa87F2
+
+
+📄 NiftyRegistry
+NiftyRegistry deployed to: 0x1792aD6f947B075f82b425F391EbFFEa1f1D0dc4
+
+
+📄 NiftyInk
+NiftyInk deployed to: 0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6
+
+
+📄 AtivoToken
+AtivoToken deployed to: 0xdb07ED19bB915444A81ca03401286F340bCbff10
+
+
+📄 NiftyToken
+NiftyToken deployed to: 0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca
+
+
+📄 NiftyMediator
+NiftyMediator deployed to: 0xe130734f93aECF20e3a6aB22B04C2Da686a0A6Fb
+
+
+📄 NiftyMain
+NiftyMain deployed to: 0x1dd974c02f18206bF0025f1645A5F03b151509f8
+

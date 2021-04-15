@@ -23,7 +23,7 @@ contract Authorizable is Ownable {
 
 // AtivoToken with Governance.
 contract AtivoToken is
-    ERC20("Ativo Token Test1", "ATV1"),
+    ERC20("Placeholder Token Test1", "PLH1"),
     Ownable,
     Authorizable
 {

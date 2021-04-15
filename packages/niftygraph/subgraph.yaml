@@ -6,9 +6,9 @@ dataSources:
     name: NiftyInk
     network: mumbai
     source:
-      address: '0x7EAD8282158Dd6312906a77eb6C3d59606cBEB98'
+      address: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6'
       abi: NiftyInk
-      startBlock: 1
+      startBlock: 12685960
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -37,9 +37,9 @@ dataSources:
     name: NiftyToken
     network: mumbai
     source:
-      address: '0xa8Fa8fFac0904aa020415807eE6516E887D69770'
+      address: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca'
       abi: NiftyToken
-      startBlock: 1
+      startBlock: 12685960
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -71,7 +71,7 @@ dataSources:
 #    name: NiftyMain
 #    network: mainnet
 #    source:
-#      address: "0x7ffBEdc1dD533307D095535da173d593A02cD239"
+#      address: "0xc02697c417DdAcfbe5EdbF23eDad956BC883F4fb"
 #      abi: NiftyMain
 #      startBlock: 10609660
 #    mapping:
@@ -96,9 +96,9 @@ dataSources:
     name: NiftyMediator
     network: mumbai
     source:
-      address: '0x9E272CEf956F50b8af46c41160505259b892a5B2'
+      address: '0xe130734f93aECF20e3a6aB22B04C2Da686a0A6Fb'
       abi: NiftyMediator
-      startBlock: 1
+      startBlock: 12685960
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -120,9 +120,9 @@ dataSources:
     name: Liker
     network: mumbai
     source:
-      address: '0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA'
+      address: '0xb8AA6aA5f253Cd62991A55DC833e90422cfa87F2'
       abi: Liker
-      startBlock: 1
+      startBlock: 12685960
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
