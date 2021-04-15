@@ -1,6 +1,6 @@
 const fs = require('fs');
 const chalk = require('chalk');
-const NiftyToken = artifacts.require("NiftyToken");
+const NiftyYardToken = artifacts.require("NiftyYardToken");
 const Liker = artifacts.require("Liker");
 const AtivoToken = artifacts.require("AtivoToken");
 const bre = require("@nomiclabs/buidler");
@@ -12,7 +12,7 @@ console.log("🪐 WORKING ON NETWORK: ",bre.network.name)
 
 async function main() {
     if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("mumbai")>=0 || bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
-        const niftytoken = await NiftyToken.at('0xa8Fa8fFac0904aa020415807eE6516E887D69770')
+        const niftytoken = await NiftyYardToken.at('0xa8Fa8fFac0904aa020415807eE6516E887D69770')
         const liker = await Liker.at('0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA')
         const ativoToken = await AtivoToken.at('0xAf6fDB5573Ac4A7E83E6761A738A7E0bE2c527F4')
         

@@ -18,12 +18,12 @@ export default function TransferOwnershipForm(props) {
         let signature = await getSignature(
             props.injectedProvider, props.address,
             ['bytes', 'bytes', 'address', 'address', 'string'],
-            ['0x19', '0x0', metaWriteContracts["NiftyInk"].address, props.address, props.fileUrl]);
+            ['0x19', '0x0', metaWriteContracts["NiftyYard"].address, props.address, props.fileUrl]);
         setSignature(signature);
 
         setSending(true);
 
-        let contractName = "NiftyInk";
+        let contractName = "NiftyYard";
         let regularFunction = "transferOwnership";
         let regularFunctionArgs = [props.fileUrl, props.address, values["to"], signature];
 
@@ -58,7 +58,7 @@ export default function TransferOwnershipForm(props) {
             }
 
             console.log(result);
-            //await tx(writeContracts["NiftyToken"].safeTransferFrom(props.address, values['to'], props.tokenId))
+            //await tx(writeContracts["NiftyYardToken"].safeTransferFrom(props.address, values['to'], props.tokenId))
             form.resetFields();
             setSending(false);
         } catch (e) {

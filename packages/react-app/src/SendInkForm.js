@@ -12,7 +12,7 @@ export default function SendInkForm(props) {
     setSending(true);
     console.log("Success:", props.address, values, props.tokenId);
 
-    let contractName = "NiftyToken";
+    let contractName = "NiftyYardToken";
     let regularFunction = "safeTransferFrom";
     let regularFunctionArgs = [props.address, values["to"], props.tokenId];
 
@@ -47,7 +47,7 @@ export default function SendInkForm(props) {
       }
 
       console.log(result);
-      //await tx(writeContracts["NiftyToken"].safeTransferFrom(props.address, values['to'], props.tokenId))
+      //await tx(writeContracts["NiftyYardToken"].safeTransferFrom(props.address, values['to'], props.tokenId))
       form.resetFields();
       setSending(false);
     } catch (e) {

@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: NiftyInk
-    network: mumbai
+    name: NiftyYard
+    network: xdai
     source:
-      address: '{{NiftyInkAddress}}'
-      abi: NiftyInk
+      address: '{{NiftyYardAddress}}'
+      abi: NiftyYard
       startBlock: 1
     mapping:
       kind: ethereum/events
@@ -18,8 +18,8 @@ dataSources:
         - Artist
         - InkNumberLookUp
       abis:
-        - name: NiftyInk
-          file: ./abis/NiftyInk.json
+        - name: NiftyYard
+          file: ./abis/NiftyYard.json
       eventHandlers:
         - event: newFile(uint256,indexed address,string,string,uint256)
           handler: handlenewFile
@@ -34,11 +34,11 @@ dataSources:
 #          handler: handleSetPriceFromSignature
       file: ./src/mapping.ts
   - kind: ethereum/contract
-    name: NiftyToken
-    network: mumbai
+    name: NiftyYardToken
+    network: xdai
     source:
-      address: '{{NiftyTokenAddress}}'
-      abi: NiftyToken
+      address: '{{NiftyYardTokenAddress}}'
+      abi: NiftyYardToken
       startBlock: 1
     mapping:
       kind: ethereum/events
@@ -50,10 +50,10 @@ dataSources:
         - Sale
         - Transfer
       abis:
-        - name: NiftyToken
-          file: ./abis/NiftyToken.json
-        - name: NiftyInk
-          file: ./abis/NiftyInk.json
+        - name: NiftyYardToken
+          file: ./abis/NiftyYardToken.json
+        - name: NiftyYard
+          file: ./abis/NiftyYard.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
@@ -84,8 +84,8 @@ dataSources:
 #      abis:
 #        - name: NiftyMain
 #          file: ./abis/NiftyMain.json
-#        - name: NiftyToken
-#          file: ./abis/NiftyToken.json
+#        - name: NiftyYardToken
+#          file: ./abis/NiftyYardToken.json
 #      eventHandlers:
 #        - event: Transfer(indexed address,indexed address,indexed uint256)
 #          handler: handleTransfer
@@ -94,7 +94,7 @@ dataSources:
 #      file: ./src/mapping.ts
   - kind: ethereum/contract
     name: NiftyMediator
-    network: mumbai
+    network: xdai
     source:
       address: '{{NiftyMediatorAddress}}'
       abi: NiftyMediator
@@ -108,8 +108,8 @@ dataSources:
       abis:
         - name: NiftyMediator
           file: ./abis/NiftyMediator.json
-        - name: NiftyToken
-          file: ./abis/NiftyToken.json
+        - name: NiftyYardToken
+          file: ./abis/NiftyYardToken.json
       eventHandlers:
         - event: tokenSentViaBridge(uint256,bytes32)
           handler: handleTokenSentViaBridge
@@ -118,7 +118,7 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Liker
-    network: mumbai
+    network: xdai
     source:
       address: '{{LikerAddress}}'
       abi: Liker

@@ -89,7 +89,7 @@ export default function CreateInk(props) {
   const PickerDisplay = pickers[picker % pickers.length];
 
   const mintInk = async (inkUrl, jsonUrl, limit) => {
-    let contractName = "NiftyInk";
+    let contractName = "NiftyYard";
     let regularFunction = "createInk";
     let regularFunctionArgs = [
       inkUrl,
@@ -115,7 +115,7 @@ export default function CreateInk(props) {
     let getSignatureArgs = [
       "0x19",
       "0x0",
-      props.readKovanContracts["NiftyInk"].address,
+      props.readKovanContracts["NiftyYard"].address,
       props.address,
       inkUrl,
       jsonUrl,

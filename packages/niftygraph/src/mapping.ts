@@ -8,21 +8,21 @@ import {
   Bytes,
 } from "@graphprotocol/graph-ts";
 import {
-  NiftyInk,
+  NiftyYard,
   newFile,
   SetPriceCall,
   SetPriceFromSignatureCall,
   newFilePrice,
   ownershipChange,
-} from "../generated/NiftyInk/NiftyInk";
+} from "../generated/NiftyYard/NiftyYard";
 import {
-  NiftyToken,
+  NiftyYardToken,
   mintedInk,
   Transfer,
   SetTokenPriceCall,
   boughtInk,
   newTokenPrice,
-} from "../generated/NiftyToken/NiftyToken";
+} from "../generated/NiftyYardToken/NiftyYardToken";
 import {
   NiftyMediator,
   newPrice,
@@ -261,7 +261,7 @@ export function handleBoughtInk(event: boughtInk): void {
   let artist = Artist.load(file.artist);
   let transfer = TokenTransfer.load(event.transaction.hash.toHex());
 
-  //let contract = NiftyInk.bind(Address.fromString("0x49dE55fbA08af88f55EB797a456fdf76B151c8b0"))
+  //let contract = NiftyYard.bind(Address.fromString("0x49dE55fbA08af88f55EB797a456fdf76B151c8b0"))
   //let artistTake = contract.artistTake()
 
   if (transfer !== null) {

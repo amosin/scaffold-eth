@@ -61,18 +61,18 @@ export default function NftyWallet(props) {
 
   let nftyBalance = useContractReader(
     props.readKovanContracts,
-    'NiftyToken',
+    'NiftyYardToken',
     'balanceOf',
     [props.address],
     4000
   );
-  let nftyMainBalance = useContractReader(
-    props.readContracts,
-    'NiftyMain',
-    'balanceOf',
-    [props.address],
-    4000
-  );
+  // let nftyMainBalance = useContractReader(
+  //   props.readContracts,
+  //   'NiftyMain',
+  //   'balanceOf',
+  //   [props.address],
+  //   4000
+  // );
   let upgradePrice = useContractReader(
     props.readKovanContracts,
     'NiftyMediator',
@@ -80,11 +80,11 @@ export default function NftyWallet(props) {
     29999
   );
 
-  let displayBalance;
-  if (nftyMainBalance && nftyBalance) {
-    displayBalance =
-      Number(nftyMainBalance.toString()) + Number(nftyBalance.toString());
-  }
+  // let displayBalance;
+  // if (nftyMainBalance && nftyBalance) {
+  //   displayBalance =
+  //     Number(nftyMainBalance.toString()) + Number(nftyBalance.toString());
+  // }
 
   const showDrawer = () => {
     setDrawerVisibility(true);

@@ -205,7 +205,7 @@ export default function ViewInk(props) {
   const mint = async (values) => {
     setMinting(true);
 
-    let contractName = "NiftyToken";
+    let contractName = "NiftyYardToken";
     let regularFunction = "mint";
     let regularFunctionArgs = [values["to"], hash];
     let signatureFunction = "mintFromSignature";
@@ -221,7 +221,7 @@ export default function ViewInk(props) {
     let getSignatureArgs = [
       "0x19",
       "0x0",
-      metaWriteContracts["NiftyToken"].address,
+      metaWriteContracts["NiftyYardToken"].address,
       values["to"],
       hash,
       parseInt(data.ink.count),
@@ -517,7 +517,7 @@ export default function ViewInk(props) {
             localProvider={props.kovanProvider}
             contractAddress={
               props.readKovanContracts
-                ? props.readKovanContracts["NiftyInk"]["address"]
+                ? props.readKovanContracts["NiftyYard"]["address"]
                 : ""
             }
             targetId={data.ink.inkNumber}

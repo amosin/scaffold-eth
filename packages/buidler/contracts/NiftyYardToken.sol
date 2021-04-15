@@ -1,16 +1,13 @@
 pragma solidity >=0.6.0 <0.7.0;
 pragma experimental ABIEncoderV2;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/EnumerableSet.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
-import "./INiftyRegistry.sol";
-import "./INiftyInk.sol";
+import "./INiftyYardRegistry.sol";
+import "./INiftyYard.sol";
 import "./SignatureChecker.sol";
 
 // MATIC SUPPORT FOR CHILD CHAIN
@@ -19,7 +16,7 @@ import "./matic/AccessControlMixin.sol";
 import "./matic/IChildToken.sol";
 import "./matic/EIP712Base.sol";
 
-contract NiftyToken is
+contract NiftyYardToken is
     BaseRelayRecipient,
     EIP712Base,
     ERC721,
@@ -47,7 +44,7 @@ contract NiftyToken is
 
     constructor(address payable _feeaddr, address childChainManager)
         public
-        ERC721("ATIVO NFT Test2", "ANFT2")
+        ERC721("AtivoNFTv1", "ANFT1")
     {
         feereserveaddress = _feeaddr;
         _setBaseURI("ipfs://ipfs/");
@@ -86,8 +83,8 @@ contract NiftyToken is
         niftyRegistry = _address;
     }
 
-    function niftyInk() private view returns (INiftyInk) {
-        return INiftyInk(INiftyRegistry(niftyRegistry).inkAddress());
+    function niftyInk() private view returns (INiftyYard) {
+        return INiftyYard(INiftyYardRegistry(niftyRegistry).inkAddress());
     }
 
     event mintedInk(uint256 id, string inkUrl, address to);
@@ -160,13 +157,13 @@ contract NiftyToken is
         string calldata inkUrl,
         string calldata jsonUrl
     ) external returns (uint256) {
-        require(_msgSender() == INiftyRegistry(niftyRegistry).inkAddress());
+        require(_msgSender() == INiftyYardRegistry(niftyRegistry).inkAddress());
         _mintInkToken(to, inkUrl, jsonUrl);
     }
 
     function mint(address to, string memory _inkUrl) public returns (uint256) {
         uint256 _inkId = niftyInk().inkIdByInkUrl(_inkUrl);
-        require(_inkId > 0, "this ink does not exist!");
+        require(_inkId > 0, "this nft does not exist!");
         (, address _artist, string memory _jsonUrl, , , uint256 _limit, ) =
             niftyInk().inkInfoById(_inkId);
 
@@ -174,7 +171,7 @@ contract NiftyToken is
 
         require(
             inkTokenCount(_inkUrl) < _limit || _limit == 0,
-            "this ink is over the limit!"
+            "this nft is over the limit!"
         );
 
         uint256 tokenId = _mintInkToken(to, _inkUrl, _jsonUrl);
@@ -188,12 +185,12 @@ contract NiftyToken is
         bytes memory signature
     ) public returns (uint256) {
         uint256 _inkId = niftyInk().inkIdByInkUrl(_inkUrl);
-        require(_inkId > 0, "this ink does not exist!");
+        require(_inkId > 0, "this nft does not exist!");
 
         uint256 _count = inkTokenCount(_inkUrl);
         (, address _artist, string memory _jsonUrl, , , uint256 _limit, ) =
             niftyInk().inkInfoById(_inkId);
-        require(_count < _limit || _limit == 0, "this ink is over the limit!");
+        require(_count < _limit || _limit == 0, "this nft is over the limit!");
 
         bytes32 messageHash =
             keccak256(
@@ -220,7 +217,7 @@ contract NiftyToken is
 
     function lock(uint256 _tokenId) external {
         address _bridgeMediatorAddress =
-            INiftyRegistry(niftyRegistry).bridgeMediatorAddress();
+            INiftyYardRegistry(niftyRegistry).bridgeMediatorAddress();
         require(
             _bridgeMediatorAddress == _msgSender(),
             "only the bridgeMediator can lock"
@@ -232,7 +229,7 @@ contract NiftyToken is
     function unlock(uint256 _tokenId, address _recipient) external {
         require(
             _msgSender() ==
-                INiftyRegistry(niftyRegistry).bridgeMediatorAddress(),
+                INiftyYardRegistry(niftyRegistry).bridgeMediatorAddress(),
             "only the bridgeMediator can unlock"
         );
         require(
@@ -244,7 +241,7 @@ contract NiftyToken is
 
     function buyInk(string memory _inkUrl) public payable returns (uint256) {
         uint256 _inkId = niftyInk().inkIdByInkUrl(_inkUrl);
-        require(_inkId > 0, "this ink does not exist!");
+        require(_inkId > 0, "this nft does not exist!");
         (
             ,
             address payable _artist,
@@ -256,9 +253,9 @@ contract NiftyToken is
         ) = niftyInk().inkInfoById(_inkId);
         require(
             inkTokenCount(_inkUrl) < _limit || _limit == 0,
-            "this ink is over the limit!"
+            "this nft is over the limit!"
         );
-        require(_price > 0, "this ink does not have a price set");
+        require(_price > 0, "this nft does not have a price set");
         require(msg.value >= _price, "Amount sent too small");
         address _buyer = _msgSender();
         uint256 _tokenId = _mintInkToken(_buyer, _inkUrl, _jsonUrl);
@@ -364,6 +361,22 @@ contract NiftyToken is
         returns (address payable)
     {
         return BaseRelayRecipient._msgSender();
+    }
+
+    /**
+     * As another option for supporting trading without requiring meta transactions, override isApprovedForAll to whitelist OpenSea proxy accounts on Matic
+     */
+    function isApprovedForAll(address _owner, address _operator)
+        public
+        view
+        override
+        returns (bool isOperator)
+    {
+        if (_operator == address(0x58807baD0B376efc12F5AD86aAc70E78ed67deaE)) {
+            return true;
+        }
+
+        return ERC721.isApprovedForAll(_owner, _operator);
     }
 
     function burnToken(uint256 _tokenId, string memory _inkUrl) public {

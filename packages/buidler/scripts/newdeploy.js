@@ -15,49 +15,50 @@ async function main() {
 
 
   if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("mumbai")>=0|| bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
-    // const Liker = await deploy("Liker")
-    // const NiftyRegistry = await deploy("NiftyRegistry")
-    //const NiftyInk = await deploy("NiftyInk")
-    //const AtivoToken = await deploy("AtivoToken")
-    // const NiftyToken = await deploy("NiftyToken",["0xF1B471055629E172a59C488a50F38BFc668B1A76"])
-    // const NiftyMediator = await deploy("NiftyMediator")
+    const Liker = await deploy("Liker")
+    const NiftyRegistry = await deploy("NiftyRegistry")
+    const NiftyYard = await deploy("NiftyYard")
+    const AtivoToken = await deploy("AtivoToken")
+    // parameters _feeaddr + childChainManager
+    const NiftyYardToken = await deploy("NiftyYardToken",["0xd3be66b3BD84426E129654E558082Dc2eae3e866", "0xb5505a6d998549090530911180f38aC5130101c6"])
+    //const NiftyMediator = await deploy("NiftyMediator")
 
     // USE ChildChainManagerProxy
     //https://static.matic.network/network/testnet/mumbai/index.json
     //https://static.matic.network/network/mainnet/v1/index.json
 
     //console.log("💽Loading local contract that are already deployed...")
-    const Liker = await ethers.getContractAt("Liker","0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA")
-    const NiftyRegistry = await ethers.getContractAt("NiftyRegistry","0x78639e04Fe88c6e9Fea99399132A57EfE88EDb87")
-    const NiftyInk = await ethers.getContractAt("NiftyInk","0x7EAD8282158Dd6312906a77eb6C3d59606cBEB98")
-    const AtivoToken = await ethers.getContractAt("NiftyInk","0xAf6fDB5573Ac4A7E83E6761A738A7E0bE2c527F4")
-    const NiftyToken = await ethers.getContractAt("NiftyToken","0xa8Fa8fFac0904aa020415807eE6516E887D69770")
-    const NiftyMediator = await ethers.getContractAt("NiftyMediator","0x9E272CEf956F50b8af46c41160505259b892a5B2")
+    // const Liker = await ethers.getContractAt("Liker","0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA")
+    // const NiftyRegistry = await ethers.getContractAt("NiftyRegistry","0x78639e04Fe88c6e9Fea99399132A57EfE88EDb87")
+    // const NiftyYard = await ethers.getContractAt("NiftyYard","0x7EAD8282158Dd6312906a77eb6C3d59606cBEB98")
+    // const AtivoToken = await ethers.getContractAt("NiftyYard","0xAf6fDB5573Ac4A7E83E6761A738A7E0bE2c527F4")
+    // const NiftyYardToken = await ethers.getContractAt("NiftyYardToken","0xa8Fa8fFac0904aa020415807eE6516E887D69770")
+    // const NiftyMediator = await ethers.getContractAt("NiftyMediator","0x9E272CEf956F50b8af46c41160505259b892a5B2")
 
 
-    // await NiftyRegistry.setInkAddress(NiftyInk.address)
-    // await NiftyRegistry.setTokenAddress(NiftyToken.address)
-    // console.log("setBridgeMediatorAddress",NiftyMediator.address)
-    // await NiftyRegistry.setBridgeMediatorAddress(NiftyMediator.address)
-    // await NiftyInk.setNiftyRegistry(NiftyRegistry.address)
-    // await NiftyToken.setNiftyRegistry(NiftyRegistry.address)
-    // await NiftyMediator.setNiftyRegistry(NiftyRegistry.address)
-    // await Liker.addContract(NiftyInk.address)
+    await NiftyRegistry.setInkAddress(NiftyYard.address)
+    await NiftyRegistry.setTokenAddress(NiftyYardToken.address)
+    //console.log("setBridgeMediatorAddress",NiftyMediator.address)
+    //await NiftyRegistry.setBridgeMediatorAddress(NiftyMediator.address)
+    await NiftyYard.setNiftyRegistry(NiftyRegistry.address)
+    await NiftyYardToken.setNiftyRegistry(NiftyRegistry.address)
+    //await NiftyMediator.setNiftyRegistry(NiftyRegistry.address)
+    await Liker.addContract(NiftyYard.address)
+    await Liker.setWeightToken(AtivoToken.address)
 
-    const NiftyMain = await deploy("NiftyMain")
     
     if(bre.network.name.indexOf("kovan")>=0){
       /*await NiftyMediator.setBridgeContract("0xFe446bEF1DbF7AFE24E81e05BC8B271C1BA9a560")
-      await NiftyInk.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
-      await NiftyToken.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
+      await NiftyYard.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
+      await NiftyYardToken.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
       await NiftyMediator.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
       await NiftyMediator.setRequestGasLimit("1500000")
       await Liker.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")*/
     }else if(bre.network.name.indexOf("xdai")>=0){
       //console.log("setBridgeContract")
       //await NiftyMediator.setBridgeContract("0x75Df5AF045d91108662D8080fD1FEFAd6aA0bb59")
-      //await NiftyInk.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
-      //await NiftyToken.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
+      //await NiftyYard.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
+      //await NiftyYardToken.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
       //console.log("setTrustedForwarder...")
       //await NiftyMediator.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
       //console.log("setRequestGasLimit...")
@@ -69,15 +70,15 @@ async function main() {
       let result = await NiftyMediator.setMediatorContractOnOtherSide("0xc02697c417DdAcfbe5EdbF23eDad956BC883F4fb")
       //console.log("result",result)
     }
-    //await Liker.addContract(NiftyInk.address)
+    //await Liker.addContract(NiftyYard.address)
 
     /*if(bre.network.name.indexOf("sidechain")>=0) {
       let trustedForwarder
       try{
         let trustedForwarderObj = JSON.parse(fs.readFileSync("../react-app/src/gsn/Forwarder.json"))
         console.log("⛽️ Setting GSN Trusted Forwarder on NiftyRegistry to ",trustedForwarderObj.address)
-        await NiftyInk.setTrustedForwarder(trustedForwarderObj.address)
-        await NiftyToken.setTrustedForwarder(trustedForwarderObj.address)
+        await NiftyYard.setTrustedForwarder(trustedForwarderObj.address)
+        await NiftyYardToken.setTrustedForwarder(trustedForwarderObj.address)
         await NiftyMediator.setTrustedForwarder(trustedForwarderObj.address)
         console.log("⛽️ Setting GSN Trusted Forwarder on Liker to ",trustedForwarderObj.address)
         await Liker.setTrustedForwarder(trustedForwarderObj.address)
