@@ -246,7 +246,7 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "inkUrl",
+        "name": "nftUrl",
         "type": "string"
       },
       {
@@ -262,7 +262,7 @@
         "type": "uint256"
       }
     ],
-    "name": "boughtInk",
+    "name": "boughtNft",
     "type": "event"
   },
   {
@@ -277,7 +277,7 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "inkUrl",
+        "name": "nftUrl",
         "type": "string"
       },
       {
@@ -308,7 +308,7 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "inkUrl",
+        "name": "nftUrl",
         "type": "string"
       },
       {
@@ -337,7 +337,7 @@
         "type": "address"
       }
     ],
-    "name": "lockedInk",
+    "name": "lockedNft",
     "type": "event"
   },
   {
@@ -352,7 +352,7 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "inkUrl",
+        "name": "nftUrl",
         "type": "string"
       },
       {
@@ -362,7 +362,7 @@
         "type": "address"
       }
     ],
-    "name": "mintedInk",
+    "name": "mintedNft",
     "type": "event"
   },
   {
@@ -400,7 +400,7 @@
         "type": "address"
       }
     ],
-    "name": "unlockedInk",
+    "name": "unlockedNft",
     "type": "event"
   },
   {
@@ -527,7 +527,7 @@
       },
       {
         "internalType": "string",
-        "name": "_inkUrl",
+        "name": "_nftUrl",
         "type": "string"
       }
     ],
@@ -540,11 +540,11 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "_inkUrl",
+        "name": "_nftUrl",
         "type": "string"
       }
     ],
-    "name": "buyInk",
+    "name": "buyNft",
     "outputs": [
       {
         "internalType": "uint256",
@@ -656,7 +656,7 @@
       },
       {
         "internalType": "string",
-        "name": "inkUrl",
+        "name": "nftUrl",
         "type": "string"
       }
     ],
@@ -731,7 +731,7 @@
       },
       {
         "internalType": "string",
-        "name": "inkUrl",
+        "name": "nftUrl",
         "type": "string"
       },
       {
@@ -940,49 +940,6 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "inkUrl",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "index",
-        "type": "uint256"
-      }
-    ],
-    "name": "inkTokenByIndex",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_inkUrl",
-        "type": "string"
-      }
-    ],
-    "name": "inkTokenCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "_owner",
         "type": "address"
@@ -1058,7 +1015,7 @@
       },
       {
         "internalType": "string",
-        "name": "_inkUrl",
+        "name": "_nftUrl",
         "type": "string"
       }
     ],
@@ -1082,7 +1039,7 @@
       },
       {
         "internalType": "string",
-        "name": "_inkUrl",
+        "name": "_nftUrl",
         "type": "string"
       },
       {
@@ -1110,6 +1067,49 @@
         "internalType": "string",
         "name": "",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "nftUrl",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "nftTokenByIndex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_nftUrl",
+        "type": "string"
+      }
+    ],
+    "name": "nftTokenCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1407,7 +1407,7 @@
         "type": "uint256"
       }
     ],
-    "name": "tokenInk",
+    "name": "tokenNft",
     "outputs": [
       {
         "internalType": "string",

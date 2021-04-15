@@ -1,0 +1,3 @@
+X - Fix The Graph error on front
+- Remove that GSN from Scaffold and add default from OpenSea and Matic
+- Removed Send Ownership Holdings.js

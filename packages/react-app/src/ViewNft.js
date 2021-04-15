@@ -27,13 +27,13 @@ import {
   getFromIPFS,
   transactionHandler,
 } from "./helpers";
-import SendInkForm from "./SendInkForm.js";
+import SendNftForm from "./SendNftForm.js";
 import BurnTokenForm from "./BurnTokenForm.js";
 import LikeButton from "./LikeButton.js";
 import NiftyShop from "./NiftyShop.js";
-import UpgradeInkButton from "./UpgradeInkButton.js";
+import UpgradeNftButton from "./UpgradeNftButton.js";
 import { useQuery } from "react-apollo";
-import { INK_QUERY, INK_MAIN_QUERY } from "./apollo/queries";
+import { NFT_QUERY, NFT_MAIN_QUERY } from "./apollo/queries";
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 
 const mainClient = new ApolloClient({
@@ -41,7 +41,7 @@ const mainClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default function ViewInk(props) {
+export default function ViewNft(props) {
   let { hash } = useParams();
 
   const drawingCanvas = useRef(null);
@@ -64,65 +64,66 @@ export default function ViewInk(props) {
     props.metaProvider ? props.metaProvider : props.kovanProvider
   );
 
-  //  const [inkChainInfo, setInkChainInfo] = useState()
+  //  const [nftChainInfo, setNftChainInfo] = useState()
   const [targetId, setTargetId] = useState();
-  //  const [inkPrice, setInkPrice] = useState(0)
+  //  const [nftPrice, setNftPrice] = useState(0)
   //const [mintedCount, setMintedCount] = useState()
 
-  const [inkJson, setInkJson] = useState({});
+  const [nftJson, setNftJson] = useState({});
   const [mainnetTokens, setMainnetTokens] = useState({});
   const [blockNumber, setBlockNumber] = useState(0);
   const [data, setData] = useState();
 
   const [drawing, setDrawing] = useState();
 
-  const { loading: loadingMain, error: errorMain, data: dataMain } = useQuery(
-    INK_MAIN_QUERY,
-    {
-      variables: { inkUrl: hash },
-      pollInterval: 2500,
-      client: mainClient,
-    }
-  );
+  // const { loading: loadingMain, error: errorMain, data: dataMain } = useQuery(
+  //   NFT_MAIN_QUERY,
+  //   {
+  //     variables: { nftUrl: hash },
+  //     pollInterval: 600,
+  //     client: mainClient,
+  //   }
+  // );
+  const dataMain = '';
 
-  const { loading, error, data: dataRaw } = useQuery(INK_QUERY, {
-    variables: { inkUrl: hash },
+  const { loading, error, data: dataRaw } = useQuery(NFT_QUERY, {
+    variables: { nftUrl: hash },
     pollInterval: 2500,
   });
 
   useEffect(() => {
-    const getInk = async (_data) => {
+    const getNft = async (_data) => {
       let _blockNumber = parseInt(_data.metaData.value);
       console.log(blockNumber, _blockNumber);
       if (_blockNumber >= blockNumber) {
         let tIpfsConfig = { ...props.ipfsConfig };
         tIpfsConfig["timeout"] = 10000;
-        let newInkJson = await getFromIPFS(_data.ink.jsonUrl, tIpfsConfig);
+        let newNftJson = await getFromIPFS(_data.nft.jsonUrl, tIpfsConfig);
 
         setData(_data);
         setBlockNumber(_blockNumber);
-        setInkJson(JSON.parse(newInkJson));
+        setNftJson(JSON.parse(newNftJson));
       }
     };
 
-    dataRaw && dataRaw.ink ? getInk(dataRaw) : console.log("loading");
+    dataRaw && dataRaw.nft ? getNft(dataRaw) : console.log("loading");
   }, [dataRaw, props.address]);
 
   useEffect(() => {
     if (
       props.address &&
       data &&
-      data.ink &&
-      props.address.toLowerCase() === data.ink.artist.id &&
-      (parseInt(data.ink.count) < parseInt(data.ink.limit) ||
-        data.ink.limit === "0")
+      data.nft &&
+      props.address.toLowerCase() === data.nft.creator.id &&
+      (parseInt(data.nft.count) < parseInt(data.nft.limit) ||
+        data.nft.limit === "0")
     ) {
-      const mintInkForm = (
+      const mintNftForm = (
         <Row style={{ justifyContent: "center" }}>
           <Form
             form={mintForm}
             layout={"inline"}
-            name="mintInk"
+            name="mintNft"
             onFinish={mint}
             onFinishFailed={onFinishFailed}
           >
@@ -150,37 +151,37 @@ export default function ViewInk(props) {
         </Row>
       );
       setMintFlow(
-        <Popover content={mintInkForm} title="Mint">
+        <Popover content={mintNftForm} title="Mint">
           <Button type="secondary">
             <SendOutlined /> Mint
           </Button>
         </Popover>
       );
     }
-    data && data.ink
+    data && data.nft
       ? setBuyButton(
           <NiftyShop
             injectedProvider={props.injectedProvider}
             metaProvider={props.metaProvider}
-            type={"ink"}
-            ink={inkJson}
+            type={"nft"}
+            nft={nftJson}
             itemForSale={hash}
             gasPrice={props.gasPrice}
             address={props.address ? props.address.toLowerCase() : null}
-            ownerAddress={data.ink.artist.id}
-            priceNonce={data.ink.mintPriceNonce ? data.ink.mintPriceNonce : "0"}
-            price={data.ink.mintPrice}
+            ownerAddress={data.nft.creator.id}
+            priceNonce={data.nft.mintPriceNonce ? data.nft.mintPriceNonce : "0"}
+            price={data.nft.mintPrice}
             transactionConfig={props.transactionConfig}
             visible={
-              data.ink.count
-                ? parseInt(data.ink.count) < parseInt(data.ink.limit) ||
-                  data.ink.limit === "0"
+              data.nft.count
+                ? parseInt(data.nft.count) < parseInt(data.nft.limit) ||
+                  data.nft.limit === "0"
                 : false
             }
           />
         )
       : console.log("waiting");
-  }, [data, props.address, inkJson]);
+  }, [data, props.address, nftJson]);
 
   useEffect(() => {
     console.log("running dataMain", dataMain);
@@ -196,7 +197,7 @@ export default function ViewInk(props) {
   }, [dataMain]);
 
   let mintDescription;
-  let inkChainInfoDisplay;
+  let nftChainInfoDisplay;
   let detailContent;
   let likeButtonDisplay;
   let detailsDisplay;
@@ -224,10 +225,10 @@ export default function ViewInk(props) {
       metaWriteContracts["NiftyYardToken"].address,
       values["to"],
       hash,
-      parseInt(data.ink.count),
+      parseInt(data.nft.count),
     ];
 
-    let mintInkConfig = {
+    let mintNftConfig = {
       ...props.transactionConfig,
       contractName,
       regularFunction,
@@ -238,7 +239,7 @@ export default function ViewInk(props) {
       getSignatureArgs,
     };
 
-    console.log(mintInkConfig);
+    console.log(mintNftConfig);
 
     const bytecode = await props.transactionConfig.localProvider.getCode(
       values["to"]
@@ -255,7 +256,7 @@ export default function ViewInk(props) {
         mainnetBytecode === "0x0" ||
         mainnetBytecode === "0x00")
     ) {
-      result = await transactionHandler(mintInkConfig);
+      result = await transactionHandler(mintNftConfig);
       notification.open({
         message: "🙌 Minting successful!",
         description: "👀 Minted to " + values["to"],
@@ -276,19 +277,19 @@ export default function ViewInk(props) {
     console.log("Failed:", errorInfo);
   };
 
-  const viewArtist = (address) => {
-    props.setArtist(address);
-    props.setTab("inks");
+  const viewCreator = (address) => {
+    props.setCreator(address);
+    props.setTab("nfts");
   };
 
-  if (!inkJson || !inkJson.name || !data) {
-    inkChainInfoDisplay = (
+  if (!nftJson || !nftJson.name || !data) {
+    nftChainInfoDisplay = (
       <div style={{ marginTop: 32 }}>
         <Spin />
       </div>
     );
   } else {
-    const sendInkButton = (tokenOwnerAddress, tokenId) => {
+    const sendNftButton = (tokenOwnerAddress, tokenId) => {
       if (
         props.address &&
         tokenOwnerAddress.toLowerCase() === props.address.toLowerCase()
@@ -296,7 +297,7 @@ export default function ViewInk(props) {
         return (
           <Popover
             content={
-              <SendInkForm
+              <SendNftForm
                 tokenId={tokenId}
                 address={props.address}
                 mainnetProvider={props.mainnetProvider}
@@ -304,7 +305,7 @@ export default function ViewInk(props) {
                 transactionConfig={props.transactionConfig}
               />
             }
-            title="Send Ink"
+            title="Send Nft"
           >
             <Button type="secondary" style={{ margin: 4, marginBottom: 12 }}>
               <SendOutlined /> Send
@@ -326,7 +327,7 @@ export default function ViewInk(props) {
               <BurnTokenForm
                 tokenId={tokenId}
                 address={props.address}
-                inkUrl={hash}
+                nftUrl={hash}
                 mainnetProvider={props.mainnetProvider}
                 injectedProvider={props.injectedProvider}
                 transactionConfig={props.transactionConfig}
@@ -349,7 +350,7 @@ export default function ViewInk(props) {
         relayed === false
       ) {
         return (
-          <UpgradeInkButton
+          <UpgradeNftButton
             tokenId={tokenId}
             injectedProvider={props.injectedProvider}
             gasPrice={props.gasPrice}
@@ -362,17 +363,17 @@ export default function ViewInk(props) {
 
     
 
-    if (data.ink && data.ink.limit === "0") {
-      mintDescription = (data.ink.count ? data.ink.count : "0") + " minted";
-    } else if (data.ink) {
+    if (data.nft && data.nft.limit === "0") {
+      mintDescription = (data.nft.count ? data.nft.count : "0") + " minted";
+    } else if (data.nft) {
       mintDescription =
-        (data.ink.count ? data.ink.count : "0") +
+        (data.nft.count ? data.nft.count : "0") +
         "/" +
-        data.ink.limit +
+        data.nft.limit +
         " created";
     }
 
-    if (data && data.ink) {
+    if (data && data.nft) {
       nextHolders = (
         <Row style={{ justifyContent: "center" }}>
           <List
@@ -395,7 +396,7 @@ export default function ViewInk(props) {
               </Row>
             }
             itemLayout="horizontal"
-            dataSource={data.ink.tokens}
+            dataSource={data.nft.tokens}
             renderItem={(item) => {
               const openseaButton = (
                 <Button
@@ -447,7 +448,7 @@ export default function ViewInk(props) {
                   ) : (
                     <></>
                   )}
-                  {sendInkButton(item.owner, item.id)}
+                  {sendNftButton(item.owner, item.id)}
                   {burnToken(item.owner, item.id)}
                   {/* {relayTokenButton(
                     item.network === "mainnet",
@@ -459,7 +460,7 @@ export default function ViewInk(props) {
                       injectedProvider={props.injectedProvider}
                       metaProvider={props.metaProvider}
                       type={"token"}
-                      ink={inkJson}
+                      nft={nftJson}
                       itemForSale={item.id}
                       gasPrice={props.gasPrice}
                       address={
@@ -480,26 +481,26 @@ export default function ViewInk(props) {
 
       detailContent = (
         <Descriptions>
-          <Descriptions.Item label="Name">{inkJson.name}</Descriptions.Item>
-          <Descriptions.Item label="Artist">
-            {data.ink.artist.id}
+          <Descriptions.Item label="Name">{nftJson.name}</Descriptions.Item>
+          <Descriptions.Item label="Creator">
+            {data.nft.creator.id}
           </Descriptions.Item>
           <Descriptions.Item label="drawingHash">{hash}</Descriptions.Item>
-          <Descriptions.Item label="id">{data.ink.inkNumber}</Descriptions.Item>
+          <Descriptions.Item label="id">{data.nft.nftNumber}</Descriptions.Item>
           <Descriptions.Item label="jsonUrl">
-            {data.ink.jsonUrl}
+            {data.nft.jsonUrl}
           </Descriptions.Item>
-          <Descriptions.Item label="Image">{inkJson.image}</Descriptions.Item>
+          <Descriptions.Item label="Image">{nftJson.image}</Descriptions.Item>
           <Descriptions.Item label="Count">
-            {data.ink.count ? data.ink.count : "0"}
+            {data.nft.count ? data.nft.count : "0"}
           </Descriptions.Item>
-          <Descriptions.Item label="Limit">{data.ink.limit}</Descriptions.Item>
+          <Descriptions.Item label="Limit">{data.nft.limit}</Descriptions.Item>
           <Descriptions.Item label="Description">
-            {inkJson.description}
+            {nftJson.description}
           </Descriptions.Item>
           <Descriptions.Item label="Price">
-            {data.ink.mintPrice > 0
-              ? ethers.utils.formatEther(data.ink.mintPrice)
+            {data.nft.mintPrice > 0
+              ? ethers.utils.formatEther(data.nft.mintPrice)
               : "No price set"}
           </Descriptions.Item>
         </Descriptions>
@@ -520,9 +521,9 @@ export default function ViewInk(props) {
                 ? props.readKovanContracts["NiftyYard"]["address"]
                 : ""
             }
-            targetId={data.ink.inkNumber}
+            targetId={data.nft.nftNumber}
             likerAddress={props.address}
-                      fileUrl={data.ink.id}
+                      fileUrl={data.nft.id}
             transactionConfig={props.transactionConfig}
           />
         </div>
@@ -536,24 +537,24 @@ export default function ViewInk(props) {
             opacity: 0.5,
           }}
         >
-          <Popover content={detailContent} title="Ink Details">
+          <Popover content={detailContent} title="Nft Details">
             <QuestionCircleOutlined />
           </Popover>
         </div>
       );
 
-      inkChainInfoDisplay = (
+      nftChainInfoDisplay = (
         <>
           <Row style={{ justifyContent: "center", marginTop: -16 }}>
             <Space>
-              <Link to={`/accounts/${data.ink.artist.id}`}>
+              <Link to={`/accounts/${data.nft.creator.id}`}>
                 <Typography>
                   <span style={{ verticalAlign: "middle", fontSize: 16, color: "#FFFFFF" }}>
                     {" account: "}
                   </span>
                 </Typography>
                 <Address
-                  value={data.ink.artist.id}
+                  value={data.nft.creator.id}
                   ensProvider={props.mainnetProvider}
                   clickable={false}
                 />
@@ -566,9 +567,9 @@ export default function ViewInk(props) {
   }
 
   let imageFromIpfsToHelpWithNetworking;
-  if (inkJson) {
+  if (nftJson) {
     imageFromIpfsToHelpWithNetworking = (
-      <img width={1} height={1} src={inkJson.image} />
+      <img width={1} height={1} src={nftJson.image} />
     );
   }
 
@@ -576,7 +577,7 @@ export default function ViewInk(props) {
     <div>
       {likeButtonDisplay}
       {detailsDisplay}
-      <div style={{ marginTop: 16, margin: "auto" }}>{inkChainInfoDisplay}</div>
+      <div style={{ marginTop: 16, margin: "auto" }}>{nftChainInfoDisplay}</div>
 
       <div style={{ marginTop: 20 }}>{nextHolders}</div>
       {imageFromIpfsToHelpWithNetworking}
@@ -595,11 +596,11 @@ export default function ViewInk(props) {
       >
         <Typography.Text
           style={{ color: "#FFFFFF" }}
-          copyable={{ text: inkJson ? inkJson.external_url : "" }}
+          copyable={{ text: nftJson ? nftJson.external_url : "" }}
           style={{ verticalAlign: "middle", paddingLeft: 5, fontSize: 28 }}
         >
           <a href={"/" + hash} style={{ color: "#FFFFFF" }}>
-            {inkJson ? inkJson.name : <Spin />}
+            {nftJson ? nftJson.name : <Spin />}
           </a>
         </Typography.Text>
 
@@ -619,7 +620,7 @@ export default function ViewInk(props) {
           boxShadow: "2px 2px 8px #AAAAAA",
         }}
       >
-        <img src={inkJson.image} style={{ width: "100%", display: "block"}}/>
+        <img src={nftJson.image} style={{ width: "100%", display: "block"}}/>
       </div>
       {bottom}
     </div>

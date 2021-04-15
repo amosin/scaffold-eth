@@ -11,19 +11,19 @@ import "./INiftyYardRegistry.sol";
 contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
     constructor() public {
         setCheckSignatureFlag(true);
-        setArtistTake(1);
+        setCreatorTake(1);
     }
 
     using Counters for Counters.Counter;
     using EnumerableSet for EnumerableSet.UintSet;
 
-    Counters.Counter public totalInks;
+    Counters.Counter public totalNfts;
 
-    uint256 public artistTake;
+    uint256 public creatorTake;
 
-    function setArtistTake(uint256 _take) public onlyOwner {
+    function setCreatorTake(uint256 _take) public onlyOwner {
         require(_take < 100, "take is more than 99 percent");
-        artistTake = _take;
+        creatorTake = _take;
     }
 
     address public niftyRegistry;
@@ -39,7 +39,7 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
 
     event newFile(
         uint256 id,
-        address indexed artist,
+        address indexed creator,
         string fileUrl,
         string jsonUrl,
         uint256 limit
@@ -48,13 +48,13 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
 
     event ownershipChange(
         string fileUrl,
-        address indexed artist,
-        address indexed newArtist
+        address indexed creator,
+        address indexed newCreator
     );
 
     struct File {
         uint256 id;
-        address payable artist;
+        address payable creator;
         string jsonUrl;
         string fileUrl;
         uint256 limit;
@@ -63,99 +63,100 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
         Counters.Counter priceNonce;
     }
 
-    mapping(string => uint256) public inkIdByInkUrl;
-    mapping(uint256 => File) private _inkById;
-    mapping(address => EnumerableSet.UintSet) private _artistInks;
+    mapping(string => uint256) public nftIdByNftUrl;
+    mapping(uint256 => File) private _nftById;
+    mapping(address => EnumerableSet.UintSet) private _creatorNfts;
 
-    function _createInk(
+    function _createNft(
         string memory fileUrl,
         string memory jsonUrl,
         uint256 limit,
-        address payable artist
+        address payable creator
     ) internal returns (uint256) {
-        totalInks.increment();
-        uint256 _inkId = totalInks.current();
+        totalNfts.increment();
+        uint256 _nftId = totalNfts.current();
 
-        File storage _ink = _inkById[_inkId];
+        File storage _nft = _nftById[_nftId];
 
-        _ink.id = _inkId;
-        _ink.artist = artist;
-        _ink.fileUrl = fileUrl;
-        _ink.jsonUrl = jsonUrl;
-        _ink.limit = limit;
+        _nft.id = _nftId;
+        _nft.creator = creator;
+        _nft.fileUrl = fileUrl;
+        _nft.jsonUrl = jsonUrl;
+        _nft.limit = limit;
 
-        inkIdByInkUrl[fileUrl] = _inkId;
-        _artistInks[artist].add(_inkId);
+        nftIdByNftUrl[fileUrl] = _nftId;
+        _creatorNfts[creator].add(_nftId);
 
         emit newFile(
-            _ink.id,
-            _ink.artist,
-            _ink.fileUrl,
-            _ink.jsonUrl,
-            _ink.limit
+            _nft.id,
+            _nft.creator,
+            _nft.fileUrl,
+            _nft.jsonUrl,
+            _nft.limit
         );
 
-        return _ink.id;
+        return _nft.id;
     }
 
-    function createInk(
+    function createNft(
         string memory fileUrl,
         string memory jsonUrl,
         uint256 limit
     ) public returns (uint256) {
-        require(!(inkIdByInkUrl[fileUrl] > 0), "this ink already exists!");
+        require(!(nftIdByNftUrl[fileUrl] > 0), "this nft already exists!");
 
-        uint256 inkId = _createInk(fileUrl, jsonUrl, limit, _msgSender());
+        uint256 nftId = _createNft(fileUrl, jsonUrl, limit, _msgSender());
 
         niftyToken().firstMint(_msgSender(), fileUrl, jsonUrl);
 
-        return inkId;
+        return nftId;
     }
 
-    function createInkFromSignature(
+    function createNftFromSignature(
         string memory fileUrl,
         string memory jsonUrl,
         uint256 limit,
-        address payable artist,
+        address payable creator,
         bytes memory signature
     ) public returns (uint256) {
-        require(!(inkIdByInkUrl[fileUrl] > 0), "this ink already exists!");
+        require(!(nftIdByNftUrl[fileUrl] > 0), "this nft already exists!");
 
-        require(artist != address(0), "Artist must be specified.");
+        require(creator != address(0), "Creator must be specified.");
         bytes32 messageHash =
             keccak256(
                 abi.encodePacked(
                     bytes1(0x19),
                     bytes1(0),
                     address(this),
-                    artist,
+                    creator,
                     fileUrl,
                     jsonUrl,
                     limit
                 )
             );
-        bool isArtistSignature = checkSignature(messageHash, signature, artist);
+        bool isCreatorSignature =
+            checkSignature(messageHash, signature, creator);
         require(
-            isArtistSignature || !checkSignatureFlag,
-            "Artist did not sign this ink"
+            isCreatorSignature || !checkSignatureFlag,
+            "Creator did not sign this nft"
         );
 
-        uint256 inkId = _createInk(fileUrl, jsonUrl, limit, artist);
+        uint256 nftId = _createNft(fileUrl, jsonUrl, limit, creator);
 
-        _inkById[inkId].signature = signature;
+        _nftById[nftId].signature = signature;
 
-        niftyToken().firstMint(artist, fileUrl, jsonUrl);
+        niftyToken().firstMint(creator, fileUrl, jsonUrl);
 
-        return inkId;
+        return nftId;
     }
 
-    function _setPrice(uint256 _inkId, uint256 price)
+    function _setPrice(uint256 _nftId, uint256 price)
         private
         returns (uint256)
     {
-        _inkById[_inkId].price = price;
-        _inkById[_inkId].priceNonce.increment();
-        emit newFilePrice(_inkById[_inkId].fileUrl, price);
+        _nftById[_nftId].price = price;
+        _nftById[_nftId].priceNonce.increment();
+        emit newFilePrice(_nftById[_nftId].fileUrl, price);
         return price;
     }
 
@@ -163,15 +164,15 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
         public
         returns (uint256)
     {
-        uint256 _inkId = inkIdByInkUrl[fileUrl];
-        require(_inkId > 0, "this ink does not exist!");
-        File storage _ink = _inkById[_inkId];
+        uint256 _nftId = nftIdByNftUrl[fileUrl];
+        require(_nftId > 0, "this nft does not exist!");
+        File storage _nft = _nftById[_nftId];
         require(
-            _ink.artist == _msgSender(),
-            "only the artist can set the price!"
+            _nft.creator == _msgSender(),
+            "only the creator can set the price!"
         );
 
-        return _setPrice(_ink.id, price);
+        return _setPrice(_nft.id, price);
     }
 
     function setPriceFromSignature(
@@ -179,9 +180,9 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
         uint256 price,
         bytes memory signature
     ) public returns (uint256) {
-        uint256 _inkId = inkIdByInkUrl[fileUrl];
-        require(_inkId > 0, "this ink does not exist!");
-        File storage _ink = _inkById[_inkId];
+        uint256 _nftId = nftIdByNftUrl[fileUrl];
+        require(_nftId > 0, "this nft does not exist!");
+        File storage _nft = _nftById[_nftId];
         bytes32 messageHash =
             keccak256(
                 abi.encodePacked(
@@ -190,48 +191,49 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
                     address(this),
                     fileUrl,
                     price,
-                    _ink.priceNonce.current()
+                    _nft.priceNonce.current()
                 )
             );
-        bool isArtistSignature =
-            checkSignature(messageHash, signature, _ink.artist);
+        bool isCreatorSignature =
+            checkSignature(messageHash, signature, _nft.creator);
         require(
-            isArtistSignature || !checkSignatureFlag,
-            "Artist did not sign this price"
+            isCreatorSignature || !checkSignatureFlag,
+            "Creator did not sign this price"
         );
 
-        return _setPrice(_ink.id, price);
+        return _setPrice(_nft.id, price);
     }
 
     function transferOwnership(
         string memory fileUrl,
-        address artist,
-        address payable newArtist,
+        address creator,
+        address payable newCreator,
         bytes memory signature
     ) public {
-        uint256 _inkId = inkIdByInkUrl[fileUrl];
-        require(_inkId > 0, "this ink does not exist!");
+        uint256 _nftId = nftIdByNftUrl[fileUrl];
+        require(_nftId > 0, "this nft does not exist!");
         bytes32 messageHash =
             keccak256(
                 abi.encodePacked(
                     bytes1(0x19),
                     bytes1(0),
                     address(this),
-                    artist,
+                    creator,
                     fileUrl
                 )
             );
-        bool isArtistSignature = checkSignature(messageHash, signature, artist);
+        bool isCreatorSignature =
+            checkSignature(messageHash, signature, creator);
         require(
-            isArtistSignature || !checkSignatureFlag,
-            "Artist did not sign this ink"
+            isCreatorSignature || !checkSignatureFlag,
+            "Creator did not sign this nft"
         );
-        File storage _file = _inkById[_inkId];
-        _file.artist = newArtist;
-        emit ownershipChange(fileUrl, artist, newArtist);
+        File storage _file = _nftById[_nftId];
+        _file.creator = newCreator;
+        emit ownershipChange(fileUrl, creator, newCreator);
     }
 
-    function inkInfoById(uint256 id)
+    function nftInfoById(uint256 id)
         public
         view
         returns (
@@ -246,24 +248,24 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
         )
     {
         require(
-            id > 0 && id <= totalInks.current(),
-            "this ink does not exist!"
+            id > 0 && id <= totalNfts.current(),
+            "this nft does not exist!"
         );
-        File storage _ink = _inkById[id];
+        File storage _nft = _nftById[id];
 
         return (
             id,
-            _ink.artist,
-            _ink.jsonUrl,
-            _ink.signature,
-            _ink.price,
-            _ink.limit,
-            _ink.fileUrl,
-            _ink.priceNonce.current()
+            _nft.creator,
+            _nft.jsonUrl,
+            _nft.signature,
+            _nft.price,
+            _nft.limit,
+            _nft.fileUrl,
+            _nft.priceNonce.current()
         );
     }
 
-    function inkInfoByInkUrl(string memory fileUrl)
+    function nftInfoByNftUrl(string memory fileUrl)
         public
         view
         returns (
@@ -277,21 +279,21 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
             uint256
         )
     {
-        uint256 _inkId = inkIdByInkUrl[fileUrl];
+        uint256 _nftId = nftIdByNftUrl[fileUrl];
 
-        return inkInfoById(_inkId);
+        return nftInfoById(_nftId);
     }
 
-    function inksCreatedBy(address artist) public view returns (uint256) {
-        return _artistInks[artist].length();
+    function nftsCreatedBy(address creator) public view returns (uint256) {
+        return _creatorNfts[creator].length();
     }
 
-    function inkOfArtistByIndex(address artist, uint256 index)
+    function nftOfCreatorByIndex(address creator, uint256 index)
         public
         view
         returns (uint256)
     {
-        return _artistInks[artist].at(index);
+        return _creatorNfts[creator].at(index);
     }
 
     function versionRecipient()

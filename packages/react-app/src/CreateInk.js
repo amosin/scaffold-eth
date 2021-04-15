@@ -35,7 +35,7 @@ import LZ from "lz-string";
 const Hash = require("ipfs-only-hash");
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
 
-export default function CreateInk(props) {
+export default function CreateNft(props) {
   let history = useHistory();
 
   const [picker, setPicker] = useLocalStorage("picker", 0);
@@ -88,19 +88,19 @@ export default function CreateInk(props) {
 
   const PickerDisplay = pickers[picker % pickers.length];
 
-  const mintInk = async (inkUrl, jsonUrl, limit) => {
+  const mintNft = async (nftUrl, jsonUrl, limit) => {
     let contractName = "NiftyYard";
-    let regularFunction = "createInk";
+    let regularFunction = "createNft";
     let regularFunctionArgs = [
-      inkUrl,
+      nftUrl,
       jsonUrl,
-      props.ink.attributes[0]["value"],
+      props.nft.attributes[0]["value"],
     ];
-    let signatureFunction = "createInkFromSignature";
+    let signatureFunction = "createNftFromSignature";
     let signatureFunctionArgs = [
-      inkUrl,
+      nftUrl,
       jsonUrl,
-      props.ink.attributes[0]["value"],
+      props.nft.attributes[0]["value"],
       props.address,
     ];
     let getSignatureTypes = [
@@ -117,12 +117,12 @@ export default function CreateInk(props) {
       "0x0",
       props.readKovanContracts["NiftyYard"].address,
       props.address,
-      inkUrl,
+      nftUrl,
       jsonUrl,
       limit,
     ];
 
-    let createInkConfig = {
+    let createNftConfig = {
       ...props.transactionConfig,
       contractName,
       regularFunction,
@@ -133,14 +133,14 @@ export default function CreateInk(props) {
       getSignatureArgs,
     };
 
-    console.log(createInkConfig);
+    console.log(createNftConfig);
 
-    let result = await transactionHandler(createInkConfig);
+    let result = await transactionHandler(createNftConfig);
 
     return result;
   };
 
-  const createInk = async (values) => {
+  const createNft = async (values) => {
     console.log("Success:", values);
     console.log("PROPS: ", props);
 
@@ -154,15 +154,15 @@ export default function CreateInk(props) {
     let drawingBuffer = Buffer.from(compressedArray);
     let imageBuffer = Buffer.from(imageData.split(",")[1], "base64");
 
-    let currentInk = props.ink;
+    let currentNft = props.nft;
 
-    currentInk["attributes"] = [
+    currentNft["attributes"] = [
       {
         trait_type: "Limit",
         value: values.limit.toString(),
       },
     ];
-    currentInk["name"] = values.title;
+    currentNft["name"] = values.title;
     let newEns;
     try {
       newEns = await props.mainnetProvider.lookupAddress(props.address);
@@ -171,7 +171,7 @@ export default function CreateInk(props) {
     }
     const timeInMs = new Date();
     const addressForDescription = !newEns ? props.address : newEns;
-    currentInk["description"] =
+    currentNft["description"] =
       "NFT Minted by " +
       addressForDescription +
       " on " +
@@ -184,20 +184,20 @@ export default function CreateInk(props) {
     const imageHash = await Hash.of(imageBuffer);
     console.log("imageHash", imageHash);
 
-    currentInk["drawing"] = drawingHash;
-    currentInk["image"] = "https://ipfs.io/ipfs/" + imageHash;
-    currentInk["external_url"] = "/" + drawingHash;
-    props.setInk(currentInk);
-    console.log("Ink:", props.ink);
+    currentNft["drawing"] = drawingHash;
+    currentNft["image"] = "https://ipfs.io/ipfs/" + imageHash;
+    currentNft["external_url"] = "/" + drawingHash;
+    props.setNft(currentNft);
+    console.log("Nft:", props.nft);
 
-    var inkStr = JSON.stringify(props.ink);
-    const inkBuffer = Buffer.from(inkStr);
+    var nftStr = JSON.stringify(props.nft);
+    const nftBuffer = Buffer.from(nftStr);
 
-    const jsonHash = await Hash.of(inkBuffer);
+    const jsonHash = await Hash.of(nftBuffer);
     console.log("jsonHash", jsonHash);
 
     try {
-      var mintResult = await mintInk(
+      var mintResult = await mintNft(
         drawingHash,
         jsonHash,
         values.limit.toString()
@@ -210,16 +210,16 @@ export default function CreateInk(props) {
     if (mintResult) {
       const drawingResult = addToIPFS(drawingBuffer, props.ipfsConfig);
       const imageResult = addToIPFS(imageBuffer, props.ipfsConfig);
-      const inkResult = addToIPFS(inkBuffer, props.ipfsConfig);
+      const nftResult = addToIPFS(nftBuffer, props.ipfsConfig);
 
       const drawingResultInfura = addToIPFS(
         drawingBuffer,
         props.ipfsConfigInfura
       );
       const imageResultInfura = addToIPFS(imageBuffer, props.ipfsConfigInfura);
-      const inkResultInfura = addToIPFS(inkBuffer, props.ipfsConfigInfura);
+      const nftResultInfura = addToIPFS(nftBuffer, props.ipfsConfigInfura);
 
-      Promise.all([drawingResult, imageResult, inkResult]).then((values) => {
+      Promise.all([drawingResult, imageResult, nftResult]).then((values) => {
         console.log("FINISHED UPLOADING TO PINNER", values);
         message.destroy();
       });
@@ -233,7 +233,7 @@ export default function CreateInk(props) {
       Promise.all([
         drawingResultInfura,
         imageResultInfura,
-        inkResultInfura,
+        nftResultInfura,
       ]).then((values) => {
         console.log("INFURA FINISHED UPLOADING!", values);
       });
@@ -342,9 +342,9 @@ export default function CreateInk(props) {
       <div style={{ width: "90vmin", margin: "0 auto", marginBottom: 16 }}>
         <Form
           layout={"inline"}
-          name="createInk"
+          name="createNft"
           //initialValues={{ limit: 0 }}
-          onFinish={createInk}
+          onFinish={createNft}
           onFinishFailed={onFinishFailed}
           labelAlign={"middle"}
           style={{ justifyContent: "center" }}
@@ -363,7 +363,7 @@ export default function CreateInk(props) {
           <Form.Item
             name="limit"
             rules={[
-              { required: true, message: "How many inks can be minted?" },
+              { required: true, message: "How many nfts can be minted?" },
             ]}
           >
             <InputNumber
@@ -376,7 +376,7 @@ export default function CreateInk(props) {
 
           <Form.Item>
             <Button loading={sending} type="primary" htmlType="submit">
-              Ink!
+              Nft!
             </Button>
           </Form.Item>
         </Form>

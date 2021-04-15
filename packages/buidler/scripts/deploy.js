@@ -10,31 +10,31 @@ async function main() {
 
   console.log("🪐 DEPLOYING ON NETWORK: ",bre.network.name)
 
-  const NFTINK = await deploy("NFTINK")
+  const NFTYARD = await deploy("NFTYARD")
   const Liker = await deploy("Liker")
 
-  console.log(" 📝 Adding NFTINK ("+NFTINK.address+") TO Liker...")
-  await Liker.addContract(NFTINK.address)
+  console.log(" 📝 Adding NFTYARD ("+NFTYARD.address+") TO Liker...")
+  await Liker.addContract(NFTYARD.address)
   console.log("")
 
   if(bre.network.name.indexOf("localhost")>=0){
     console.log("Local deploy, loading GSN trusted forwarder from a file...")
-    await NFTINK.setTrustedForwarder("0x0000000000000000000000000000000000000000")
+    await NFTYARD.setTrustedForwarder("0x0000000000000000000000000000000000000000")
     await Liker.setTrustedForwarder("0x0000000000000000000000000000000000000000")
     console.log("Set SignatureChecker flag to true...")
-    await NFTINK.setCheckSignatureFlag(true)
+    await NFTYARD.setCheckSignatureFlag(true)
   }
   else if(bre.network.name.indexOf("sidechain")>=0){
     console.log("Local deploy, loading GSN trusted forwarder from a file...")
     let trustedForwarder
     try{
       let trustedForwarderObj = JSON.parse(fs.readFileSync("../react-app/src/gsn/Forwarder.json"))
-      console.log("⛽️ Setting GSN Trusted Forwarder on NFTINK to ",trustedForwarderObj.address)
-      await NFTINK.setTrustedForwarder(trustedForwarderObj.address)
+      console.log("⛽️ Setting GSN Trusted Forwarder on NFTYARD to ",trustedForwarderObj.address)
+      await NFTYARD.setTrustedForwarder(trustedForwarderObj.address)
       console.log("⛽️ Setting GSN Trusted Forwarder on Liker to ",trustedForwarderObj.address)
       await Liker.setTrustedForwarder(trustedForwarderObj.address)
       console.log("Set SignatureChecker flag to false...")
-      await NFTINK.setCheckSignatureFlag(false)
+      await NFTYARD.setCheckSignatureFlag(false)
     }catch(e){
       console.log(e)
     }
@@ -42,25 +42,25 @@ async function main() {
   else if(bre.network.name=="kovan") {
     console.log(" 🟣 KOVAN deploy, adding Kovan trusted forwarder...")
     //https://docs.opengsn.org/gsn-provider/networks.html
-    //await NFTINK.setTrustedForwarder("0x6453D37248Ab2C16eBd1A8f782a2CBC65860E60B")
+    //await NFTYARD.setTrustedForwarder("0x6453D37248Ab2C16eBd1A8f782a2CBC65860E60B")
     //await Liker.setTrustedForwarder("0x6453D37248Ab2C16eBd1A8f782a2CBC65860E60B")
-    await NFTINK.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
+    await NFTYARD.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
     await Liker.setTrustedForwarder("0x77777e800704Fb61b0c10aa7b93985F835EC23fA")
 
   }else if(bre.network.name=="xdai") {
     console.log(" ♦ xDAI deploy 0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
     //https://docs.opengsn.org/gsn-provider/networks.html
-    await NFTINK.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
+    await NFTYARD.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
     await Liker.setTrustedForwarder("0xB851B09eFe4A5021E9a4EcDDbc5D9c9cE2640CCb")
   }else if(bre.network.name=="rinkeby") {
     console.log(" 🟨 Rinkeby deploy, no known trusted forwarder yet.")
     //https://docs.opengsn.org/gsn-provider/networks.html
-    await NFTINK.setTrustedForwarder("0x0000000000000000000000000000000000000000")
+    await NFTYARD.setTrustedForwarder("0x0000000000000000000000000000000000000000")
     await Liker.setTrustedForwarder("0x0000000000000000000000000000000000000000")
   }else if(bre.network.name=="mainnet") {
     console.log(" 🚀 Mainnet deploy, no known trusted forwarder yet.")
     //https://docs.opengsn.org/gsn-provider/networks.html
-    await NFTINK.setTrustedForwarder("0x0000000000000000000000000000000000000000")
+    await NFTYARD.setTrustedForwarder("0x0000000000000000000000000000000000000000")
     await Liker.setTrustedForwarder("0x0000000000000000000000000000000000000000")
   }
 

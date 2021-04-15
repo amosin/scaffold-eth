@@ -83,39 +83,39 @@ contract NiftyYardToken is
         niftyRegistry = _address;
     }
 
-    function niftyInk() private view returns (INiftyYard) {
-        return INiftyYard(INiftyYardRegistry(niftyRegistry).inkAddress());
+    function niftyYard() private view returns (INiftyYard) {
+        return INiftyYard(INiftyYardRegistry(niftyRegistry).nftAddress());
     }
 
-    event mintedInk(uint256 id, string inkUrl, address to);
-    event burnedToken(uint256 id, string inkUrl, address to);
-    event boughtInk(uint256 id, string inkUrl, address buyer, uint256 price);
-    event boughtToken(uint256 id, string inkUrl, address buyer, uint256 price);
-    event lockedInk(uint256 id, address recipient);
-    event unlockedInk(uint256 id, address recipient);
+    event mintedNft(uint256 id, string nftUrl, address to);
+    event burnedToken(uint256 id, string nftUrl, address to);
+    event boughtNft(uint256 id, string nftUrl, address buyer, uint256 price);
+    event boughtToken(uint256 id, string nftUrl, address buyer, uint256 price);
+    event lockedNft(uint256 id, address recipient);
+    event unlockedNft(uint256 id, address recipient);
     event newTokenPrice(uint256 id, uint256 price);
 
-    mapping(string => EnumerableSet.UintSet) private _inkTokens;
-    mapping(uint256 => string) public tokenInk;
+    mapping(string => EnumerableSet.UintSet) private _nftTokens;
+    mapping(uint256 => string) public tokenNft;
     mapping(address => EnumerableSet.UintSet) private _addressTokens;
     mapping(uint256 => uint256) public tokenPrice;
 
-    function inkTokenCount(string memory _inkUrl)
+    function nftTokenCount(string memory _nftUrl)
         public
         view
         returns (uint256)
     {
-        uint256 _inkTokenCount = _inkTokens[_inkUrl].length();
-        return _inkTokenCount;
+        uint256 _nftTokenCount = _nftTokens[_nftUrl].length();
+        return _nftTokenCount;
     }
 
     function doesAddressOwnCopyOfThisFile(
         address _address,
-        string memory inkUrl
+        string memory nftUrl
     ) public returns (bool) {
         for (uint256 i = 0; i < _addressTokens[_address].length(); i++) {
             uint256 id = _addressTokens[_address].at(i);
-            if (keccak256(bytes(tokenInk[id])) == keccak256(bytes(inkUrl))) {
+            if (keccak256(bytes(tokenNft[id])) == keccak256(bytes(nftUrl))) {
                 return true;
             }
         }
@@ -129,67 +129,67 @@ contract NiftyYardToken is
         uint256 len = _addressTokens[_address].length();
         string[] memory fileUrls = new string[](len);
         for (uint256 i = 0; i < len; i++) {
-            fileUrls[i] = tokenInk[_addressTokens[_address].at(i)];
+            fileUrls[i] = tokenNft[_addressTokens[_address].at(i)];
         }
         return fileUrls;
     }
 
-    function _mintInkToken(
+    function _mintNftToken(
         address to,
-        string memory inkUrl,
+        string memory nftUrl,
         string memory jsonUrl
     ) internal returns (uint256) {
         _tokenIds.increment();
         uint256 id = _tokenIds.current();
-        _inkTokens[inkUrl].add(id);
-        tokenInk[id] = inkUrl;
+        _nftTokens[nftUrl].add(id);
+        tokenNft[id] = nftUrl;
         _addressTokens[to].add(id);
         _mint(to, id);
         _setTokenURI(id, jsonUrl);
 
-        emit mintedInk(id, inkUrl, to);
+        emit mintedNft(id, nftUrl, to);
 
         return id;
     }
 
     function firstMint(
         address to,
-        string calldata inkUrl,
+        string calldata nftUrl,
         string calldata jsonUrl
     ) external returns (uint256) {
-        require(_msgSender() == INiftyYardRegistry(niftyRegistry).inkAddress());
-        _mintInkToken(to, inkUrl, jsonUrl);
+        require(_msgSender() == INiftyYardRegistry(niftyRegistry).nftAddress());
+        _mintNftToken(to, nftUrl, jsonUrl);
     }
 
-    function mint(address to, string memory _inkUrl) public returns (uint256) {
-        uint256 _inkId = niftyInk().inkIdByInkUrl(_inkUrl);
-        require(_inkId > 0, "this nft does not exist!");
-        (, address _artist, string memory _jsonUrl, , , uint256 _limit, ) =
-            niftyInk().inkInfoById(_inkId);
+    function mint(address to, string memory _nftUrl) public returns (uint256) {
+        uint256 _nftId = niftyYard().nftIdByNftUrl(_nftUrl);
+        require(_nftId > 0, "this nft does not exist!");
+        (, address _creator, string memory _jsonUrl, , , uint256 _limit, ) =
+            niftyYard().nftInfoById(_nftId);
 
-        require(_artist == _msgSender(), "only the artist can mint!");
+        require(_creator == _msgSender(), "only the creator can mint!");
 
         require(
-            inkTokenCount(_inkUrl) < _limit || _limit == 0,
+            nftTokenCount(_nftUrl) < _limit || _limit == 0,
             "this nft is over the limit!"
         );
 
-        uint256 tokenId = _mintInkToken(to, _inkUrl, _jsonUrl);
+        uint256 tokenId = _mintNftToken(to, _nftUrl, _jsonUrl);
 
         return tokenId;
     }
 
     function mintFromSignature(
         address to,
-        string memory _inkUrl,
+        string memory _nftUrl,
         bytes memory signature
     ) public returns (uint256) {
-        uint256 _inkId = niftyInk().inkIdByInkUrl(_inkUrl);
-        require(_inkId > 0, "this nft does not exist!");
+        uint256 _nftId = niftyYard().nftIdByNftUrl(_nftUrl);
+        require(_nftId > 0, "this nft does not exist!");
 
-        uint256 _count = inkTokenCount(_inkUrl);
-        (, address _artist, string memory _jsonUrl, , , uint256 _limit, ) =
-            niftyInk().inkInfoById(_inkId);
+        uint256 _count = nftTokenCount(_nftUrl);
+        (, address _creator, string memory _jsonUrl, , , uint256 _limit, ) =
+            niftyYard().nftInfoById(_nftId);
         require(_count < _limit || _limit == 0, "this nft is over the limit!");
 
         bytes32 messageHash =
@@ -199,18 +199,18 @@ contract NiftyYardToken is
                     bytes1(0),
                     address(this),
                     to,
-                    _inkUrl,
+                    _nftUrl,
                     _count
                 )
             );
-        bool isArtistSignature =
-            checkSignature(messageHash, signature, _artist);
+        bool isCreatorSignature =
+            checkSignature(messageHash, signature, _creator);
         require(
-            isArtistSignature || !checkSignatureFlag,
-            "only the artist can mint!"
+            isCreatorSignature || !checkSignatureFlag,
+            "only the creator can mint!"
         );
 
-        uint256 tokenId = _mintInkToken(to, _inkUrl, _jsonUrl);
+        uint256 tokenId = _mintNftToken(to, _nftUrl, _jsonUrl);
 
         return tokenId;
     }
@@ -239,36 +239,36 @@ contract NiftyYardToken is
         safeTransferFrom(_msgSender(), _recipient, _tokenId);
     }
 
-    function buyInk(string memory _inkUrl) public payable returns (uint256) {
-        uint256 _inkId = niftyInk().inkIdByInkUrl(_inkUrl);
-        require(_inkId > 0, "this nft does not exist!");
+    function buyNft(string memory _nftUrl) public payable returns (uint256) {
+        uint256 _nftId = niftyYard().nftIdByNftUrl(_nftUrl);
+        require(_nftId > 0, "this nft does not exist!");
         (
             ,
-            address payable _artist,
+            address payable _creator,
             string memory _jsonUrl,
             ,
             uint256 _price,
             uint256 _limit,
 
-        ) = niftyInk().inkInfoById(_inkId);
+        ) = niftyYard().nftInfoById(_nftId);
         require(
-            inkTokenCount(_inkUrl) < _limit || _limit == 0,
+            nftTokenCount(_nftUrl) < _limit || _limit == 0,
             "this nft is over the limit!"
         );
         require(_price > 0, "this nft does not have a price set");
         require(msg.value >= _price, "Amount sent too small");
         address _buyer = _msgSender();
-        uint256 _tokenId = _mintInkToken(_buyer, _inkUrl, _jsonUrl);
+        uint256 _tokenId = _mintNftToken(_buyer, _nftUrl, _jsonUrl);
         //Note: a pull mechanism would be safer here: https://docs.openzeppelin.com/contracts/2.x/api/payment#PullPayment
 
         // calculate fees
         uint256 fees = calculateFee(msg.value);
 
         // pay seller minus fees
-        _artist.transfer(msg.value.sub(fees));
+        _creator.transfer(msg.value.sub(fees));
         // send fee to feereserveaddress feeaddr
         feereserveaddress.transfer(fees);
-        emit boughtInk(_tokenId, _inkUrl, _buyer, msg.value);
+        emit boughtNft(_tokenId, _nftUrl, _buyer, msg.value);
         return _tokenId;
     }
 
@@ -296,18 +296,19 @@ contract NiftyYardToken is
         _transfer(_seller, _buyer, _tokenId);
         //Note: a pull mechanism would be safer here: https://docs.openzeppelin.com/contracts/2.x/api/payment#PullPayment
 
-        uint256 _artistTake = niftyInk().artistTake().mul(msg.value).div(100);
-        uint256 _sellerTake = msg.value.sub(_artistTake);
-        string memory _inkUrl = tokenInk[_tokenId];
+        uint256 _creatorTake =
+            niftyYard().creatorTake().mul(msg.value).div(100);
+        uint256 _sellerTake = msg.value.sub(_creatorTake);
+        string memory _nftUrl = tokenNft[_tokenId];
 
-        (, address payable _artist, , , , , ) =
-            niftyInk().inkInfoByInkUrl(_inkUrl);
+        (, address payable _creator, , , , , ) =
+            niftyYard().nftInfoByNftUrl(_nftUrl);
 
-        _artist.transfer(_artistTake);
+        _creator.transfer(_creatorTake);
 
         _seller.transfer(_sellerTake);
 
-        emit boughtInk(_tokenId, _inkUrl, _buyer, msg.value);
+        emit boughtNft(_tokenId, _nftUrl, _buyer, msg.value);
     }
 
     function _transfer(
@@ -328,12 +329,12 @@ contract NiftyYardToken is
         ERC721._transfer(from, to, tokenId);
     }
 
-    function inkTokenByIndex(string memory inkUrl, uint256 index)
+    function nftTokenByIndex(string memory nftUrl, uint256 index)
         public
         view
         returns (uint256)
     {
-        return _inkTokens[inkUrl].at(index);
+        return _nftTokens[nftUrl].at(index);
     }
 
     function versionRecipient()
@@ -379,13 +380,13 @@ contract NiftyYardToken is
         return ERC721.isApprovedForAll(_owner, _operator);
     }
 
-    function burnToken(uint256 _tokenId, string memory _inkUrl) public {
+    function burnToken(uint256 _tokenId, string memory _nftUrl) public {
         require(
             _msgSender() == ownerOf(_tokenId),
             "NFTYard: INVALID_TOKEN_OWNER"
         );
         burn(_tokenId);
-        emit burnedToken(_tokenId, _inkUrl, _msgSender());
+        emit burnedToken(_tokenId, _nftUrl, _msgSender());
     }
 
     /**

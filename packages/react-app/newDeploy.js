@@ -24,7 +24,7 @@ const AWS = require('aws-sdk')
 
 /*
 
-let site = "nifty.ink"
+let site = "nftyard.io"
 let cloudfrontDistro = "E3VS4W1AUZT7E5"
 const localDir = "build"
 

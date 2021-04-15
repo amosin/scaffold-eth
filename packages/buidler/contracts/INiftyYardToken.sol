@@ -1,7 +1,7 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 interface INiftyYardToken {
-    function inkTokenCount(string calldata) external view returns (uint256);
+    function nftTokenCount(string calldata) external view returns (uint256);
 
     function firstMint(
         address,
@@ -11,7 +11,7 @@ interface INiftyYardToken {
 
     function mint(address, string calldata) external returns (uint256);
 
-    function buyInk(string calldata) external payable returns (uint256);
+    function buyNft(string calldata) external payable returns (uint256);
 
     function buyToken(uint256) external payable;
 
@@ -27,5 +27,5 @@ interface INiftyYardToken {
 
     function ownerOf(uint256) external view returns (address);
 
-    function tokenInk(uint256) external view returns (string memory);
+    function tokenNft(uint256) external view returns (string memory);
 }

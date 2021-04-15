@@ -14,7 +14,7 @@ export default function BurnTokenForm(props) {
 
     let contractName = "NiftyYardToken";
     let regularFunction = "burnToken";
-    let regularFunctionArgs = [props.tokenId, props.inkUrl];
+    let regularFunctionArgs = [props.tokenId, props.nftUrl];
 
     let txConfig = {
       ...props.transactionConfig,

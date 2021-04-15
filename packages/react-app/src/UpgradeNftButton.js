@@ -5,7 +5,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { useContractLoader } from "./hooks";
 import { Transactor, transactionHandler } from "./helpers";
 
-export default function UpgradeInkButton(props) {
+export default function UpgradeNftButton(props) {
   const [upgrading, setUpgrading] = useState(false);
 
   //const writeContracts = useContractLoader(props.injectedProvider);

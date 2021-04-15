@@ -1,9 +1,9 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 interface INiftyYard {
-    function artistTake() external view returns (uint256);
+    function creatorTake() external view returns (uint256);
 
-    function inkInfoById(uint256)
+    function nftInfoById(uint256)
         external
         view
         returns (
@@ -16,7 +16,7 @@ interface INiftyYard {
             string memory
         );
 
-    function inkInfoByInkUrl(string calldata)
+    function nftInfoByNftUrl(string calldata)
         external
         view
         returns (
@@ -29,5 +29,5 @@ interface INiftyYard {
             string memory
         );
 
-    function inkIdByInkUrl(string calldata) external view returns (uint256);
+    function nftIdByNftUrl(string calldata) external view returns (uint256);
 }

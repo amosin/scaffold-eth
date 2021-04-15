@@ -23,11 +23,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const INKS_QUERY = gql`
-  query inks {
-    inks(first: 5) {
+const NFTS_QUERY = gql`
+  query nfts {
+    nfts(first: 5) {
       id
-      inkId
+      nftId
       jsonUrl
     }
   }

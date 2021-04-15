@@ -4,11 +4,11 @@ import { AddressInput } from "./components";
 import { Transactor, transactionHandler } from "./helpers";
 import { useContractLoader } from "./hooks";
 
-export default function SendInkForm(props) {
+export default function SendNftForm(props) {
   const [sending, setSending] = useState(false);
   const [form] = Form.useForm();
 
-  const sendInk = async (values) => {
+  const sendNft = async (values) => {
     setSending(true);
     console.log("Success:", props.address, values, props.tokenId);
 
@@ -65,9 +65,9 @@ export default function SendInkForm(props) {
     <Form
       form={form}
       layout={"inline"}
-      name="sendInk"
+      name="sendNft"
       initialValues={{ tokenId: props.tokenId }}
-      onFinish={sendInk}
+      onFinish={sendNft}
       onFinishFailed={onFinishFailed}
     >
       <Form.Item

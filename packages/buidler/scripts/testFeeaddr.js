@@ -62,7 +62,7 @@ async function main() {
         );
         console.log('\n Number of Events: ' + result.length)
         result.forEach(element => {
-          if (element.returnValues.inkUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
+          if (element.returnValues.nftUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
             console.log('NFT GONE')
           }
         });

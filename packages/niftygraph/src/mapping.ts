@@ -17,24 +17,24 @@ import {
 } from "../generated/NiftyYard/NiftyYard";
 import {
   NiftyYardToken,
-  mintedInk,
+  mintedNft,
   Transfer,
   SetTokenPriceCall,
-  boughtInk,
+  boughtNft,
   newTokenPrice,
 } from "../generated/NiftyYardToken/NiftyYardToken";
-import {
-  NiftyMediator,
-  newPrice,
-  tokenSentViaBridge,
-} from "../generated/NiftyMediator/NiftyMediator";
+// import {
+//   NiftyMediator,
+//   newPrice,
+//   tokenSentViaBridge,
+// } from "../generated/NiftyMediator/NiftyMediator";
 
 import {
 liked
 } from "../generated/Liker/Liker";
 import {
   File,
-  Artist,
+  Creator,
   Token,
   TokenTransfer,
   Sale,
@@ -67,37 +67,37 @@ function incrementTotal(metric: String, timestamp: BigInt): void {
 
   stats.day = day;
 
-  if (metric == "inks") {
-    stats.inks = stats.inks + BigInt.fromI32(1);
+  if (metric == "nfts") {
+    stats.nfts = stats.nfts + BigInt.fromI32(1);
   } else if (metric == "tokens") {
     stats.tokens = stats.tokens + BigInt.fromI32(1);
   } else if (metric == "upgrades") {
     stats.upgrades = stats.upgrades + BigInt.fromI32(1);
   } else if (metric == "sales") {
     stats.sales = stats.sales + BigInt.fromI32(1);
-  } else if (metric == "artists") {
-    stats.artists = stats.artists + BigInt.fromI32(1);
+  } else if (metric == "creators") {
+    stats.creators = stats.creators + BigInt.fromI32(1);
   }
 
   stats.save();
 }
 
 export function handlenewFile(event: newFile): void {
-  let artist = Artist.load(event.params.artist.toHexString());
+  let creator = Creator.load(event.params.creator.toHexString());
 
-  if (artist == null) {
-    artist = new Artist(event.params.artist.toHexString());
-    artist.address = event.params.artist;
-    artist.inkCount = BigInt.fromI32(1);
-    incrementTotal("artists", event.block.timestamp);
+  if (creator == null) {
+    creator = new Creator(event.params.creator.toHexString());
+    creator.address = event.params.creator;
+    creator.nftCount = BigInt.fromI32(1);
+    incrementTotal("creators", event.block.timestamp);
   } else {
-    artist.inkCount = artist.inkCount.plus(BigInt.fromI32(1));
+    creator.nftCount = creator.nftCount.plus(BigInt.fromI32(1));
   }
 
-  let ink = File.load(event.params.fileUrl);
+  let nft = File.load(event.params.fileUrl);
 
-  if (ink == null) {
-    ink = new File(event.params.fileUrl);
+  if (nft == null) {
+    nft = new File(event.params.fileUrl);
   }
 
   //  let jsonBytes = ipfs.cat(event.params.jsonUrl)
@@ -109,33 +109,33 @@ export function handlenewFile(event: newFile): void {
   //        ]);
   //    } else {
   //        let obj = data.toObject();
-  //        ink.name = obj.get("name").toString();
-  //        ink.image = obj.get("image").toString();
-  //        ink.description = obj.get("description").toString();
+  //        nft.name = obj.get("name").toString();
+  //        nft.image = obj.get("image").toString();
+  //        nft.description = obj.get("description").toString();
   //      }
   //  }
   //  }
 
-  ink.inkNumber = event.params.id;
-  ink.artist = artist.id;
-  ink.likers = new Array<string>();
-  ink.limit = event.params.limit;
-  ink.jsonUrl = event.params.jsonUrl;
-  ink.createdAt = event.block.timestamp;
+  nft.nftNumber = event.params.id;
+  nft.creator = creator.id;
+  nft.likers = new Array<string>();
+  nft.limit = event.params.limit;
+  nft.jsonUrl = event.params.jsonUrl;
+  nft.createdAt = event.block.timestamp;
 
-  ink.save();
-  artist.save();
+  nft.save();
+  creator.save();
 
-  incrementTotal("inks", event.block.timestamp);
+  incrementTotal("nfts", event.block.timestamp);
   updateMetaData("blockNumber", event.block.number.toString());
 }
 
 function _handleSetPrice(
-  inkUrl: String,
+  nftUrl: String,
   price: BigInt,
   timestamp: BigInt
 ): void {
-  let file = File.load(inkUrl);
+  let file = File.load(nftUrl);
 
   file.mintPrice = price;
   file.mintPriceSetAt = timestamp;
@@ -156,7 +156,7 @@ export function handleSetPrice(call: SetPriceCall): void {
   updateMetaData("blockNumber", call.block.number.toString());
 }
 
-export function handleNewInkPrice(event: newFilePrice): void {
+export function handleNewNftPrice(event: newFilePrice): void {
   let file = File.load(event.params.fileUrl);
 
   file.mintPrice = event.params.price;
@@ -187,18 +187,18 @@ export function handleSetTokenPrice(call: SetTokenPriceCall): void {
   updateMetaData("blockNumber", call.block.number.toString());
 }
 
-export function handleMintedInk(event: mintedInk): void {
-  let file = File.load(event.params.inkUrl);
+export function handleMintedNft(event: mintedNft): void {
+  let file = File.load(event.params.nftUrl);
 
   if (file == null) {
-    file = new File(event.params.inkUrl);
+    file = new File(event.params.nftUrl);
   }
 
   file.count = file.count.plus(BigInt.fromI32(1));
 
   let token = new Token(event.params.id.toString());
 
-  token.ink = event.params.inkUrl;
+  token.nft = event.params.nftUrl;
   token.owner = event.params.to;
   token.createdAt = event.block.timestamp;
   token.network = "xdai";
@@ -249,7 +249,7 @@ export function handleTransfer(event: Transfer): void {
   updateMetaData("blockNumber", event.block.number.toString());
 }
 
-export function handleBoughtInk(event: boughtInk): void {
+export function handleBoughtNft(event: boughtNft): void {
   let sale = new Sale(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   );
@@ -257,25 +257,25 @@ export function handleBoughtInk(event: boughtInk): void {
   let tokenId = event.params.id.toString();
 
   let token = Token.load(tokenId);
-  let file = File.load(event.params.inkUrl);
-  let artist = Artist.load(file.artist);
+  let file = File.load(event.params.nftUrl);
+  let creator = Creator.load(file.creator);
   let transfer = TokenTransfer.load(event.transaction.hash.toHex());
 
   //let contract = NiftyYard.bind(Address.fromString("0x49dE55fbA08af88f55EB797a456fdf76B151c8b0"))
-  //let artistTake = contract.artistTake()
+  //let creatorTake = contract.creatorTake()
 
   if (transfer !== null) {
     if (
       transfer.from ==
         Address.fromString("0x0000000000000000000000000000000000000000") ||
-      transfer.from == artist.address
+      transfer.from == creator.address
     ) {
       sale.saleType = "primary";
-      sale.artistTake = event.transaction.value;
-      sale.seller = artist.address;
+      sale.creatorTake = event.transaction.value;
+      sale.seller = creator.address;
     } else {
       sale.saleType = "secondary";
-      sale.artistTake =
+      sale.creatorTake =
         event.transaction.value.times(BigInt.fromI32(1)) / BigInt.fromI32(100);
       sale.seller = transfer.from;
     }
@@ -289,8 +289,8 @@ export function handleBoughtInk(event: boughtInk): void {
   sale.token = tokenId;
   sale.price = event.transaction.value;
   sale.buyer = event.transaction.from;
-  sale.artist = file.artist;
-  sale.ink = event.params.inkUrl;
+  sale.creator = file.creator;
+  sale.nft = event.params.nftUrl;
   sale.createdAt = event.block.timestamp;
   sale.transfer = event.transaction.hash.toHex();
 
@@ -300,42 +300,42 @@ export function handleBoughtInk(event: boughtInk): void {
   updateMetaData("blockNumber", event.block.number.toString());
 }
 
-export function handleMintedOnMain(event: mintedInk): void {
-  let token = Token.load(event.params.id.toString());
+// export function handleMintedOnMain(event: mintedNft): void {
+//   let token = Token.load(event.params.id.toString());
 
-  token.network = "mainnet";
-  token.upgradeTransfer = event.transaction.hash.toHex();
+//   token.network = "mainnet";
+//   token.upgradeTransfer = event.transaction.hash.toHex();
 
-  token.save();
-  updateMetaData("blockNumber", event.block.number.toString());
-}
+//   token.save();
+//   updateMetaData("blockNumber", event.block.number.toString());
+// }
 
-export function handleTokenSentViaBridge(event: tokenSentViaBridge): void {
-  let token = Token.load(event.params._tokenId.toString());
+// export function handleTokenSentViaBridge(event: tokenSentViaBridge): void {
+//   let token = Token.load(event.params._tokenId.toString());
 
-  token.network = "mainnet";
-  token.upgradeTransfer = event.transaction.hash.toHex();
+//   token.network = "mainnet";
+//   token.upgradeTransfer = event.transaction.hash.toHex();
 
-  token.save();
+//   token.save();
 
-  incrementTotal("upgrades", event.block.timestamp);
-  updateMetaData("blockNumber", event.block.number.toString());
-}
+//   incrementTotal("upgrades", event.block.timestamp);
+//   updateMetaData("blockNumber", event.block.number.toString());
+// }
 
-export function handleNewRelayPrice(event: newPrice): void {
-  let currentPrice = RelayPrice.load("current");
+// export function handleNewRelayPrice(event: newPrice): void {
+//   let currentPrice = RelayPrice.load("current");
 
-  if (currentPrice !== null) {
-    currentPrice.id = currentPrice.createdAt.toString();
-    currentPrice.save();
-  }
+//   if (currentPrice !== null) {
+//     currentPrice.id = currentPrice.createdAt.toString();
+//     currentPrice.save();
+//   }
 
-  let updatedPrice = new RelayPrice("current");
-  updatedPrice.price = event.params.price;
-  updatedPrice.createdAt = event.block.timestamp;
-  updatedPrice.save();
-  updateMetaData("blockNumber", event.block.number.toString());
-}
+//   let updatedPrice = new RelayPrice("current");
+//   updatedPrice.price = event.params.price;
+//   updatedPrice.createdAt = event.block.timestamp;
+//   updatedPrice.save();
+//   updateMetaData("blockNumber", event.block.number.toString());
+// }
 
 export function handleownershipChange(event: ownershipChange): void {
   let file = File.load(event.params.fileUrl);
@@ -343,11 +343,11 @@ export function handleownershipChange(event: ownershipChange): void {
   if (file == null) {
     file = File.load(event.params.fileUrl);
   }
-  let artist = Artist.load(event.params.artist.toHexString());
-  artist.id = event.params.newArtist.toHexString();
-  artist.address = event.params.newArtist;
-  file.artist = artist.id;
-  artist.save();
+  let creator = Creator.load(event.params.creator.toHexString());
+  creator.id = event.params.newCreator.toHexString();
+  creator.address = event.params.newCreator;
+  file.creator = creator.id;
+  creator.save();
   file.save();
 }
 

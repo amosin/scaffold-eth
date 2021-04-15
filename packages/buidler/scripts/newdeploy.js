@@ -36,7 +36,7 @@ async function main() {
     // const NiftyMediator = await ethers.getContractAt("NiftyMediator","0x9E272CEf956F50b8af46c41160505259b892a5B2")
 
 
-    await NiftyRegistry.setInkAddress(NiftyYard.address)
+    await NiftyRegistry.setNftAddress(NiftyYard.address)
     await NiftyRegistry.setTokenAddress(NiftyYardToken.address)
     //console.log("setBridgeMediatorAddress",NiftyMediator.address)
     //await NiftyRegistry.setBridgeMediatorAddress(NiftyMediator.address)

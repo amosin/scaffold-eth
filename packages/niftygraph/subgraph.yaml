@@ -6,7 +6,7 @@ dataSources:
     name: NiftyYard
     network: xdai
     source:
-      address: '0xCE3e5195689CD382E49A0e81a90cB67d60CD17D0'
+      address: '0x29625ad8c2d63eB369A51662bB0B2EB873d327DD'
       abi: NiftyYard
       startBlock: 1
     mapping:
@@ -15,8 +15,8 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - File
-        - Artist
-        - InkNumberLookUp
+        - Creator
+        - NftNumberLookUp
       abis:
         - name: NiftyYard
           file: ./abis/NiftyYard.json
@@ -24,7 +24,7 @@ dataSources:
         - event: newFile(uint256,indexed address,string,string,uint256)
           handler: handlenewFile
         - event: newFilePrice(string,uint256)
-          handler: handleNewInkPrice
+          handler: handleNewNftPrice
         - event: ownershipChange(string,indexed address,indexed address)
           handler: handleownershipChange
 #      callHandlers:
@@ -37,7 +37,7 @@ dataSources:
     name: NiftyYardToken
     network: xdai
     source:
-      address: '0x5681eE4B007B12e8Af0B6BEbfbC9DcfAfc4c3EBF'
+      address: '0xeef316ce2793D7F42613e9bD256F42873137F979'
       abi: NiftyYardToken
       startBlock: 1
     mapping:
@@ -57,10 +57,10 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-        - event: boughtInk(uint256,string,address,uint256)
-          handler: handleBoughtInk
-        - event: mintedInk(uint256,string,address)
-          handler: handleMintedInk
+        - event: boughtNft(uint256,string,address,uint256)
+          handler: handleBoughtNft
+        - event: mintedNft(uint256,string,address)
+          handler: handleMintedNft
         - event: newTokenPrice(uint256,uint256)
           handler: handleNewTokenPrice
 #      callHandlers:
@@ -89,38 +89,38 @@ dataSources:
 #      eventHandlers:
 #        - event: Transfer(indexed address,indexed address,indexed uint256)
 #          handler: handleTransfer
-#        - event: mintedInk(uint256,string,address)
+#        - event: mintedNft(uint256,string,address)
 #          handler: handleMintedOnMain
 #      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: NiftyMediator
-    network: xdai
-    source:
-      address: '0x1DfA55B9b127D4effAb4D21a7c4DED33BDa8fe0C'
-      abi: NiftyMediator
-      startBlock: 1
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Token
-      abis:
-        - name: NiftyMediator
-          file: ./abis/NiftyMediator.json
-        - name: NiftyYardToken
-          file: ./abis/NiftyYardToken.json
-      eventHandlers:
-        - event: tokenSentViaBridge(uint256,bytes32)
-          handler: handleTokenSentViaBridge
-        - event: newPrice(uint256)
-          handler: handleNewRelayPrice
-      file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: NiftyMediator
+  #   network: xdai
+  #   source:
+  #     address: ''
+  #     abi: NiftyMediator
+  #     startBlock: 1
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Token
+  #     abis:
+  #       - name: NiftyMediator
+  #         file: ./abis/NiftyMediator.json
+  #       - name: NiftyYardToken
+  #         file: ./abis/NiftyYardToken.json
+  #     eventHandlers:
+  #       - event: tokenSentViaBridge(uint256,bytes32)
+  #         handler: handleTokenSentViaBridge
+  #       - event: newPrice(uint256)
+  #         handler: handleNewRelayPrice
+  #     file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Liker
     network: xdai
     source:
-      address: '0xa45a93259d2D1f7BE1D5CbDF1f37E51135012ae5'
+      address: '0x6cBB28eC6ab6467A5ef1Bc1080B6Cd48c9b360fD'
       abi: Liker
       startBlock: 1
     mapping:

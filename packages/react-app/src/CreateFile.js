@@ -37,19 +37,19 @@ export default function CreateFile(props) {
   const [attributeValue, setAttributeValue] = useState([]);
   const [imageUrl, setImageUrl] = useAtom(imageUrlAtom);
 
-  const mintInk = async (inkUrl, jsonUrl, limit) => {
+  const mintNft = async (nftUrl, jsonUrl, limit) => {
     let contractName = "NiftyYard";
-    let regularFunction = "createInk";
+    let regularFunction = "createNft";
     let regularFunctionArgs = [
-      inkUrl,
+      nftUrl,
       jsonUrl,
-      props.ink.attributes[0]["value"],
+      props.nft.attributes[0]["value"],
     ];
-    let signatureFunction = "createInkFromSignature";
+    let signatureFunction = "createNftFromSignature";
     let signatureFunctionArgs = [
-      inkUrl,
+      nftUrl,
       jsonUrl,
-      props.ink.attributes[0]["value"],
+      props.nft.attributes[0]["value"],
       props.address,
     ];
     let getSignatureTypes = [
@@ -66,12 +66,12 @@ export default function CreateFile(props) {
       "0x0",
       props.readKovanContracts["NiftyYard"].address,
       props.address,
-      inkUrl,
+      nftUrl,
       jsonUrl,
       limit,
     ];
 
-    let createInkConfig = {
+    let createNftConfig = {
       ...props.transactionConfig,
       contractName,
       regularFunction,
@@ -82,14 +82,14 @@ export default function CreateFile(props) {
       getSignatureArgs,
     };
 
-    console.log(createInkConfig);
+    console.log(createNftConfig);
 
-    let result = await transactionHandler(createInkConfig);
+    let result = await transactionHandler(createNftConfig);
 
     return result;
   };
 
-  const createInk = async (values) => {
+  const createNft = async (values) => {
     console.log("Success:", values);
     console.log("imageUrl", imageUrl);
 
@@ -97,20 +97,20 @@ export default function CreateFile(props) {
 
     let imageBuffer = Buffer.from(imageUrl.split(",")[1], "base64");
 
-    let currentInk = props.ink;
+    let currentNft = props.nft;
 
-    currentInk["attributes"] = [
+    currentNft["attributes"] = [
       {
         trait_type: "Limit",
         value: values.limit.toString(),
       },
     ];
     if (values.attributes) {
-      values.attributes.forEach(attrib => currentInk["attributes"].push(attrib));
+      values.attributes.forEach(attrib => currentNft["attributes"].push(attrib));
     }
     
 
-    currentInk["name"] = values.title;
+    currentNft["name"] = values.title;
     let newEns;
     try {
       newEns = await props.mainnetProvider.lookupAddress(props.address);
@@ -119,7 +119,7 @@ export default function CreateFile(props) {
     }
     const timeInMs = new Date();
     const addressForDescription = !newEns ? props.address : newEns;
-    currentInk["description"] =
+    currentNft["description"] =
       "NFT Minted by " +
       addressForDescription +
       " on " +
@@ -130,19 +130,19 @@ export default function CreateFile(props) {
     const imageHash = await Hash.of(imageBuffer);
     console.log("imageHash", imageHash);
 
-    currentInk["image"] = "https://ipfs.io/ipfs/" + imageHash;
-    currentInk["external_url"] = "https://nifty.ink/" + imageHash;
-    props.setInk(currentInk);
-    console.log("Ink:", props.ink);
+    currentNft["image"] = "https://ipfs.io/ipfs/" + imageHash;
+    currentNft["external_url"] = "https://nftyard.io/" + imageHash;
+    props.setNft(currentNft);
+    console.log("Nft:", props.nft);
 
-    var inkStr = JSON.stringify(props.ink);
-    const inkBuffer = Buffer.from(inkStr);
+    var nftStr = JSON.stringify(props.nft);
+    const nftBuffer = Buffer.from(nftStr);
 
-    const jsonHash = await Hash.of(inkBuffer);
+    const jsonHash = await Hash.of(nftBuffer);
     console.log("jsonHash", jsonHash);
 
     try {
-      var mintResult = await mintInk(
+      var mintResult = await mintNft(
         imageHash,
         jsonHash,
         values.limit.toString()
@@ -178,12 +178,12 @@ export default function CreateFile(props) {
 
     if (mintResult) {
       const imageResult = addToIPFS(imageBuffer, props.ipfsConfig);
-      const inkResult = addToIPFS(inkBuffer, props.ipfsConfig);
+      const nftResult = addToIPFS(nftBuffer, props.ipfsConfig);
 
       const imageResultInfura = addToIPFS(imageBuffer, props.ipfsConfigInfura);
-      const inkResultInfura = addToIPFS(inkBuffer, props.ipfsConfigInfura);
+      const nftResultInfura = addToIPFS(nftBuffer, props.ipfsConfigInfura);
 
-      Promise.all([imageResult, inkResult]).then((values) => {
+      Promise.all([imageResult, nftResult]).then((values) => {
         console.log("FINISHED UPLOADING TO PINNER", values);
         message.destroy();
       });
@@ -191,7 +191,7 @@ export default function CreateFile(props) {
       setSending(false);
       history.push("/assets/" + imageHash);
 
-      Promise.all([imageResultInfura, inkResultInfura]).then((values) => {
+      Promise.all([imageResultInfura, nftResultInfura]).then((values) => {
         console.log("INFURA FINISHED UPLOADING!", values);
       });
 
@@ -210,7 +210,7 @@ export default function CreateFile(props) {
       <Form
         layout={"horizontal"}
         name="createFile"
-        onFinish={createInk}
+        onFinish={createNft}
         onFinishFailed={onFinishFailed}
         labelAlign={"middle"}
         style={{ justifyContent: "center", marginBottom: "30px" }}

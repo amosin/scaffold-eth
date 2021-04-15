@@ -9,21 +9,21 @@ contract NiftyMain is ERC721, Ownable {
         _setBaseURI("ipfs://ipfs/");
     }
 
-    // event mintedInk(
+    // event mintedNft(
     //     uint256 id,
-    //     string inkUrl,
+    //     string nftUrl,
     //     string jsonUrl,
     //     address to,
     //     bytes32 msgId
     // );
 
-    // mapping(string => EnumerableSet.UintSet) private _inkTokens;
-    // mapping(uint256 => string) public tokenInk;
+    // mapping(string => EnumerableSet.UintSet) private _nftTokens;
+    // mapping(uint256 => string) public tokenNft;
 
     // function mint(
     //     address to,
     //     uint256 tokenId,
-    //     string calldata inkUrl,
+    //     string calldata nftUrl,
     //     string calldata jsonUrl
     // ) external returns (uint256) {
     //     require(msg.sender == address(bridgeContract()));
@@ -31,31 +31,31 @@ contract NiftyMain is ERC721, Ownable {
     //         bridgeContract().messageSender() == mediatorContractOnOtherSide()
     //     );
 
-    //     _inkTokens[inkUrl].add(tokenId);
-    //     tokenInk[tokenId] = inkUrl;
+    //     _nftTokens[nftUrl].add(tokenId);
+    //     tokenNft[tokenId] = nftUrl;
     //     _safeMint(to, tokenId);
     //     _setTokenURI(tokenId, jsonUrl);
     //     bytes32 msgId = messageId();
 
-    //     emit mintedInk(tokenId, inkUrl, jsonUrl, to, msgId);
+    //     emit mintedNft(tokenId, nftUrl, jsonUrl, to, msgId);
 
     //     return tokenId;
     // }
 
-    // function inkTokenCount(string memory _inkUrl)
+    // function nftTokenCount(string memory _nftUrl)
     //     public
     //     view
     //     returns (uint256)
     // {
-    //     uint256 _inkTokenCount = _inkTokens[_inkUrl].length();
-    //     return _inkTokenCount;
+    //     uint256 _nftTokenCount = _nftTokens[_nftUrl].length();
+    //     return _nftTokenCount;
     // }
 
-    // function inkTokenByIndex(string memory inkUrl, uint256 index)
+    // function nftTokenByIndex(string memory nftUrl, uint256 index)
     //     public
     //     view
     //     returns (uint256)
     // {
-    //     return _inkTokens[inkUrl].at(index);
+    //     return _nftTokens[nftUrl].at(index);
     // }
 }

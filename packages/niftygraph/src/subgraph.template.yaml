@@ -15,8 +15,8 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - File
-        - Artist
-        - InkNumberLookUp
+        - Creator
+        - NftNumberLookUp
       abis:
         - name: NiftyYard
           file: ./abis/NiftyYard.json
@@ -24,7 +24,7 @@ dataSources:
         - event: newFile(uint256,indexed address,string,string,uint256)
           handler: handlenewFile
         - event: newFilePrice(string,uint256)
-          handler: handleNewInkPrice
+          handler: handleNewNftPrice
         - event: ownershipChange(string,indexed address,indexed address)
           handler: handleownershipChange
 #      callHandlers:
@@ -57,10 +57,10 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-        - event: boughtInk(uint256,string,address,uint256)
-          handler: handleBoughtInk
-        - event: mintedInk(uint256,string,address)
-          handler: handleMintedInk
+        - event: boughtNft(uint256,string,address,uint256)
+          handler: handleBoughtNft
+        - event: mintedNft(uint256,string,address)
+          handler: handleMintedNft
         - event: newTokenPrice(uint256,uint256)
           handler: handleNewTokenPrice
 #      callHandlers:
@@ -89,33 +89,33 @@ dataSources:
 #      eventHandlers:
 #        - event: Transfer(indexed address,indexed address,indexed uint256)
 #          handler: handleTransfer
-#        - event: mintedInk(uint256,string,address)
+#        - event: mintedNft(uint256,string,address)
 #          handler: handleMintedOnMain
 #      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: NiftyMediator
-    network: xdai
-    source:
-      address: '{{NiftyMediatorAddress}}'
-      abi: NiftyMediator
-      startBlock: 1
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Token
-      abis:
-        - name: NiftyMediator
-          file: ./abis/NiftyMediator.json
-        - name: NiftyYardToken
-          file: ./abis/NiftyYardToken.json
-      eventHandlers:
-        - event: tokenSentViaBridge(uint256,bytes32)
-          handler: handleTokenSentViaBridge
-        - event: newPrice(uint256)
-          handler: handleNewRelayPrice
-      file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: NiftyMediator
+  #   network: xdai
+  #   source:
+  #     address: '{{NiftyMediatorAddress}}'
+  #     abi: NiftyMediator
+  #     startBlock: 1
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Token
+  #     abis:
+  #       - name: NiftyMediator
+  #         file: ./abis/NiftyMediator.json
+  #       - name: NiftyYardToken
+  #         file: ./abis/NiftyYardToken.json
+  #     eventHandlers:
+  #       - event: tokenSentViaBridge(uint256,bytes32)
+  #         handler: handleTokenSentViaBridge
+  #       - event: newPrice(uint256)
+  #         handler: handleNewRelayPrice
+  #     file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Liker
     network: xdai

@@ -1,7 +1,7 @@
 pragma solidity ^0.6.6;
 
 interface INiftyYardRegistry {
-    function inkAddress() external view returns (address);
+    function nftAddress() external view returns (address);
 
     function tokenAddress() external view returns (address);
 
