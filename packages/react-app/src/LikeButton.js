@@ -28,11 +28,11 @@ export default function LikeButton(props) {
     const getLikeInfo = async () => {
       if (readContracts) {
         try {
-          const newInkLikes = await readContracts["Liker"]["getLikesByTarget"](
+          const newNftLikes = await readContracts["Liker"]["getLikesByTarget"](
             props.contractAddress,
             props.targetId
           );
-          setLikes(newInkLikes);
+          setLikes(newNftLikes);
           const newHasLiked = await readContracts["Liker"]["checkLike"](
             props.contractAddress,
             props.targetId,
@@ -100,7 +100,7 @@ export default function LikeButton(props) {
 
                 if (result) {
                   notification.open({
-                    message: "You liked this ink!",
+                    message: "You liked this nft!",
                     description: (
                       <a
                         target="_blank"

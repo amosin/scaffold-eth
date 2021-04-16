@@ -1,8 +1,8 @@
 import { Button, Drawer } from 'antd';
 import React, { useState } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import AllInks from './AllInks.js';
-import Artist from './Artist.js';
+import AllNfts from './AllNfts.js';
+import Creator from './Creator.js';
 import { Account } from './components';
 import Footer from './components/Footer';
 import Homepage from './components/Homepage';
@@ -12,7 +12,7 @@ import DebugContracts from './DebugContracts.js';
 import Help from './Help.js';
 import Holdings from './Holdings.js';
 import { useContractReader, useLocalStorage } from './hooks';
-import ViewInk from './ViewInk.js';
+import ViewNft from './ViewNft.js';
 
 
 const Web3HttpProvider = require('web3-providers-http');
@@ -42,13 +42,13 @@ export default function NftyWallet(props) {
   const [drawing, setDrawing] = useLocalStorage('drawing');
   const [viewDrawing, setViewDrawing] = useState();
   const [ipfsHash, setIpfsHash] = useState();
-  const [ink, setInk] = useState({});
+  const [nft, setNft] = useState({});
   const [renderKey, setRenderKey] = useState(Date.now());
   const [canvasKey, setCanvasKey] = useState(Date.now());
 
   const [injectedGsnSigner, setInjectedGsnSigner] = useState();
 
-  const [artist, setArtist] = useState();
+  const [creator, setCreator] = useState();
   const [drawerVisibility, setDrawerVisibility] = useState(false);
 
   let transactionConfig = {
@@ -61,18 +61,18 @@ export default function NftyWallet(props) {
 
   let nftyBalance = useContractReader(
     props.readKovanContracts,
-    'NiftyToken',
+    'NiftyYardToken',
     'balanceOf',
     [props.address],
     4000
   );
-  let nftyMainBalance = useContractReader(
-    props.readContracts,
-    'NiftyMain',
-    'balanceOf',
-    [props.address],
-    4000
-  );
+  // let nftyMainBalance = useContractReader(
+  //   props.readContracts,
+  //   'NiftyMain',
+  //   'balanceOf',
+  //   [props.address],
+  //   4000
+  // );
   let upgradePrice = useContractReader(
     props.readKovanContracts,
     'NiftyMediator',
@@ -80,11 +80,11 @@ export default function NftyWallet(props) {
     29999
   );
 
-  let displayBalance;
-  if (nftyMainBalance && nftyBalance) {
-    displayBalance =
-      Number(nftyMainBalance.toString()) + Number(nftyBalance.toString());
-  }
+  // let displayBalance;
+  // if (nftyMainBalance && nftyBalance) {
+  //   displayBalance =
+  //     Number(nftyMainBalance.toString()) + Number(nftyBalance.toString());
+  // }
 
   const showDrawer = () => {
     setDrawerVisibility(true);
@@ -117,7 +117,7 @@ export default function NftyWallet(props) {
 
           <Switch>
             <Route exact path="/">
-            <AllInks />
+            <AllNfts />
               {/* <Homepage
                 localProvider={props.localProvider}
                 injectedProvider={props.injectedProvider}
@@ -127,10 +127,10 @@ export default function NftyWallet(props) {
               <DebugContracts {...props} />
             </Route>
             <Route path="/latest">
-              <AllInks />
+              <AllNfts />
             </Route>
             {/* <Route path="/curated">
-            <CuratedInks {...props} />
+            <CuratedNfts {...props} />
           </Route> */}
 
             <Route path="/holdings">
@@ -143,7 +143,7 @@ export default function NftyWallet(props) {
             </Route>
 
             <Route path="/accounts/:address">
-              <Artist {...props} />
+              <Creator {...props} />
             </Route>
 
             <Route path="/create-asset">
@@ -158,11 +158,11 @@ export default function NftyWallet(props) {
                 kovanProvider={props.kovanProvider}
                 readKovanContracts={props.readKovanContracts}
                 mode={mode}
-                ink={ink}
+                nft={nft}
                 ipfsHash={ipfsHash}
                 setMode={setMode}
                 setIpfsHash={setIpfsHash}
-                setInk={setInk}
+                setNft={setNft}
                 drawing={drawing}
                 setDrawing={setDrawing}
                 viewDrawing={viewDrawing}
@@ -177,7 +177,7 @@ export default function NftyWallet(props) {
 
             {/* <Route path="/create">
             <div>
-              <CreateInk
+              <CreateNft
                 {...props}
                 key={renderKey}
                 canvasKey={canvasKey}
@@ -188,11 +188,11 @@ export default function NftyWallet(props) {
                 kovanProvider={props.kovanProvider}
                 readKovanContracts={props.readKovanContracts}
                 mode={mode}
-                ink={ink}
+                nft={nft}
                 ipfsHash={ipfsHash}
                 setMode={setMode}
                 setIpfsHash={setIpfsHash}
-                setInk={setInk}
+                setNft={setNft}
                 drawing={drawing}
                 setDrawing={setDrawing}
                 viewDrawing={viewDrawing}
@@ -208,16 +208,16 @@ export default function NftyWallet(props) {
 
             <Route path="/assets/:hash">
               <div>
-                <ViewInk
+                <ViewNft
                   {...props}
                   address={props.address}
-                  artist={artist}
+                  creator={creator}
                   calculatedVmin={calculatedVmin}
                   canvasKey={canvasKey}
                   drawing={drawing}
                   gasPrice={props.gasPrice}
                   injectedProvider={props.injectedProvider}
-                  ink={ink}
+                  nft={nft}
                   ipfsConfig={ipfsConfig}
                   ipfsConfigInfura={ipfsConfigInfura}
                   ipfsHash={ipfsHash}
@@ -227,9 +227,9 @@ export default function NftyWallet(props) {
                   metaProvider={props.metaProvider}
                   readContracts={props.readContracts}
                   readKovanContracts={props.readKovanContracts}
-                  setArtist={setArtist}
+                  setCreator={setCreator}
                   setDrawing={setDrawing}
-                  setInk={setInk}
+                  setNft={setNft}
                   setIpfsHash={setIpfsHash}
                   setMode={setMode}
                   setTab={setTab}

@@ -8,6 +8,31 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address payable",
+        "name": "relayerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "functionSignature",
+        "type": "bytes"
+      }
+    ],
+    "name": "MetaTransactionExecuted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -35,7 +60,7 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "artist",
+        "name": "creator",
         "type": "address"
       },
       {
@@ -91,13 +116,13 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "artist",
+        "name": "creator",
         "type": "address"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "newArtist",
+        "name": "newCreator",
         "type": "address"
       }
     ],
@@ -106,12 +131,12 @@
   },
   {
     "inputs": [],
-    "name": "artistTake",
+    "name": "ERC712_VERSION",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -177,7 +202,7 @@
         "type": "uint256"
       }
     ],
-    "name": "createInk",
+    "name": "createNft",
     "outputs": [
       {
         "internalType": "uint256",
@@ -207,7 +232,7 @@
       },
       {
         "internalType": "address payable",
-        "name": "artist",
+        "name": "creator",
         "type": "address"
       },
       {
@@ -216,7 +241,7 @@
         "type": "bytes"
       }
     ],
-    "name": "createInkFromSignature",
+    "name": "createNftFromSignature",
     "outputs": [
       {
         "internalType": "uint256",
@@ -225,6 +250,103 @@
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "creatorTake",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "functionSignature",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "sigR",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "sigS",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "sigV",
+        "type": "uint8"
+      }
+    ],
+    "name": "executeMetaTransaction",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getChainId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDomainSeperator",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getNonce",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -252,19 +374,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "getTrustedForwarder",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "string",
@@ -272,7 +381,7 @@
         "type": "string"
       }
     ],
-    "name": "inkIdByInkUrl",
+    "name": "nftIdByNftUrl",
     "outputs": [
       {
         "internalType": "uint256",
@@ -291,7 +400,7 @@
         "type": "uint256"
       }
     ],
-    "name": "inkInfoById",
+    "name": "nftInfoById",
     "outputs": [
       {
         "internalType": "uint256",
@@ -345,7 +454,7 @@
         "type": "string"
       }
     ],
-    "name": "inkInfoByInkUrl",
+    "name": "nftInfoByNftUrl",
     "outputs": [
       {
         "internalType": "uint256",
@@ -395,7 +504,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "artist",
+        "name": "creator",
         "type": "address"
       },
       {
@@ -404,7 +513,7 @@
         "type": "uint256"
       }
     ],
-    "name": "inkOfArtistByIndex",
+    "name": "nftOfCreatorByIndex",
     "outputs": [
       {
         "internalType": "uint256",
@@ -419,35 +528,16 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "artist",
+        "name": "creator",
         "type": "address"
       }
     ],
-    "name": "inksCreatedBy",
+    "name": "nftsCreatedBy",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "forwarder",
-        "type": "address"
-      }
-    ],
-    "name": "isTrustedForwarder",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -489,12 +579,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_take",
-        "type": "uint256"
+        "internalType": "bool",
+        "name": "newFlag",
+        "type": "bool"
       }
     ],
-    "name": "setArtistTake",
+    "name": "setCheckSignatureFlag",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -502,12 +592,12 @@
   {
     "inputs": [
       {
-        "internalType": "bool",
-        "name": "newFlag",
-        "type": "bool"
+        "internalType": "uint256",
+        "name": "_take",
+        "type": "uint256"
       }
     ],
-    "name": "setCheckSignatureFlag",
+    "name": "setCreatorTake",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -579,21 +669,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_trustedForwarder",
-        "type": "address"
-      }
-    ],
-    "name": "setTrustedForwarder",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "totalInks",
+    "name": "totalNfts",
     "outputs": [
       {
         "internalType": "uint256",
@@ -613,12 +690,12 @@
       },
       {
         "internalType": "address",
-        "name": "artist",
+        "name": "creator",
         "type": "address"
       },
       {
         "internalType": "address payable",
-        "name": "newArtist",
+        "name": "newCreator",
         "type": "address"
       },
       {
@@ -643,19 +720,6 @@
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "versionRecipient",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   }
 ]

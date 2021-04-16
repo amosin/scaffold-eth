@@ -78,9 +78,9 @@ export default function Help() {
         </Row>
       </ul>
       <Divider />
-      <h2 style={{ fontWeight: "bold" }}>Upgrade inks to Ethereum mainnet</h2>
+      <h2 style={{ fontWeight: "bold" }}>Upgrade nfts to Ethereum mainnet</h2>
       <p>
-        You can upgrade your inks from xDai to the Ethereum mainnet via the{" "}
+        You can upgrade your nfts from xDai to the Ethereum mainnet via the{" "}
         <a href="https://docs.tokenbridge.net/amb-bridge/about-amb-bridge">
           Tokenbridge
         </a>

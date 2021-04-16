@@ -21,8 +21,8 @@ exports.preRender = functions.https.onRequest((request, response) => {
     // Changing metas function
     const setMetas = (imageLink) => {
 
-        index = index.replace('https://ipfs.nifty.ink/unfurl.png', imageLink);
-        index = index.replace('https://ipfs.nifty.ink/unfurl.png', imageLink);
+        index = index.replace('https://ipfs.nftyard.io/unfurl.png', imageLink);
+        index = index.replace('https://ipfs.nftyard.io/unfurl.png', imageLink);
 
     }
 
@@ -49,7 +49,7 @@ exports.preRender = functions.https.onRequest((request, response) => {
 
         const hashMatch = /^Qm[A-Za-z]+/;
         if (hashMatch.test(path[lastItem]))  {
-          setMetas("https://ipfs.nifty.ink/" + path[lastItem])
+          setMetas("https://ipfs.nftyard.io/" + path[lastItem])
         }
       } catch(e) {
         console.log(e.message)

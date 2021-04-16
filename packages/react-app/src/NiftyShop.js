@@ -36,8 +36,8 @@ export default function NiftyShop(props) {
     let result;
 
     try {
-      if (props.type === "ink") {
-        let contractName = "NiftyInk";
+      if (props.type === "nft") {
+        let contractName = "NiftyYard";
         let regularFunction = "setPrice";
         let regularFunctionArgs = [props.itemForSale, multipliedPrice];
         let signatureFunction = "setPriceFromSignature";
@@ -53,7 +53,7 @@ export default function NiftyShop(props) {
         let getSignatureArgs = [
           "0x19",
           "0x0",
-          metaWriteContracts["NiftyInk"].address,
+          metaWriteContracts["NiftyYard"].address,
           props.itemForSale,
           multipliedPrice,
           props.priceNonce,
@@ -77,12 +77,12 @@ export default function NiftyShop(props) {
     let signature = await getSignature(
       props.injectedProvider, props.address,
       ['bytes','bytes','address','string','uint256','uint256'],
-      ['0x19','0x0',metaWriteContracts["NiftyInk"].address,props.itemForSale,multipliedPrice,props.priceNonce])
+      ['0x19','0x0',metaWriteContracts["NiftyYard"].address,props.itemForSale,multipliedPrice,props.priceNonce])
 
-    result = await tx(metaWriteContracts["NiftyInk"].setPriceFromSignature(props.itemForSale, multipliedPrice, signature, { gasPrice:props.gasPrice } ))
+    result = await tx(metaWriteContracts["NiftyYard"].setPriceFromSignature(props.itemForSale, multipliedPrice, signature, { gasPrice:props.gasPrice } ))
     */
       } else if (props.type === "token") {
-        let contractName = "NiftyToken";
+        let contractName = "NiftyYardToken";
         let regularFunction = "setTokenPrice";
         let regularFunctionArgs = [props.itemForSale, multipliedPrice];
 
@@ -97,10 +97,10 @@ export default function NiftyShop(props) {
 
         result = await transactionHandler(txConfig);
 
-        //result = await tx(writeContracts["NiftyToken"].setTokenPrice(props.itemForSale, multipliedPrice, { gasPrice:props.gasPrice } ))
+        //result = await tx(writeContracts["NiftyYardToken"].setTokenPrice(props.itemForSale, multipliedPrice, { gasPrice:props.gasPrice } ))
       }
       notification.open({
-        message: "New price set for " + props.ink.name,
+        message: "New price set for " + props.nft.name,
         description: "$" + parseFloat(values["price"]).toFixed(2),
       });
       priceForm.resetFields();
@@ -117,7 +117,7 @@ export default function NiftyShop(props) {
     }
   };
 
-  const buyInk = async (values) => {
+  const buyNft = async (values) => {
     console.log("values", values);
     setBuying(true);
     let bigNumber = ethers.utils.bigNumberify(props.price);
@@ -125,13 +125,13 @@ export default function NiftyShop(props) {
 
     let result;
 
-    let contractName = "NiftyToken";
+    let contractName = "NiftyYardToken";
     let regularFunctionArgs = [props.itemForSale];
     let payment = hex;
     let regularFunction;
-    if (props.type === "ink") {
-      regularFunction = "buyInk";
-      //result = await tx(writeContracts["NiftyToken"].buyInk(props.itemForSale, { value: hex } ))
+    if (props.type === "nft") {
+      regularFunction = "buyNft";
+      //result = await tx(writeContracts["NiftyYardToken"].buyNft(props.itemForSale, { value: hex } ))
     } else if (props.type === "token") {
       regularFunction = "buyToken";
     }
@@ -149,19 +149,19 @@ export default function NiftyShop(props) {
     try {
       result = await transactionHandler(txConfig);
 
-      //result = await tx(writeContracts["NiftyToken"].buyToken(props.itemForSale, { value: hex } ))
+      //result = await tx(writeContracts["NiftyYardToken"].buyToken(props.itemForSale, { value: hex } ))
       console.log(result);
       setBuying(false);
       if (result) {
         notification.open({
           message: (
             <>
-              <span style={{ marginRight: 8 }}>💵</span>Purchased Ink
+              <span style={{ marginRight: 8 }}>💵</span>Purchased Nft
             </>
           ),
           description:
             "You bought one " +
-            props.ink.name +
+            props.nft.name +
             " for $" +
             parseFloat(ethers.utils.formatEther(props.price)).toFixed(2),
         });
@@ -194,7 +194,7 @@ export default function NiftyShop(props) {
           <Form.Item
             name="price"
             rules={[
-              { required: true, message: "What is the price of this ink?" },
+              { required: true, message: "What is the price of this nft?" },
             ]}
           >
             <InputNumber
@@ -230,7 +230,7 @@ export default function NiftyShop(props) {
           </Button>
         </Popover>
       );
-    } else if (props.type === "ink" && (props.price > 0 || newPrice > 0)) {
+    } else if (props.type === "nft" && (props.price > 0 || newPrice > 0)) {
       shopButton = (
         <Popover content={setPriceForm} title={"Set price:"}>
           <Button type="secondary">
@@ -242,7 +242,7 @@ export default function NiftyShop(props) {
           </Button>
         </Popover>
       );
-    } else if (props.type === "ink") {
+    } else if (props.type === "nft") {
       shopButton = setPriceForm;
     }
   } else if (props.price > 0) {
@@ -250,11 +250,11 @@ export default function NiftyShop(props) {
       <Popconfirm
         title={
           'Purchase "' +
-          props.ink.name +
+          props.nft.name +
           '" for $' +
           parseFloat(ethers.utils.formatEther(props.price)).toFixed(2)
         }
-        onConfirm={buyInk}
+        onConfirm={buyNft}
         okText="Purchase"
         cancelText="Cancel"
         icon={<ShoppingCartOutlined />}

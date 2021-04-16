@@ -2,7 +2,7 @@ const ipfsAPI = require('ipfs-http-client');
 const { globSource } = ipfsAPI
 const ipfs = ipfsAPI({host: 'ipfs.infura.io', port: '5001', protocol: 'https' })
 //run your own ipfs daemon: https://docs.ipfs.io/how-to/command-line-quick-start/#install-ipfs
-//const ipfs = ipfsAPI({host: 'ipfs.nifty.ink', port: '5001', protocol: 'http' })
+//const ipfs = ipfsAPI({host: 'ipfs.nftyard.io', port: '5001', protocol: 'http' })
 
 const addOptions = {
   pin: true,//uncomment for localhost

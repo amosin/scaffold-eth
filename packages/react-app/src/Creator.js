@@ -2,27 +2,27 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { useQuery } from "react-apollo";
-import { ARTISTS_QUERY } from "./apollo/queries";
+import { CREATORS_QUERY } from "./apollo/queries";
 import { isBlocklisted } from "./helpers";
 import { Row, Col, Divider, Button, Form, notification } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Blockies from "react-blockies";
 import { AddressInput, Loader } from "./components";
 
-export default function Artist(props) {
+export default function Creator(props) {
   const { address } = useParams();
-  const [inks, setInks] = useState([]);
-  const [searchArtist] = Form.useForm();
+  const [nfts, setNfts] = useState([]);
+  const [searchCreator] = Form.useForm();
   const history = useHistory();
 
-  const { loading, error, data } = useQuery(ARTISTS_QUERY, {
+  const { loading, error, data } = useQuery(CREATORS_QUERY, {
     variables: { address: address },
   });
 
   const search = async (values) => {
     try {
       const newAddress = ethers.utils.getAddress(values["address"]);
-      setInks([]);
+      setNfts([]);
       history.push("/accounts/" + newAddress);
     } catch (e) {
       console.log("not an address");
@@ -41,9 +41,9 @@ export default function Artist(props) {
     return (
       <Row style={{ justifyContent: "center" }}>
         <Form
-          form={searchArtist}
+          form={searchCreator}
           layout={"inline"}
-          name="searchArtist"
+          name="searchCreator"
           onFinish={search}
           onFinishFailed={onFinishFailed}
         >
@@ -76,18 +76,18 @@ export default function Artist(props) {
       return data;
     };
 
-    const getInks = (data) => {
-      setInks([]);
-      data.forEach(async (ink) => {
-        if (isBlocklisted(ink.jsonUrl)) return;
-        let _ink = ink;
-        _ink.metadata = await getMetadata(ink.jsonUrl);
-        setInks((inks) => [...inks, _ink]);
+    const getNfts = (data) => {
+      setNfts([]);
+      data.forEach(async (nft) => {
+        if (isBlocklisted(nft.jsonUrl)) return;
+        let _nft = nft;
+        _nft.metadata = await getMetadata(nft.jsonUrl);
+        setNfts((nfts) => [...nfts, _nft]);
       });
     };
 
-    data !== undefined && data.artists[0]
-      ? getInks(data.artists[0].inks)
+    data !== undefined && data.creators[0]
+      ? getNfts(data.creators[0].nfts)
       : console.log("loading");
   }, [data]);
 
@@ -102,22 +102,22 @@ export default function Artist(props) {
             <Blockies
               seed={address.toLowerCase()}
               size={25}
-              className="artist_blockie"
+              className="creator_blockie"
             />
             <h2 style={{ margin: 10 }}>{address.slice(0, 12)}</h2>
             <Row>
               <Col span={12}>
                 <p style={{ margin: 0 }}>
-                  <b>Inks:</b>{" "}
-                  {data.artists.length ? data.artists[0].inkCount : 0}
+                  <b>Nfts:</b>{" "}
+                  {data.creators.length ? data.creators[0].nftCount : 0}
                 </p>
               </Col>
               <Col span={12}>
                 <p style={{ margin: 0 }}>
                   <b>Total sales:</b> $
-                  {inks
-                    .filter((ink) => ink.sales.length)
-                    .map((ink) => ink.sales)
+                  {nfts
+                    .filter((nft) => nft.sales.length)
+                    .map((nft) => nft.sales)
                     .map((e) => e.flatMap((e) => Number.parseInt(e.price, 0)))
                     .flatMap((e) => e)
                     .reduce((a, b) => a + b, 0) / 1e18}
@@ -133,12 +133,12 @@ export default function Artist(props) {
           <SearchForm />
         </Col>
       </Row>
-      <div className="inks-grid">
+      <div className="nfts-grid">
         <ul style={{ padding: 0, textAlign: "center", listStyle: "none" }}>
-          {inks
-            ? inks.map((ink) => (
+          {nfts
+            ? nfts.map((nft) => (
                 <li
-                  key={ink.id}
+                  key={nft.id}
                   className="each-asset"
                   style={{
                     display: "inline-block",
@@ -152,13 +152,13 @@ export default function Artist(props) {
                   }}
                 >
                   <Link
-                    to={{ pathname: "/assets/" + ink.id }}
+                    to={{ pathname: "/assets/" + nft.id }}
                     style={{ color: "black" }}
                   >
                     <div className="assetImage">
                       <img
-                      src={ink.metadata.image}
-                      alt={ink.metadata.name}
+                      src={nft.metadata.image}
+                      alt={nft.metadata.name}
                       width="300"
                       style={{
                         border: "1px solid #e5e5e6",
@@ -169,17 +169,17 @@ export default function Artist(props) {
                     <h3
                       style={{ margin: "10px 0px 5px 0px", fontWeight: "700", color: "#ffffff" }}
                     >
-                      {ink.metadata.name.length > 18
-                        ? ink.metadata.name.slice(0, 15).concat("...")
-                        : ink.metadata.name}
+                      {nft.metadata.name.length > 18
+                        ? nft.metadata.name.slice(0, 15).concat("...")
+                        : nft.metadata.name}
                     </h3>
 
                     <Row
                       align="middle"
                       style={{ textAlign: "center", justifyContent: "center" }}
                     >
-                      {ink.mintPrice > 0 &&
-                      (ink.limit === 0 || ink.count < ink.limit) ? (
+                      {nft.mintPrice > 0 &&
+                      (nft.limit === 0 || nft.count < nft.limit) ? (
                         <>
                           <p
                             style={{
@@ -187,7 +187,7 @@ export default function Artist(props) {
                               margin: "0",
                             }}
                           >
-                            <b>{ink.mintPrice / 1e18} </b>
+                            <b>{nft.mintPrice / 1e18} </b>
                           </p>
 
                           <img
@@ -209,8 +209,8 @@ export default function Artist(props) {
                     <Divider style={{ margin: "8px 0px" }} />
                     <p style={{ color: "#5e5e5e", margin: "0", zoom: 0.8 }}>
                       {"Edition: " +
-                        ink.count +
-                        (ink.limit > 0 ? "/" + ink.limit : "")}
+                        nft.count +
+                        (nft.limit > 0 ? "/" + nft.limit : "")}
                     </p>
                   </Link>
                 </li>

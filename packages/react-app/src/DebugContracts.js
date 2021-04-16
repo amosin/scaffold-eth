@@ -9,7 +9,7 @@ const targetNetwork = NETWORKS["localhost"];
 
 const blockExplorer = targetNetwork.blockExplorer;
 
-const contractsToDebug = ["NiftyInk", "NiftyToken"];
+const contractsToDebug = ["NiftyYard", "NiftyYardToken"];
 
 function DebugContracts({ address, localProvider, injectedProvider }) {
   const userProvider = useUserProvider(injectedProvider, localProvider);

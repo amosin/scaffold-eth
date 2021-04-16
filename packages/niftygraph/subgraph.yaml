@@ -3,28 +3,34 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: NiftyInk
-    network: mumbai
+    name: NiftyYard
+    network: xdai
     source:
+<<<<<<< HEAD
       address: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6'
       abi: NiftyInk
       startBlock: 12685960
+=======
+      address: '0x4caB2e23c50eD20DE83f3FD15eFEa21663776e15'
+      abi: NiftyYard
+      startBlock: 1
+>>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - File
-        - Artist
-        - InkNumberLookUp
+        - Creator
+        - NftNumberLookUp
       abis:
-        - name: NiftyInk
-          file: ./abis/NiftyInk.json
+        - name: NiftyYard
+          file: ./abis/NiftyYard.json
       eventHandlers:
         - event: newFile(uint256,indexed address,string,string,uint256)
           handler: handlenewFile
         - event: newFilePrice(string,uint256)
-          handler: handleNewInkPrice
+          handler: handleNewNftPrice
         - event: ownershipChange(string,indexed address,indexed address)
           handler: handleownershipChange
 #      callHandlers:
@@ -34,12 +40,18 @@ dataSources:
 #          handler: handleSetPriceFromSignature
       file: ./src/mapping.ts
   - kind: ethereum/contract
-    name: NiftyToken
-    network: mumbai
+    name: NiftyYardToken
+    network: xdai
     source:
+<<<<<<< HEAD
       address: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca'
       abi: NiftyToken
       startBlock: 12685960
+=======
+      address: '0x222271E1E73E311baF63796D9E3D57f12F7fBac0'
+      abi: NiftyYardToken
+      startBlock: 1
+>>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -50,17 +62,17 @@ dataSources:
         - Sale
         - Transfer
       abis:
-        - name: NiftyToken
-          file: ./abis/NiftyToken.json
-        - name: NiftyInk
-          file: ./abis/NiftyInk.json
+        - name: NiftyYardToken
+          file: ./abis/NiftyYardToken.json
+        - name: NiftyYard
+          file: ./abis/NiftyYard.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-        - event: boughtInk(uint256,string,address,uint256)
-          handler: handleBoughtInk
-        - event: mintedInk(uint256,string,address)
-          handler: handleMintedInk
+        - event: boughtNft(uint256,string,address,uint256)
+          handler: handleBoughtNft
+        - event: mintedNft(uint256,string,address)
+          handler: handleMintedNft
         - event: newTokenPrice(uint256,uint256)
           handler: handleNewTokenPrice
 #      callHandlers:
@@ -84,14 +96,15 @@ dataSources:
 #      abis:
 #        - name: NiftyMain
 #          file: ./abis/NiftyMain.json
-#        - name: NiftyToken
-#          file: ./abis/NiftyToken.json
+#        - name: NiftyYardToken
+#          file: ./abis/NiftyYardToken.json
 #      eventHandlers:
 #        - event: Transfer(indexed address,indexed address,indexed uint256)
 #          handler: handleTransfer
-#        - event: mintedInk(uint256,string,address)
+#        - event: mintedNft(uint256,string,address)
 #          handler: handleMintedOnMain
 #      file: ./src/mapping.ts
+<<<<<<< HEAD
   - kind: ethereum/contract
     name: NiftyMediator
     network: mumbai
@@ -116,11 +129,41 @@ dataSources:
         - event: newPrice(uint256)
           handler: handleNewRelayPrice
       file: ./src/mapping.ts
+=======
+  # - kind: ethereum/contract
+  #   name: NiftyMediator
+  #   network: xdai
+  #   source:
+  #     address: ''
+  #     abi: NiftyMediator
+  #     startBlock: 1
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Token
+  #     abis:
+  #       - name: NiftyMediator
+  #         file: ./abis/NiftyMediator.json
+  #       - name: NiftyYardToken
+  #         file: ./abis/NiftyYardToken.json
+  #     eventHandlers:
+  #       - event: tokenSentViaBridge(uint256,bytes32)
+  #         handler: handleTokenSentViaBridge
+  #       - event: newPrice(uint256)
+  #         handler: handleNewRelayPrice
+  #     file: ./src/mapping.ts
+>>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
   - kind: ethereum/contract
     name: Liker
-    network: mumbai
+    network: xdai
     source:
+<<<<<<< HEAD
       address: '0xb8AA6aA5f253Cd62991A55DC833e90422cfa87F2'
+=======
+      address: '0x7E18D4f1becd805Bb318fb1e6263759E7c2Aa726'
+>>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
       abi: Liker
       startBlock: 12685960
     mapping:

@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useQuery } from 'react-apollo';
 import { Link } from 'react-router-dom';
-import { ADMIN_INKS_QUERY } from './apollo/queries';
+import { ADMIN_NFTS_QUERY } from './apollo/queries';
 import { Loader } from './components';
 import { isBlocklisted } from './helpers';
 import { useUserProvider } from './hooks';
 
 const ADMIN_ADDRESSES = ['0x859c736870af2abe057265a7a5685ae7b6c94f15'];
 
-export default function CuratedInks({ localProvider, injectedProvider }) {
-  let [allInks, setAllInks] = useState([]);
-  let [inks, setInks] = useState({});
+export default function CuratedNfts({ localProvider, injectedProvider }) {
+  let [allNfts, setAllNfts] = useState([]);
+  let [nfts, setNfts] = useState({});
   const userProvider = useUserProvider(localProvider, injectedProvider);
   console.log('userProvider: ', userProvider);
-  const { loading, error, data, fetchMore } = useQuery(ADMIN_INKS_QUERY, {
+  const { loading, error, data, fetchMore } = useQuery(ADMIN_NFTS_QUERY, {
     variables: {
       first: 48,
       skip: 0,
@@ -28,16 +28,16 @@ export default function CuratedInks({ localProvider, injectedProvider }) {
     return data;
   };
 
-  const getInks = (data) => {
-    setAllInks([...allInks, ...data]);
-    data.forEach(async (ink) => {
-      if (isBlocklisted(ink.jsonUrl)) return;
-      let _ink = ink;
-      _ink.metadata = await getMetadata(ink.jsonUrl);
-      let _newInk = {};
-      _newInk[_ink.inkNumber] = _ink;
-      setInks((inks) => ({ ...inks, ..._newInk }));
-      //setInks((inks) => [...inks, _ink]);
+  const getNfts = (data) => {
+    setAllNfts([...allNfts, ...data]);
+    data.forEach(async (nft) => {
+      if (isBlocklisted(nft.jsonUrl)) return;
+      let _nft = nft;
+      _nft.metadata = await getMetadata(nft.jsonUrl);
+      let _newNft = {};
+      _newNft[_nft.nftNumber] = _nft;
+      setNfts((nfts) => ({ ...nfts, ..._newNft }));
+      //setNfts((nfts) => [...nfts, _nft]);
     });
   };
 
@@ -48,7 +48,7 @@ export default function CuratedInks({ localProvider, injectedProvider }) {
     ) {
       fetchMore({
         variables: {
-          skip: allInks.length,
+          skip: allNfts.length,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
@@ -56,15 +56,15 @@ export default function CuratedInks({ localProvider, injectedProvider }) {
         },
       });
     }
-  }, [fetchMore, allInks.length]);
+  }, [fetchMore, allNfts.length]);
 
   // useEffect(() => {
-  //   fakeData ? getInks(fakeData.data.inks) : console.log('loading');
+  //   fakeData ? getNfts(fakeData.data.nfts) : console.log('loading');
   //   // eslint-disable-next-line
   // }, [fakeData]);
 
   useEffect(() => {
-    data ? getInks(data.inks) : console.log('loading');
+    data ? getNfts(data.nfts) : console.log('loading');
     // eslint-disable-next-line
   }, [data]);
 
@@ -79,16 +79,16 @@ export default function CuratedInks({ localProvider, injectedProvider }) {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <div className="inks-grid">
-      {inks &&
-        Object.keys(inks)
+    <div className="nfts-grid">
+      {nfts &&
+        Object.keys(nfts)
           .sort((a, b) => b - a)
-          .map((ink) => (
-            <div className="ink-item" key={inks[ink].id}>
-              <Link to={'assets/' + inks[ink].id} style={{ color: 'black' }}>
+          .map((nft) => (
+            <div className="nft-item" key={nfts[nft].id}>
+              <Link to={'assets/' + nfts[nft].id} style={{ color: 'black' }}>
                 <img
-                  src={inks[ink].metadata.image}
-                  alt={inks[ink].metadata.name}
+                  src={nfts[nft].metadata.image}
+                  alt={nfts[nft].metadata.name}
                 />
               </Link>
             </div>

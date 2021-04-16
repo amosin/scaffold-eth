@@ -12,9 +12,9 @@ export default function BurnTokenForm(props) {
     setSending(true);
     console.log("Success:", props.tokenId);
 
-    let contractName = "NiftyToken";
+    let contractName = "NiftyYardToken";
     let regularFunction = "burnToken";
-    let regularFunctionArgs = [props.tokenId, props.inkUrl];
+    let regularFunctionArgs = [props.tokenId, props.nftUrl];
 
     let txConfig = {
       ...props.transactionConfig,
@@ -49,7 +49,7 @@ export default function BurnTokenForm(props) {
       }
 
       console.log('Result: ' + result);
-      //await tx(writeContracts["NiftyToken"].safeTransferFrom(props.address, values['to'], props.tokenId))
+      //await tx(writeContracts["NiftyYardToken"].safeTransferFrom(props.address, values['to'], props.tokenId))
       form.resetFields();
       setSending(false);
     } catch (e) {

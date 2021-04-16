@@ -25,6 +25,7 @@
     "publish": "cd packages/buidler && npx buidler run scripts/publish.js ",
     "watch": "cd packages/buidler && node scripts/watch.js",
     "accounts": "cd packages/buidler && npx buidler accounts",
+    "faucet": "cd packages/buidler && npx buidler faucet",
     "balance": "cd packages/buidler && npx buidler balance",
     "send": "cd packages/buidler && npx buidler send",
     "server": "cd packages/nifty-art-server && nodemon index",
