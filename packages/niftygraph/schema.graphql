@@ -13,15 +13,15 @@ enum Network {
 
 type File @entity {
   id: ID!
-  inkNumber: BigInt!
+  nftNumber: BigInt!
   jsonUrl: String!
-  artist: Artist!
+  creator: Creator!
   likers: [String!]
   likersWeight: [String!]
   limit: BigInt!
   count: BigInt
-  tokens: [Token!] @derivedFrom(field: "ink")
-  sales: [Sale!] @derivedFrom(field: "ink")
+  tokens: [Token!] @derivedFrom(field: "nft")
+  sales: [Sale!] @derivedFrom(field: "nft")
   createdAt: BigInt
   mintPrice: BigInt
   mintPriceSetAt: BigInt
@@ -30,7 +30,7 @@ type File @entity {
 
 type Token @entity {
   id: ID!
-  ink: File!
+  nft: File!
   owner: Bytes!
   createdAt: BigInt!
   network: Network!
@@ -41,13 +41,13 @@ type Token @entity {
   upgradeTransfer: TokenTransfer
 }
 
-type Artist @entity {
+type Creator @entity {
   id: ID!
   address: Bytes!
-  inks: [File]! @derivedFrom(field: "artist")
-  inkCount: BigInt!
+  nfts: [File]! @derivedFrom(field: "creator")
+  nftCount: BigInt!
   earnings: BigInt
-  sales: [Sale!] @derivedFrom(field: "artist")
+  sales: [Sale!] @derivedFrom(field: "creator")
 }
 
 type Sale @entity {
@@ -56,10 +56,10 @@ type Sale @entity {
   seller: Bytes
   price: BigInt!
   token: Token!
-  ink: File!
-  artist: Artist!
+  nft: File!
+  creator: Creator!
   createdAt: BigInt!
-  artistTake: BigInt!
+  creatorTake: BigInt!
   saleType: SaleType
   transfer: TokenTransfer!
 }
@@ -87,11 +87,11 @@ type MetaData @entity {
 type Total @entity {
   id: ID!
   day: BigInt
-  inks: BigInt
+  nfts: BigInt
   tokens: BigInt
   sales: BigInt
   upgrades: BigInt
-  artists: BigInt
+  creators: BigInt
 }
 
 type Ownership @entity {

@@ -1,0 +1,10 @@
+X - Fix The Graph error on front
+X - Remove that GSN from Scaffold and add default from OpenSea and Matic
+- Removed Send Ownership Holdings.js
+- Remove xDai stuff
+- remove console log
+- Fix Help
+- Check Wallet
+- price on my assets has xDai symbol
+- add description to create tab
+

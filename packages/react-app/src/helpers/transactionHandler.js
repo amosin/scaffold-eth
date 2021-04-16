@@ -13,7 +13,7 @@ export async function transactionHandler(c) {
           <>
           <p>You are using {network}</p>
             <p>
-              Nifty Ink is built on xDai: please change your MetaMask Network to
+              NFT Yard is built on xDai: please change your MetaMask Network to
               point to the{" "}
               <a href="https://www.xdaichain.com/" target="_blank">
                 xDai Chain
@@ -35,7 +35,7 @@ export async function transactionHandler(c) {
           <span>
             <p>You are using {network}</p>
             {" "}
-            Nifty.ink runs on xDAI.{" "}
+            NFT Yard runs on xDAI.{" "}
             <a target="_blank" href={"https://xdai.io"}>
               Take it to the bridge
             </a>{" "}
@@ -58,7 +58,7 @@ export async function transactionHandler(c) {
     let contractAbi = require("../contracts/" + c["contractName"] + ".abi.js");
 
     let balance = await c["localProvider"].getBalance(c["address"]);
-    console.log("artist balance", balance);
+    console.log("creator balance", balance);
     let injectedNetwork = await c["injectedProvider"].getNetwork();
     let localNetwork = await c["localProvider"].getNetwork();
     console.log("networkcomparison", injectedNetwork, localNetwork);

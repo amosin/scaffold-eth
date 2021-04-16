@@ -2,43 +2,60 @@ pragma solidity >=0.6.0 <0.7.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./AMBMediator.sol";
 import "./ITokenManagement.sol";
-import "./IAMB.sol";
 
-contract NiftyMain is ERC721, Ownable, AMBMediator {
-
-    constructor() ERC721("🎨 Nifty.Ink", "🎨") public {
-      _setBaseURI('ipfs://ipfs/');
+contract NiftyMain is ERC721, Ownable {
+    constructor() public ERC721("NFT Yard", "YARDv1") {
+        _setBaseURI("ipfs://ipfs/");
     }
 
-    event mintedInk(uint256 id, string inkUrl, string jsonUrl, address to, bytes32 msgId);
+    // event mintedNft(
+    //     uint256 id,
+    //     string nftUrl,
+    //     string jsonUrl,
+    //     address to,
+    //     bytes32 msgId
+    // );
 
-    mapping (string => EnumerableSet.UintSet) private _inkTokens;
-    mapping (uint256 => string) public tokenInk;
+    // mapping(string => EnumerableSet.UintSet) private _nftTokens;
+    // mapping(uint256 => string) public tokenNft;
 
-    function mint(address to, uint256 tokenId, string calldata inkUrl, string calldata jsonUrl) external returns (uint256) {
-      require(msg.sender == address(bridgeContract()));
-      require(bridgeContract().messageSender() == mediatorContractOnOtherSide());
+    // function mint(
+    //     address to,
+    //     uint256 tokenId,
+    //     string calldata nftUrl,
+    //     string calldata jsonUrl
+    // ) external returns (uint256) {
+    //     require(msg.sender == address(bridgeContract()));
+    //     require(
+    //         bridgeContract().messageSender() == mediatorContractOnOtherSide()
+    //     );
 
-      _inkTokens[inkUrl].add(tokenId);
-      tokenInk[tokenId] = inkUrl;
-      _safeMint(to, tokenId);
-      _setTokenURI(tokenId, jsonUrl);
-      bytes32 msgId = messageId();
+    //     _nftTokens[nftUrl].add(tokenId);
+    //     tokenNft[tokenId] = nftUrl;
+    //     _safeMint(to, tokenId);
+    //     _setTokenURI(tokenId, jsonUrl);
+    //     bytes32 msgId = messageId();
 
-      emit mintedInk(tokenId, inkUrl, jsonUrl, to, msgId);
+    //     emit mintedNft(tokenId, nftUrl, jsonUrl, to, msgId);
 
-      return tokenId;
-    }
+    //     return tokenId;
+    // }
 
-    function inkTokenCount(string memory _inkUrl) public view returns(uint256) {
-      uint256 _inkTokenCount = _inkTokens[_inkUrl].length();
-      return _inkTokenCount;
-    }
+    // function nftTokenCount(string memory _nftUrl)
+    //     public
+    //     view
+    //     returns (uint256)
+    // {
+    //     uint256 _nftTokenCount = _nftTokens[_nftUrl].length();
+    //     return _nftTokenCount;
+    // }
 
-    function inkTokenByIndex(string memory inkUrl, uint256 index) public view returns (uint256) {
-      return _inkTokens[inkUrl].at(index);
-    }
-
+    // function nftTokenByIndex(string memory nftUrl, uint256 index)
+    //     public
+    //     view
+    //     returns (uint256)
+    // {
+    //     return _nftTokens[nftUrl].at(index);
+    // }
 }

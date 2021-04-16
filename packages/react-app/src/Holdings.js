@@ -3,7 +3,7 @@ import { useQuery, useLazyQuery } from "react-apollo";
 import {
   HOLDINGS_QUERY,
   HOLDINGS_MAIN_QUERY,
-  HOLDINGS_MAIN_INKS_QUERY,
+  HOLDINGS_MAIN_NFTS_QUERY,
 } from "./apollo/queries";
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { isBlocklisted } from "./helpers";
@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 import { Row, Col, Divider, Switch, Button, Empty, Popover } from "antd";
 import { SendOutlined, RocketOutlined } from "@ant-design/icons";
 import { Loader } from "./components";
-import SendInkForm from "./SendInkForm.js";
+import SendNftForm from "./SendNftForm.js";
 import TransferOwnershipForm from "./TransferOwnershipForm"
-import UpgradeInkButton from "./UpgradeInkButton.js";
+import UpgradeNftButton from "./UpgradeNftButton.js";
 
 const mainClient = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT_MAINNET,
@@ -28,19 +28,21 @@ export default function Holdings(props) {
   const [blockNumber, setBlockNumber] = useState(0);
   const [data, setData] = useState(); // Data filtered for latest block update that we have seen
 
-  const { loading: loadingMain, error: errorMain, data: dataMain } = useQuery(
-    HOLDINGS_MAIN_QUERY,
-    {
-      variables: { owner: props.address },
-      client: mainClient,
-      pollInterval: 4000,
-    }
-  );
+  // const { loading: loadingMain, error: errorMain, data: dataMain } = useQuery(
+  //   HOLDINGS_MAIN_QUERY,
+  //   {
+  //     variables: { owner: props.address },
+  //     client: mainClient,
+  //     pollInterval: 4000,
+  //   }
+  // );
+
+  const dataMain = '';
 
   const [
-    mainInksQuery,
-    { loading: loadingMainInks, error: errorMainInks, data: dataMainInks },
-  ] = useLazyQuery(HOLDINGS_MAIN_INKS_QUERY);
+    mainNftsQuery,
+    { loading: loadingMainNfts, error: errorMainNfts, data: dataMainNfts },
+  ] = useLazyQuery(HOLDINGS_MAIN_NFTS_QUERY);
 
   const { loading, error, data: dataRaw } = useQuery(HOLDINGS_QUERY, {
     variables: { owner: props.address },
@@ -55,10 +57,10 @@ export default function Holdings(props) {
 
   const getTokens = (_data) => {
     _data.forEach(async (token) => {
-      if (isBlocklisted(token.ink.jsonUrl)) return;
+      if (isBlocklisted(token.nft.jsonUrl)) return;
       let _token = token;
       _token.network = "xDai";
-      _token.ink.metadata = await getMetadata(token.ink.jsonUrl);
+      _token.nft.metadata = await getMetadata(token.nft.jsonUrl);
       //setTokens((tokens) => [...tokens, _token]);
       let _newToken = {};
       _newToken[_token.id] = _token;
@@ -70,26 +72,26 @@ export default function Holdings(props) {
     );
   };
 
-  const getMainInks = async (_data) => {
-    let _inkList = _data.map((a) => a.ink);
-    let mainInks = await mainInksQuery({
-      variables: { inkList: _inkList },
+  const getMainNfts = async (_data) => {
+    let _nftList = _data.map((a) => a.nft);
+    let mainNfts = await mainNftsQuery({
+      variables: { nftList: _nftList },
     });
   };
 
-  const getMainTokens = (_data, inks, ownerIsArtist = false) => {
+  const getMainTokens = (_data, nfts, ownerIsCreator = false) => {
     _data.forEach(async (token) => {
       if (isBlocklisted(token.jsonUrl)) return;
       let _token = Object.assign({}, token);
-      const _tokenInk = inks.filter((ink) => ink.id === _token.ink);
-      _token.ink = _tokenInk[0];
+      const _tokenNft = nfts.filter((nft) => nft.id === _token.nft);
+      _token.nft = _tokenNft[0];
       if (
-        ownerIsArtist &&
-        _token.ink.artist.address !== props.address.toLowerCase()
+        ownerIsCreator &&
+        _token.nft.creator.address !== props.address.toLowerCase()
       )
         return;
       _token.network = "Mainnet";
-      _token.ink.metadata = await getMetadata(token.jsonUrl);
+      _token.nft.metadata = await getMetadata(token.jsonUrl);
       let _newToken = {};
       _newToken[_token.id] = _token;
       setTokens((tokens) => ({ ...tokens, ..._newToken }));
@@ -114,17 +116,17 @@ export default function Holdings(props) {
     setTokens({});
     if (!myCreationOnly) {
       getTokens(data.tokens);
-      getMainTokens(dataMain.tokens, dataMainInks.inks);
+      getMainTokens(dataMain.tokens, dataMainNfts.nfts);
     } else {
       getTokens(
         data.tokens
           .filter(
-            (token) => token.ink.artist.address === props.address.toLowerCase()
+            (token) => token.nft.creator.address === props.address.toLowerCase()
           )
           .reverse()
       );
-      if (dataMain.tokens && dataMain.inks) {
-        getMainTokens(dataMain.tokens, dataMainInks.inks, true);
+      if (dataMain.tokens && dataMain.nfts) {
+        getMainTokens(dataMain.tokens, dataMainNfts.nfts, true);
       }
     }
   };
@@ -147,14 +149,14 @@ export default function Holdings(props) {
   }, [data]);
 
   useEffect(() => {
-    dataMain ? getMainInks(dataMain.tokens) : console.log("loading main inks");
+    dataMain ? getMainNfts(dataMain.tokens) : console.log("loading main nfts");
   }, [dataMain]);
 
   useEffect(() => {
-    dataMain && dataMainInks
-      ? getMainTokens(dataMain.tokens, dataMainInks.inks)
+    dataMain && dataMainNfts
+      ? getMainTokens(dataMain.tokens, dataMainNfts.nfts)
       : console.log("loading main tokens");
-  }, [dataMainInks]);
+  }, [dataMainNfts]);
 
   if (loading) return <Loader />;
   if (error) {
@@ -175,12 +177,12 @@ export default function Holdings(props) {
         </Col>
         <Col span={12}>
           <p style={{ margin: 0 }}>
-            <b>My Inks: </b>
+            <b>My Nfts: </b>
             {holdings && tokens
               ? holdings.filter(
                 (id) =>
                   id in tokens &&
-                  tokens[id].ink.artist.address ===
+                  tokens[id].nft.creator.address ===
                   props.address.toLowerCase()
               ).length
               : 0}
@@ -195,7 +197,7 @@ export default function Holdings(props) {
           <Switch defaultChecked={!myCreationOnly} onChange={handleFilter} />
         </Col>
       </Row>
-      <div className="inks-grid">
+      <div className="nfts-grid">
         <ul style={{ padding: 0, textAlign: "center", listStyle: "none" }}>
           {holdings
             ? holdings
@@ -214,12 +216,12 @@ export default function Holdings(props) {
                   }}
                 >
                   <Link
-                    to={"assets/" + tokens[id].ink.id}
+                    to={"assets/" + tokens[id].nft.id}
                     style={{ color: "black" }}
                   >
                     <img
-                      src={tokens[id].ink.metadata.image}
-                      alt={tokens[id].ink.metadata.name}
+                      src={tokens[id].nft.metadata.image}
+                      alt={tokens[id].nft.metadata.name}
                       width="300"
                       style={{
                         border: "1px solid #e5e5e6",
@@ -233,15 +235,15 @@ export default function Holdings(props) {
                         color: "white",
                       }}
                     >
-                      {tokens[id].ink.metadata.name.length > 18
-                        ? tokens[id].ink.metadata.name
+                      {tokens[id].nft.metadata.name.length > 18
+                        ? tokens[id].nft.metadata.name
                           .slice(0, 15)
                           .concat("...")
-                        : tokens[id].ink.metadata.name}
+                        : tokens[id].nft.metadata.name}
                     </h3>
 
                     <p style={{ color: "#5e5e5e", margin: "0", zoom: 0.8 }}>
-                      Edition: {tokens[id].ink.count}/{tokens[id].ink.limit}
+                      Edition: {tokens[id].nft.count}/{tokens[id].nft.limit}
                     </p>
                   </Link>
                   <Divider style={{ margin: "10px 0" }} />
@@ -250,7 +252,7 @@ export default function Holdings(props) {
                       <>
                         <Popover
                           content={
-                            <SendInkForm
+                            <SendNftForm
                               tokenId={tokens[id].id}
                               address={props.address}
                               mainnetProvider={props.mainnetProvider}
@@ -258,7 +260,7 @@ export default function Holdings(props) {
                               transactionConfig={props.transactionConfig}
                             />
                           }
-                          title="Send Ink"
+                          title="Send Nft"
                         >
                           <Button
                             size="small"
@@ -272,7 +274,7 @@ export default function Holdings(props) {
                           content={
                             <TransferOwnershipForm
                               tokenId={tokens[id].id}
-                              fileUrl={tokens[id].ink.id}
+                              fileUrl={tokens[id].nft.id}
                               address={props.address}
                               mainnetProvider={props.mainnetProvider}
                               injectedProvider={props.injectedProvider}
@@ -281,15 +283,15 @@ export default function Holdings(props) {
                           }
                           title="Transfer Ownership"
                         >
-                          <Button
+                          {/* <Button
                             size="small"
                             type="secondary"
                             style={{ margin: 4, marginBottom: 12 }}
                           >
                             <SendOutlined /> Transfer Ownership
-                            </Button>
+                            </Button> */}
                         </Popover>
-                        {/* <UpgradeInkButton
+                        {/* <UpgradeNftButton
                           tokenId={tokens[id].id}
                           injectedProvider={props.injectedProvider}
                           gasPrice={props.gasPrice}

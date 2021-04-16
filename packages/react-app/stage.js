@@ -2,7 +2,7 @@ const s3FolderUpload = require('s3-folder-upload')
 const fs = require('fs')
 const directoryName = 'build'
 
-const BUCKETNAME = "stage.nifty.ink"   // <<---- SET YOUR BUCKET NAME AND CREATE aws.json ** see below vvvvvvvvvv
+const BUCKETNAME = "stage.nftyard.io"   // <<---- SET YOUR BUCKET NAME AND CREATE aws.json ** see below vvvvvvvvvv
 
 // optional cloudfront invalidation rule
 const invalidation = {

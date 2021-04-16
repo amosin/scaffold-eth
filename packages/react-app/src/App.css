@@ -15,7 +15,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.artist_blockie {
+.creator_blockie {
   border-radius: 50%;
   box-shadow: 0 0 0 1px #b5b5b5, 0 0 0 1px #b5b5b5;
   padding: 5px;
@@ -108,7 +108,7 @@ h3.ant-typography,
   margin-top: 10px;
 }
 
-.inks-grid {
+.nfts-grid {
 }
 
 .each-asset {
@@ -148,14 +148,14 @@ h3.ant-typography,
   }
 }
 
-.allinks-main {
+.allnfts-main {
   margin-top: 10px;
   justify-content: center;
   max-width: 1250px;
   margin: 0 auto;
 }
 
-.allinks-main h1 {
+.allnfts-main h1 {
   color: mix(#fff, #e91e63, 85%);
   margin-top: 10px;
   font-size: xx-large;

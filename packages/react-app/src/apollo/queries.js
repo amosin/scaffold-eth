@@ -1,12 +1,12 @@
 import { gql } from "apollo-boost";
 
-export const ARTISTS_QUERY = gql`
-  query artists($address: Bytes!) {
-    artists(where: { address: $address }) {
+export const CREATORS_QUERY = gql`
+  query creators($address: Bytes!) {
+    creators(where: { address: $address }) {
       id
-      inkCount
+      nftCount
       address
-      inks(orderBy: createdAt, orderDirection: desc) {
+      nfts(orderBy: createdAt, orderDirection: desc) {
         id
         jsonUrl
         limit
@@ -22,14 +22,14 @@ export const ARTISTS_QUERY = gql`
   }
 `;
 
-export const INKS_QUERY = gql`
-  query inks($first: Int, $skip: Int) {
-    inks: files(first: $first, skip: $skip, orderBy: createdAt, orderDirection: desc) {
+export const NFTS_QUERY = gql`
+  query nfts($first: Int, $skip: Int) {
+    nfts: files(first: $first, skip: $skip, orderBy: createdAt, orderDirection: desc) {
       id
-      inkNumber
+      nftNumber
       createdAt
       jsonUrl
-      artist {
+      creator {
         id
         address
       }
@@ -38,10 +38,10 @@ export const INKS_QUERY = gql`
 `;
 
 export const EXPLORE_QUERY = gql`
-  query inks($first: Int, $skip: Int, $orderBy: String, $orderDirection: String, $filters: Ink_filter, $liker: String) {
-    inks(first: $first, skip: $skip where: $filters, orderBy: $orderBy, orderDirection: $orderDirection) {
+  query nfts($first: Int, $skip: Int, $orderBy: String, $orderDirection: String, $filters: Nft_filter, $liker: String) {
+    nfts(first: $first, skip: $skip where: $filters, orderBy: $orderBy, orderDirection: $orderDirection) {
       id
-      inkNumber
+      nftNumber
       createdAt
       jsonUrl
       bestPrice
@@ -53,7 +53,7 @@ export const EXPLORE_QUERY = gql`
       likes(where: {liker: $liker}) {
         id
       }
-      artist {
+      creator {
         id
         address
       }
@@ -61,11 +61,11 @@ export const EXPLORE_QUERY = gql`
   }
 `;
 
-export const INK_LIKES_QUERY = gql`
-query likes($inks: [BigInt], $liker: String) {
-  inks(first: 1000, where: {inkNumber_in: $inks}) {
+export const NFT_LIKES_QUERY = gql`
+query likes($nfts: [BigInt], $liker: String) {
+  nfts(first: 1000, where: {nftNumber_in: $nfts}) {
     id
-    inkNumber
+    nftNumber
     likeCount
     likes(where: {liker: $liker}) {
       id
@@ -74,14 +74,14 @@ query likes($inks: [BigInt], $liker: String) {
 }`
 
 
-export const ADMIN_INKS_QUERY = gql`
-    query inks($first: Int, $skip: Int, $admins: [String!]) {
-        inks: files(first: $first, skip: $skip, orderBy: createdAt, orderDirection: desc, where: { likers_contains: $admins }) {
+export const ADMIN_NFTS_QUERY = gql`
+    query nfts($first: Int, $skip: Int, $admins: [String!]) {
+        nfts: files(first: $first, skip: $skip, orderBy: createdAt, orderDirection: desc, where: { likers_contains: $admins }) {
             id
-            inkNumber
+            nftNumber
             createdAt
             jsonUrl
-            artist {
+            creator {
                 id
                 address
             }
@@ -98,12 +98,12 @@ export const HOLDINGS_QUERY = gql`
     tokens(where: { owner: $owner }) {
       owner
       id
-      ink {
+      nft {
         id
         jsonUrl
         limit
         count
-        artist {
+        creator {
           id
           address
         }
@@ -112,17 +112,17 @@ export const HOLDINGS_QUERY = gql`
   }
 `;
 
-export const INK_QUERY = gql`
-  query ink($inkUrl: String!) {
+export const NFT_QUERY = gql`
+  query nft($nftUrl: String!) {
     metaData(id: "blockNumber") {
       id
       value
     }
-    ink: file(id: $inkUrl) {
+    nft: file(id: $nftUrl) {
       id
-      inkNumber
+      nftNumber
       jsonUrl
-      artist {
+      creator {
         id
       }
       limit
@@ -139,12 +139,12 @@ export const INK_QUERY = gql`
   }
 `;
 
-export const INK_MAIN_QUERY = gql`
-  query token($inkUrl: String!) {
-    tokens(where: { ink: $inkUrl }) {
+export const NFT_MAIN_QUERY = gql`
+  query token($nftUrl: String!) {
+    tokens(where: { nft: $nftUrl }) {
       id
       owner
-      ink
+      nft
     }
   }
 `;
@@ -156,20 +156,20 @@ export const HOLDINGS_MAIN_QUERY = gql`
       owner
       network
       createdAt
-      ink
+      nft
       jsonUrl
     }
   }
 `;
 
-export const HOLDINGS_MAIN_INKS_QUERY = gql`
-  query inks($inkList: [String!]) {
-    inks(where: { id_in: $inkList }) {
+export const HOLDINGS_MAIN_NFTS_QUERY = gql`
+  query nfts($nftList: [String!]) {
+    nfts(where: { id_in: $nftList }) {
       id
       jsonUrl
       limit
       count
-      artist {
+      creator {
         id
         address
       }

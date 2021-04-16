@@ -169,10 +169,10 @@ contract Liker is Ownable, BaseRelayRecipient, SignatureChecker {
                     liker
                 )
             );
-        bool isArtistSignature = checkSignature(messageHash, signature, liker);
+        bool isCreatorSignature = checkSignature(messageHash, signature, liker);
         require(
-            isArtistSignature || !checkSignatureFlag,
-            "Unable to verify the artist signature"
+            isCreatorSignature || !checkSignatureFlag,
+            "Unable to verify the creator signature"
         );
         uint256 weight = weighterc20.balanceOf(msg.sender);
         return _newLike(contractAddress, target, liker, weight, _fileUrl);

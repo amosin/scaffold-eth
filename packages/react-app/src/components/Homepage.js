@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import CuratedInks from '../CuratedInks';
+import CuratedNfts from '../CuratedNfts';
 import '../styles/homepage.css';
 
 function Homepage({ localProvider, injectedProvider }) {
@@ -23,7 +23,7 @@ function Homepage({ localProvider, injectedProvider }) {
           </p>
         </div>
       </div>
-      <CuratedInks
+      <CuratedNfts
         localProvider={localProvider}
         injectedProvider={injectedProvider}
       />
