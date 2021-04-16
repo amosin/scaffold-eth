@@ -6,7 +6,7 @@ dataSources:
     name: NiftyYard
     network: xdai
     source:
-      address: '0x29625ad8c2d63eB369A51662bB0B2EB873d327DD'
+      address: '0x4caB2e23c50eD20DE83f3FD15eFEa21663776e15'
       abi: NiftyYard
       startBlock: 1
     mapping:
@@ -37,7 +37,7 @@ dataSources:
     name: NiftyYardToken
     network: xdai
     source:
-      address: '0xeef316ce2793D7F42613e9bD256F42873137F979'
+      address: '0x222271E1E73E311baF63796D9E3D57f12F7fBac0'
       abi: NiftyYardToken
       startBlock: 1
     mapping:
@@ -120,7 +120,7 @@ dataSources:
     name: Liker
     network: xdai
     source:
-      address: '0x6cBB28eC6ab6467A5ef1Bc1080B6Cd48c9b360fD'
+      address: '0x7E18D4f1becd805Bb318fb1e6263759E7c2Aa726'
       abi: Liker
       startBlock: 1
     mapping:

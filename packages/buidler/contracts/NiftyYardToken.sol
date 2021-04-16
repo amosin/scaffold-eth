@@ -5,25 +5,24 @@ import "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/EnumerableSet.sol";
-import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
 import "./INiftyYardRegistry.sol";
 import "./INiftyYard.sol";
 import "./SignatureChecker.sol";
 
 // MATIC SUPPORT FOR CHILD CHAIN
-import "./matic/IMintableERC721.sol";
-import "./matic/AccessControlMixin.sol";
-import "./matic/IChildToken.sol";
-import "./matic/EIP712Base.sol";
+import "./common/IMintableERC721.sol";
+import "./common/AccessControlMixin.sol";
+import "./common/IChildToken.sol";
+import "./common/NativeMetaTransaction.sol";
+import "./common/ContextMixin.sol";
 
 contract NiftyYardToken is
-    BaseRelayRecipient,
-    EIP712Base,
-    ERC721,
     ERC721Burnable,
     SignatureChecker,
     AccessControlMixin,
-    IChildToken
+    IChildToken,
+    NativeMetaTransaction,
+    ContextMixin
 {
     // Fee reserve address.
     address payable public feereserveaddress;
@@ -112,7 +111,7 @@ contract NiftyYardToken is
     function doesAddressOwnCopyOfThisFile(
         address _address,
         string memory nftUrl
-    ) public returns (bool) {
+    ) public view returns (bool) {
         for (uint256 i = 0; i < _addressTokens[_address].length(); i++) {
             uint256 id = _addressTokens[_address].at(i);
             if (keccak256(bytes(tokenNft[id])) == keccak256(bytes(nftUrl))) {
@@ -124,6 +123,7 @@ contract NiftyYardToken is
 
     function filesOfThisAddress(address _address)
         public
+        view
         returns (string[] memory)
     {
         uint256 len = _addressTokens[_address].length();
@@ -337,31 +337,15 @@ contract NiftyYardToken is
         return _nftTokens[nftUrl].at(index);
     }
 
-    function versionRecipient()
-        external
-        view
-        virtual
-        override
-        returns (string memory)
-    {
-        return "1.0";
-    }
-
-    function setTrustedForwarder(address _trustedForwarder) public onlyOwner {
-        trustedForwarder = _trustedForwarder;
-    }
-
-    function getTrustedForwarder() public view returns (address) {
-        return trustedForwarder;
-    }
-
+    // This is to support Native meta transactions
+    // never use msg.sender directly, use _msgSender() instead
     function _msgSender()
         internal
         view
-        override(BaseRelayRecipient, Context)
-        returns (address payable)
+        override
+        returns (address payable sender)
     {
-        return BaseRelayRecipient._msgSender();
+        return ContextMixin.msgSender();
     }
 
     /**

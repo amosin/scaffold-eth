@@ -3,12 +3,18 @@ pragma solidity >=0.6.0 <0.7.0;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
 import "./SignatureChecker.sol";
 import "./INiftyYardToken.sol";
 import "./INiftyYardRegistry.sol";
+import "./common/NativeMetaTransaction.sol";
+import "./common/ContextMixin.sol";
 
-contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
+contract NiftyYard is
+    Ownable,
+    SignatureChecker,
+    NativeMetaTransaction,
+    ContextMixin
+{
     constructor() public {
         setCheckSignatureFlag(true);
         setCreatorTake(1);
@@ -296,30 +302,14 @@ contract NiftyYard is BaseRelayRecipient, Ownable, SignatureChecker {
         return _creatorNfts[creator].at(index);
     }
 
-    function versionRecipient()
-        external
-        view
-        virtual
-        override
-        returns (string memory)
-    {
-        return "1.0";
-    }
-
-    function setTrustedForwarder(address _trustedForwarder) public onlyOwner {
-        trustedForwarder = _trustedForwarder;
-    }
-
-    function getTrustedForwarder() public view returns (address) {
-        return trustedForwarder;
-    }
-
+    // This is to support Native meta transactions
+    // never use msg.sender directly, use _msgSender() instead
     function _msgSender()
         internal
         view
-        override(BaseRelayRecipient, Context)
-        returns (address payable)
+        override
+        returns (address payable sender)
     {
-        return BaseRelayRecipient._msgSender();
+        return ContextMixin.msgSender();
     }
 }
