@@ -409,7 +409,7 @@ export default function ViewNft(props) {
                   onClick={() => {
                     console.log("item", item);
                     window.open(
-                      "https://opensea.io/assets/0xc02697c417ddacfbe5edbf23edad956bc883f4fb/" +
+                      "https://testnets.opensea.io/assets/mumbai/0x186c4c038e04b56ad63bfff71b8149dc49e9b88b/" +
                         item.id
                     );
                   }}
@@ -431,15 +431,25 @@ export default function ViewNft(props) {
                   <a
                     style={{ padding: 8, fontSize: 32 }}
                     href={
-                      "https://blockscout.com/poa/xdai/tokens/0xCF964c89f509a8c0Ac36391c5460dF94B91daba5/instance/" +
-                      item[1]
+                      "https://explorer-mumbai.maticvigil.com/tokens/0x186c4c038e04b56ad63bfff71b8149dc49e9b88b/instance/" +
+                      item.id + "/token-transfers"
                     }
                     target="_blank"
                   >
                     <LinkOutlined />
                   </a>
                   
-                  {mainnetTokens[item.id] ? (
+                  {/* {mainnetTokens[item.id] ? (
+                    openseaButton
+                  ) : item.network === "mainnet" ? (
+                    <Typography.Title level={4} style={{ marginLeft: 16 }}>
+                      Upgrading to Ethereum <SyncOutlined spin />
+                    </Typography.Title>
+                  ) : (
+                    <></>
+                  )} */}
+
+                  {item.id ? (
                     openseaButton
                   ) : item.network === "mainnet" ? (
                     <Typography.Title level={4} style={{ marginLeft: 16 }}>
@@ -448,6 +458,8 @@ export default function ViewNft(props) {
                   ) : (
                     <></>
                   )}
+
+
                   {sendNftButton(item.owner, item.id)}
                   {burnToken(item.owner, item.id)}
                   {/* {relayTokenButton(

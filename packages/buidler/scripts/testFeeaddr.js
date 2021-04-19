@@ -12,9 +12,9 @@ console.log("🪐 WORKING ON NETWORK: ",bre.network.name)
 
 async function main() {
     if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("mumbai")>=0 || bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
-        const niftytoken = await NiftyYardToken.at('0xa8Fa8fFac0904aa020415807eE6516E887D69770')
-        const liker = await Liker.at('0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA')
-        const ativoToken = await AtivoToken.at('0xAf6fDB5573Ac4A7E83E6761A738A7E0bE2c527F4')
+        const niftytoken = await NiftyYardToken.at('0x186C4C038e04b56aD63BFfF71b8149Dc49E9b88b')
+        const liker = await Liker.at('0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0')
+        const ativoToken = await AtivoToken.at('0x44a2D88e864b559Eaf433C79b961f92F4b68B65c')
         
         //const accounts = await web3.eth.getAccounts()
 
@@ -30,13 +30,13 @@ async function main() {
         // console.log('ok')
         // console.log('ok')
         // console.log('ok')
-        const transaction2 = await liker.setWeightToken(ativoToken.address)
-        console.log(transaction2)
-        console.log('ok')
-        console.log('ok')
-        await ativoToken.manualMint('0xc783df8a850f42e7F7e57013759C285caa701eB6', '10000000000000000000')
-        console.log('ok')
-        console.log('ok')
+        // const transaction2 = await liker.setWeightToken(ativoToken.address)
+        // console.log(transaction2)
+        // console.log('ok')
+        // console.log('ok')
+        // await ativoToken.manualMint('0xc783df8a850f42e7F7e57013759C285caa701eB6', '10000000000000000000')
+        // console.log('ok')
+        // console.log('ok')
         const weighterc20 = await liker.weighterc20()
         console.log(weighterc20)
 
@@ -57,14 +57,15 @@ async function main() {
         // );
 
         const result = await niftytoken.getPastEvents(
-          'burnedToken',
-          {fromBlock: 0}
+          'TransferWithMetadata',
+          {fromBlock: 12805118}
         );
         console.log('\n Number of Events: ' + result.length)
         result.forEach(element => {
-          if (element.returnValues.nftUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
-            console.log('NFT GONE')
-          }
+          console.log(element.returnValues);
+          // if (element.returnValues.nftUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
+          //   console.log('NFT GONE')
+          // }
         });
         
         // Burn

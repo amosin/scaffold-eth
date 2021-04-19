@@ -1,0 +1,80 @@
+yarn run newdeploymumbai           
+yarn run v1.22.5
+$ cd packages/buidler && npx buidler run scripts/newdeploy.js --network mumbai && npx buidler run scripts/publish.js
+Compiling...
+Compiled 73 contracts successfully
+📡 Deploy 
+
+🪐 DEPLOYING ON NETWORK:  mumbai
+📄 Liker
+Liker deployed to: 0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0
+
+
+📄 NiftyRegistry
+NiftyRegistry deployed to: 0xd622b5770F68A67ec315B4d5E0243181bd2De37e
+
+
+📄 NiftyYard
+NiftyYard deployed to: 0xCf26e26615B6b3302f8a1150D76EE4d0b83d9FBd
+
+
+📄 AtivoToken
+AtivoToken deployed to: 0x44a2D88e864b559Eaf433C79b961f92F4b68B65c
+
+
+📄 NiftyYardToken
+NiftyYardToken deployed to: 0x186C4C038e04b56aD63BFfF71b8149Dc49E9b88b
+
+
+All contracts have already been compiled, skipping compilation.
+Publishing AtivoToken to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xb8AA6aA5f253Cd62991A55DC833e90422cfa87F2',
+  NiftyInkAddress: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6',
+  NiftyMediatorAddress: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28',
+  NiftyRegistryAddress: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28',
+  NiftyTokenAddress: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca',
+  NiftyMainAddress: '0x1dd974c02f18206bF0025f1645A5F03b151509f8',
+  AtivoTokenAddress: '0x44a2D88e864b559Eaf433C79b961f92F4b68B65c' }
+../niftygraph/config/config.json
+Publishing Liker to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0',
+  NiftyInkAddress: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6',
+  NiftyMediatorAddress: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28',
+  NiftyRegistryAddress: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28',
+  NiftyTokenAddress: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca',
+  NiftyMainAddress: '0x1dd974c02f18206bF0025f1645A5F03b151509f8',
+  AtivoTokenAddress: '0x44a2D88e864b559Eaf433C79b961f92F4b68B65c' }
+../niftygraph/config/config.json
+Publishing NiftyRegistry to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0',
+  NiftyInkAddress: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6',
+  NiftyMediatorAddress: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28',
+  NiftyRegistryAddress: '0xd622b5770F68A67ec315B4d5E0243181bd2De37e',
+  NiftyTokenAddress: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca',
+  NiftyMainAddress: '0x1dd974c02f18206bF0025f1645A5F03b151509f8',
+  AtivoTokenAddress: '0x44a2D88e864b559Eaf433C79b961f92F4b68B65c' }
+../niftygraph/config/config.json
+Publishing NiftyYard to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0',
+  NiftyInkAddress: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6',
+  NiftyMediatorAddress: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28',
+  NiftyRegistryAddress: '0xd622b5770F68A67ec315B4d5E0243181bd2De37e',
+  NiftyTokenAddress: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca',
+  NiftyMainAddress: '0x1dd974c02f18206bF0025f1645A5F03b151509f8',
+  AtivoTokenAddress: '0x44a2D88e864b559Eaf433C79b961f92F4b68B65c',
+  NiftyYardAddress: '0xCf26e26615B6b3302f8a1150D76EE4d0b83d9FBd' }
+../niftygraph/config/config.json
+Publishing NiftyYardToken to ../react-app/src/contracts
+new graphConfig:  { LikerAddress: '0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0',
+  NiftyInkAddress: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6',
+  NiftyMediatorAddress: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28',
+  NiftyRegistryAddress: '0xd622b5770F68A67ec315B4d5E0243181bd2De37e',
+  NiftyTokenAddress: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca',
+  NiftyMainAddress: '0x1dd974c02f18206bF0025f1645A5F03b151509f8',
+  AtivoTokenAddress: '0x44a2D88e864b559Eaf433C79b961f92F4b68B65c',
+  NiftyYardAddress: '0xCf26e26615B6b3302f8a1150D76EE4d0b83d9FBd',
+  NiftyYardTokenAddress: '0x186C4C038e04b56aD63BFfF71b8149Dc49E9b88b' }
+../niftygraph/config/config.json
+✨  Done in 66.33s.
+➜  nftyard_mumbai git:(nftyard_mumbai) ✗ 
+

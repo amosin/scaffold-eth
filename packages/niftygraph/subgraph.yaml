@@ -4,17 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: NiftyYard
-    network: xdai
+    network: mumbai
     source:
-<<<<<<< HEAD
-      address: '0x31Bc666D3511Ce380A1A2f6316708BABbe8FD7E6'
-      abi: NiftyInk
-      startBlock: 12685960
-=======
-      address: '0x4caB2e23c50eD20DE83f3FD15eFEa21663776e15'
+      address: '0xCf26e26615B6b3302f8a1150D76EE4d0b83d9FBd'
       abi: NiftyYard
-      startBlock: 1
->>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
+      startBlock: 12770826
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -41,17 +35,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: NiftyYardToken
-    network: xdai
+    network: mumbai
     source:
-<<<<<<< HEAD
-      address: '0x35970066E0FcA89d60535D9566a40Ecb4E5a47ca'
-      abi: NiftyToken
-      startBlock: 12685960
-=======
-      address: '0x222271E1E73E311baF63796D9E3D57f12F7fBac0'
+      address: '0x186C4C038e04b56aD63BFfF71b8149Dc49E9b88b'
       abi: NiftyYardToken
       startBlock: 1
->>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -104,37 +92,11 @@ dataSources:
 #        - event: mintedNft(uint256,string,address)
 #          handler: handleMintedOnMain
 #      file: ./src/mapping.ts
-<<<<<<< HEAD
-  - kind: ethereum/contract
-    name: NiftyMediator
-    network: mumbai
-    source:
-      address: '0xe130734f93aECF20e3a6aB22B04C2Da686a0A6Fb'
-      abi: NiftyMediator
-      startBlock: 12685960
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Token
-      abis:
-        - name: NiftyMediator
-          file: ./abis/NiftyMediator.json
-        - name: NiftyToken
-          file: ./abis/NiftyToken.json
-      eventHandlers:
-        - event: tokenSentViaBridge(uint256,bytes32)
-          handler: handleTokenSentViaBridge
-        - event: newPrice(uint256)
-          handler: handleNewRelayPrice
-      file: ./src/mapping.ts
-=======
   # - kind: ethereum/contract
   #   name: NiftyMediator
-  #   network: xdai
+  #   network: mumbai
   #   source:
-  #     address: ''
+  #     address: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28'
   #     abi: NiftyMediator
   #     startBlock: 1
   #   mapping:
@@ -154,18 +116,13 @@ dataSources:
   #       - event: newPrice(uint256)
   #         handler: handleNewRelayPrice
   #     file: ./src/mapping.ts
->>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
   - kind: ethereum/contract
     name: Liker
-    network: xdai
+    network: mumbai
     source:
-<<<<<<< HEAD
-      address: '0xb8AA6aA5f253Cd62991A55DC833e90422cfa87F2'
-=======
-      address: '0x7E18D4f1becd805Bb318fb1e6263759E7c2Aa726'
->>>>>>> 91ddb907b19ea140384cf9d1f46c5b31c573130c
+      address: '0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0'
       abi: Liker
-      startBlock: 12685960
+      startBlock: 12770826
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

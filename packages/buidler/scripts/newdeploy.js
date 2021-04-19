@@ -20,7 +20,7 @@ async function main() {
     const NiftyYard = await deploy("NiftyYard")
     const AtivoToken = await deploy("AtivoToken")
     // parameters _feeaddr + childChainManager
-    const NiftyYardToken = await deploy("NiftyYardToken",["0xd3be66b3BD84426E129654E558082Dc2eae3e866", "0xb5505a6d998549090530911180f38aC5130101c6"])
+    const NiftyYardToken = await deploy("NiftyYardToken",["0xF1B471055629E172a59C488a50F38BFc668B1A76", "0xb5505a6d998549090530911180f38aC5130101c6"])
   
 
     // USE ChildChainManagerProxy
@@ -38,11 +38,8 @@ async function main() {
 
     await NiftyRegistry.setNftAddress(NiftyYard.address)
     await NiftyRegistry.setTokenAddress(NiftyYardToken.address)
-    //console.log("setBridgeMediatorAddress",NiftyMediator.address)
-    //await NiftyRegistry.setBridgeMediatorAddress(NiftyMediator.address)
     await NiftyYard.setNiftyRegistry(NiftyRegistry.address)
     await NiftyYardToken.setNiftyRegistry(NiftyRegistry.address)
-    //await NiftyMediator.setNiftyRegistry(NiftyRegistry.address)
     await Liker.addContract(NiftyYard.address)
     await Liker.setWeightToken(AtivoToken.address)
 
