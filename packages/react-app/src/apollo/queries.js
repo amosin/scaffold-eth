@@ -28,6 +28,9 @@ export const NFTS_QUERY = gql`
       id
       nftNumber
       createdAt
+      mintPrice
+      count
+      limit
       jsonUrl
       creator {
         id

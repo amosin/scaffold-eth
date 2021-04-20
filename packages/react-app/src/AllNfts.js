@@ -68,6 +68,11 @@ export default function AllNfts(props) {
 
   if (loading) return <Loader />;
   if (error) return `Error! ${error.message}`;
+  
+
+  // data.nfts.forEach(nft => {
+  //   console.log(nft);
+  // });
 
   return (
     <div className="allnfts-main">
@@ -113,7 +118,38 @@ export default function AllNfts(props) {
                       : nfts[nft].metadata.name}
                   </h3>
                   </Row>
-                  
+                <Row
+                    align="middle"
+                    style={{ textAlign: "center", justifyContent: "center" }}
+                  >
+                                        {nfts[nft].mintPrice > 0 &&
+                      (nfts[nft].limit === 0 || nfts[nft].count < nfts[nft].limit) ? (
+                        <>
+                          <p
+                            style={{
+                              color: "#5e5e5e",
+                              margin: "0",
+                            }}
+                          >
+                            Price: <b style={{color: '#73ad21'}}>{nfts[nft].mintPrice / 1e18} </b>
+                          </p>
+
+                          <img
+                            src="https://gateway.pinata.cloud/ipfs/QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
+                            alt="MATIC"
+                            style={{ marginLeft: 5, width: 20 }}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <img
+                            src="https://gateway.pinata.cloud/ipfs/QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
+                            alt="MATIC"
+                            style={{ marginLeft: 5, width: 20, visibility: "hidden"}}
+                          />
+                        </>
+                      )}
+                    </Row>
                   {/* <Row
                     align="middle"
                     style={{ textAlign: "center", justifyContent: "center", width: "180" }}

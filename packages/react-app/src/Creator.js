@@ -93,7 +93,7 @@ export default function Creator(props) {
 
   if (loading) return <Loader />;
   if (error) return `Error! ${error.message}`;
-
+ 
   return (
     <div className="accountsCotent">
       <div>
@@ -191,17 +191,17 @@ export default function Creator(props) {
                           </p>
 
                           <img
-                            src="QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
+                            src="https://gateway.pinata.cloud/ipfs/QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
                             alt="MATIC"
-                            style={{ marginLeft: 5 }}
+                            style={{ marginLeft: 5, width: 20 }}
                           />
                         </>
                       ) : (
                         <>
                           <img
-                            src="QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
+                            src="https://gateway.pinata.cloud/ipfs/QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
                             alt="MATIC"
-                            style={{ marginLeft: 5, visibility: "hidden" }}
+                            style={{ marginLeft: 5, width: 20, visibility: "hidden" }}
                           />
                         </>
                       )}
