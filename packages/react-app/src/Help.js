@@ -4,7 +4,7 @@ import { Row, Divider } from "antd";
 export default function Help() {
   return (
     <div>
-      <h2 style={{ fontWeight: "bold" }}>Connect with MetaMask</h2>
+      <h2 style={{ fontWeight: "bold" }}>Add Polygon(Matic) to MetaMask</h2>
       <ul style={{ padding: 0 }}>
         <p>
           1- Open MetaMask, and select "Custom RPC" from the Network Dropdown.
@@ -19,38 +19,39 @@ export default function Help() {
           </div>
         </Row>
         <p>
-          2- In the "Custom RPC" Settings, add in the xDai network details and
+          2- In the "Custom RPC" Settings, add in the MATIC network details and
           click Save:
         </p>
         <ul>
           <li>
-            Network Name: <b>xDAI</b>
+            Network Name: <b>Matic Mainnet</b>
           </li>
           <li>
-            New RPC URL: <b>https://dai.poa.network</b>
+            New RPC URL: <b>https://rpc-mainnet.matic.network</b>
           </li>
           <li>
-            ChainID (Optional): <b>100</b>
+            ChainID: <b>137</b>
           </li>
           <li>
-            Symbol: <b>xDAI</b>
+            Symbol: <b>MATIC</b>
           </li>
           <li>
-            Block Explorer URL: <b>https://blockscout.com/poa/xdai</b>
+            Block Explorer URL: <b>https://explorer.matic.network</b>
           </li>
         </ul>
         <Row justify="center">
           <div style={{ margin: "20px 0" }}>
             <img
               width="300"
-              src="https://gateway.pinata.cloud/ipfs/QmU8mstL7PzoPnCzJgwrJcn6C2UVgcgsFt1bTuM2aqZ5z3"
+              src="https://gateway.pinata.cloud/ipfs/QmRz4hhMngHpwwKHnRkLDM3wER82ZTUGPcenNLErY19cH4"
               alt="metamask-2"
             />
           </div>
         </Row>
       </ul>
       <Divider />
-      <h2 style={{ fontWeight: "bold" }}>Export burning wallet private key</h2>
+      <h2 style={{ fontWeight: "bold" }}>Export Burner Wallet private key</h2>
+      <p><a href="https://github.com/austintgriffith/burner-wallet">Burner Wallet - More INFO</a></p>
       <p>
         If you are not using MetaMask, you can export your burning wallet
         private key:{" "}
@@ -80,22 +81,7 @@ export default function Help() {
       <Divider />
       <h2 style={{ fontWeight: "bold" }}>Upgrade nfts to Ethereum mainnet</h2>
       <p>
-        You can upgrade your nfts from xDai to the Ethereum mainnet via the{" "}
-        <a href="https://docs.tokenbridge.net/amb-bridge/about-amb-bridge">
-          Tokenbridge
-        </a>
-        . It will then be available to hold in your mainnet wallet or trade on
-        mainnet NFT marketplaces.
-      </p>
-      <p>
-        The cost to do this is based on the gas fee associated with minting your
-        Nifty NFT on mainnet
-      </p>
-      <p>
-        <b>
-          Note that this is a one-way door - it is not possible to bring your
-          NFT back to xDai once it has been upgraded
-        </b>
+        Coming soon!
       </p>
     </div>
   );

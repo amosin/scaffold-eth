@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "antd/dist/antd.css";
+import InfoPop from './components/InfoPop';
 import "./App.css";
 import {
   Button,
@@ -32,6 +33,8 @@ export default function CreateFile(props) {
   let history = useHistory();
   const [sending, setSending] = useState(false);
   const [name, setName] = useState("");
+  const [userDescription, setDescription] = useState("");
+  const [externalUrl, setExternalUrl] = useState("");
   const [number, setNumber] = useState(0);
   const [attribute, setAttribute] = useState([]);
   const [attributeValue, setAttributeValue] = useState([]);
@@ -119,11 +122,16 @@ export default function CreateFile(props) {
     }
     const timeInMs = new Date();
     const addressForDescription = !newEns ? props.address : newEns;
-    currentNft["description"] =
+    if (values.userDescription){
+      currentNft["description"] = values.userDescription;
+    } else {
+      currentNft["description"] =
       "NFT Minted by " +
       addressForDescription +
       " on " +
       timeInMs.toUTCString();
+    }
+
 
     props.setIpfsHash();
 
@@ -131,7 +139,13 @@ export default function CreateFile(props) {
     console.log("imageHash", imageHash);
 
     currentNft["image"] = "https://ipfs.io/ipfs/" + imageHash;
-    currentNft["external_url"] = "https://nftyard.io/" + imageHash;
+
+    if (values.externalUrl){
+      currentNft["external_url"] = values.externalUrl;
+    } else {
+      currentNft["external_url"] = "https://nftyard.io/" + imageHash;
+    }
+
     props.setNft(currentNft);
     console.log("Nft:", props.nft);
 
@@ -206,50 +220,77 @@ export default function CreateFile(props) {
   
   const top = (
     <div><br></br>
-      <Typography.Title level={3} style={{ color: "white", marginBottom: 25 }}>Upload File to be Minted</Typography.Title>
+      <Typography.Title level={3} style={{ color: "white", marginBottom: 25 }}>Create your own NFT 👷🏻</Typography.Title>
       <Form
+      labelCol={{ span: 24 }}
+      wrapperCol={{
+        span: 30,
+      }}
         layout={"horizontal"}
         name="createFile"
         onFinish={createNft}
         onFinishFailed={onFinishFailed}
-        labelAlign={"middle"}
-        style={{ justifyContent: "center", marginBottom: "30px" }}
       >
         <Form.Item
           name="title"
+          label="Name"
+          labelAlign = "right"
           rules={[
-            { required: true, message: "What is this work of art called?" },
+            { required: true, message: "What is this NFT called?" },
           ]}
         >
           <Input
             onChange={(e) => setName(e.target.value)}
-            placeholder={"Name"}
+            placeholder={"Give your NFT a Title"}
             style={{ fontSize: 16 }}
           />
         </Form.Item>
 
+        {/* Description */}
+        
+        
         <Form.Item
-          name="limit"
-          rules={[{ required: true, message: "How many files can be minted?" }]}
+         label={<span style={{marginTop: 15}}> <span>Description</span><InfoPop item="Description" textAlign="left"/></span>}
+         labelAlign = "left"
+          name="userDescription"
+          rules={[
+            { required: true, message: "Give your NFT a Description." },
+          ]}
         >
-          <InputNumber
-            onChange={(e) => {
-              setNumber(e);
-            }}
-            placeholder={"Limit"}
+          
+          <Input.TextArea
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder={"Description"}
             style={{ fontSize: 16 }}
-            min={0}
-            precision={0}
-          />
+          />      
         </Form.Item>
+
+        <Form.Item
+        label={<span style={{marginTop: 20}}> <span>Link to your own NFT Website (Optional)</span><InfoPop item="External Url" textAlign="left"/></span>}
+         labelAlign = "left"
+          name="externalUrl"
+          rules={[
+            { required: false, message: "Optionally you can add your own website." },
+          ]}
+        >
+  
+          <Input
+            onChange={(e) => setExternalUrl(e.target.value)}
+            placeholder={"https://mywebsite.com/nft_address"}
+            style={{ fontSize: 16 }}
+          />  
+        </Form.Item>
+
         <br></br>
-        <Form.List name="attributes">
+        <Form.List name="attributes">        
         {(fields, { add, remove }) => (
           <>
-          
+          <span style={{color: '#73ad21'}}>Custom Attributes</span>
+          <InfoPop item="Custom Attributes" textAlign="left"/>
             {fields.map(field => (
               <Space key={field.key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                 <Form.Item
+                labelAlign = "left"
                   {...field}
                   name={[field.name, 'trait_type']}
                   fieldKey={[field.fieldKey, 'trait_type']}
@@ -257,7 +298,7 @@ export default function CreateFile(props) {
                 >
                   <Input 
                   onChange={(e) => setAttribute(e.target.value)}
-                  placeholder="Custom Attributes" 
+                  placeholder="Property Name" 
                   />
                 </Form.Item>
                 <Form.Item
@@ -283,7 +324,29 @@ export default function CreateFile(props) {
         )}
       </Form.List>
 
-        <Form.Item>
+
+      <Form.Item 
+          labelCol={{ span: 4 }}
+          label={<span style={{marginTop: 20}}> <span>Supply</span><InfoPop item="Supply" textAlign="left"/></span>}
+          labelAlign = "left"
+          name="limit"
+          rules={[{ required: true, message: "How many files can be minted?" }]}
+        >
+          
+          <InputNumber
+            onChange={(e) => {
+              setNumber(e);
+            }}
+            placeholder={"Limit"}
+            style={{ fontSize: 16 }}
+            min={0}
+            precision={0}
+          />
+          
+        </Form.Item>
+
+        <Form.Item
+        style={{ textAlign: "center" }}>
           <Button
             loading={sending}
             type="primary"
@@ -293,6 +356,8 @@ export default function CreateFile(props) {
             Upload
           </Button>
         </Form.Item>
+
+
 
         
       </Form>
@@ -305,6 +370,8 @@ export default function CreateFile(props) {
        <div  className="createfile-right">
       {top}
       </div>
+      <p style={{fontSize: 14}}>Image, Video, Audio, or 3D Model</p>
+      <InfoPop item="Upload" textAlign="left"/>
       <Uploader />
     </div>
   );

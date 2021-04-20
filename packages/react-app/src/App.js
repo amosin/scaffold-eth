@@ -62,7 +62,17 @@ if (process.env.REACT_APP_NETWORK_NAME) {
     kovanProvider = new ethers.providers.JsonRpcProvider(
       'https://rpc-mumbai.maticvigil.com'
     );
-  } else {
+  } else if (process.env.REACT_APP_NETWORK_NAME === 'matic') {
+    networkBanner = <div className="network-banner">Network: Polygon</div>;
+    console.log('THIS IS MUMBAI NETWORK');
+    localProvider = new ethers.providers.JsonRpcProvider(
+      'https://rpc-mainnet.maticvigil.com'
+    );
+    kovanProvider = new ethers.providers.JsonRpcProvider(
+      'https://rpc-mainnet.maticvigil.com'
+    );
+  }
+   else {
     localProvider = new ethers.providers.InfuraProvider(
       process.env.REACT_APP_NETWORK_NAME,
       '9ea7e149b122423991f56257b882261c'

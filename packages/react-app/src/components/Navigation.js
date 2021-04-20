@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import Logo from '../assets/ativoCoinLogo.png'
+import Logo from '../assets/nftyard_logo.png'
 import "../styles/navigation.css"
 import { Account } from './';
 
@@ -9,7 +9,7 @@ function Navigation({ address }) {
 
     <nav className="navbar navbar-expand-lg navbar-light bg-dark">
       <div className="navbar-brand">
-        <a  href="/"><img src={Logo} alt="NFT.Ativo.Finance" className="logo-img" /> <span className="sitename-lower"> NFT Factory </span> </a>
+        <a  href="/"><img src={Logo} alt="NFT Yard" className="logo-img" /> <span className="sitename-lower"></span> </a>
 
       </div>
 

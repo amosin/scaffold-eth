@@ -137,12 +137,12 @@ export default function Wallet(props) {
           <b>Private Key:</b>
 
           <div>
-            <Text copyable>{pk}</Text>
+            <Text copyable style={{ color: "black" }}>{pk}</Text>
           </div>
 
           <hr />
 
-          <i>
+          {/* <i>
             Point your camera phone at qr code to open in{" "}
             <a target="_blank" href={"https://xdai.io/" + pk}>
               burner wallet
@@ -156,11 +156,11 @@ export default function Wallet(props) {
             includeMargin={true}
             renderAs={"svg"}
             imageSettings={{ excavate: false }}
-          />
+          /> */}
 
-          <Paragraph style={{ fontSize: "16" }} copyable>
+          {/* <Paragraph style={{ fontSize: "16" }} copyable>
             {"https://xdai.io/" + pk}
-          </Paragraph>
+          </Paragraph> */}
         </div>
       );
     }
@@ -196,8 +196,8 @@ export default function Wallet(props) {
       <div>
         <Typography>
           ⚡ You are on the{" "}
-          <a target="_blank" href={"https://www.xdaichain.com/"}>
-            xDai network
+          <a target="_blank" href={"https://polygon.technology/"}>
+          Polygon Network
           </a>{" "}
           ⚡
         </Typography>
@@ -223,9 +223,9 @@ export default function Wallet(props) {
           📖{" "}
           <a
             target="_blank"
-            href={"https://www.xdaichain.com/for-users/get-xdai-tokens"}
+            href={"https://polygon.technology/"}
           >
-            Learn more about using xDai
+            Learn more about using Polygon
           </a>
         </Typography>
       </div>

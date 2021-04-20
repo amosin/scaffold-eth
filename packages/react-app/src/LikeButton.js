@@ -106,7 +106,7 @@ export default function LikeButton(props) {
                         target="_blank"
                         rel="noopener noreferrer"
                         href={
-                          "https://blockscout.com/poa/xdai/tx/" + result.hash
+                          "https://explorer-mumbai.maticvigil.com/tx/" + result.hash
                         }
                       >
                         view transaction.

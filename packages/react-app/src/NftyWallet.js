@@ -253,7 +253,7 @@ export default function NftyWallet(props) {
         <Footer showDrawer={showDrawer} />
 
         <Drawer
-          title="How to use"
+          title="HELP"
           width={520}
           onClose={onCloseDrawer}
           visible={drawerVisibility}

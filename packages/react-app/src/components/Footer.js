@@ -12,7 +12,7 @@ export default function Footer({ showDrawer }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Chat
+            Telegram
           </a>
         </li>
         <li>

@@ -178,13 +178,41 @@ h3.ant-typography,
 }
 
 .createfile {
-  text-align: center;
-  max-width: 600px;
+  text-align: left;
+  max-width: 620px;
   margin: 0 auto;
 }
-
+.createfile-right {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .ant-switch {
   background-color: red;
   border-color: white !important;
   margin: 5px;
+}
+
+.ant-drawer-content {
+  background-color: #06061b;
+}
+
+.ant-drawer-header {
+  position: relative;
+  padding: 16px 24px;
+  background: rgb(21, 43, 68) !important;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 2px 2px 0 0;
+}
+
+.ant-drawer-title {
+  margin: 0;
+  color: #f0f0f0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 22px;
+}
+
+.ant-form-item-label label {
+  font-size: 16px;
+  color: #73ad21;
 }

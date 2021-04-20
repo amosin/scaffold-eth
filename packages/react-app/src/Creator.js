@@ -191,16 +191,16 @@ export default function Creator(props) {
                           </p>
 
                           <img
-                            src="https://gateway.pinata.cloud/ipfs/QmQicgCRLfrrvdvioiPHL55mk5QFaQiX544b4tqBLzbfu6"
-                            alt="xdai"
+                            src="QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
+                            alt="MATIC"
                             style={{ marginLeft: 5 }}
                           />
                         </>
                       ) : (
                         <>
                           <img
-                            src="https://gateway.pinata.cloud/ipfs/QmQicgCRLfrrvdvioiPHL55mk5QFaQiX544b4tqBLzbfu6"
-                            alt="xdai"
+                            src="QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
+                            alt="MATIC"
                             style={{ marginLeft: 5, visibility: "hidden" }}
                           />
                         </>

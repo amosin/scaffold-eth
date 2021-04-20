@@ -38,7 +38,7 @@ export default function Address(props) {
     displayAddress = props.value;
   }
 
-  let blockExplorer = "https://blockscout.com/poa/xdai/address/";
+  let blockExplorer = "https://explorer-mumbai.maticvigil.com/address/";
   if (props.blockExplorer) {
     blockExplorer = props.blockExplorer;
   }
@@ -52,7 +52,7 @@ export default function Address(props) {
     return (
       <span style={{ verticalAlign: "middle" }}>
         {clickable ? (
-          <a style={{ color: "#FFFFFF" }} href={blockExplorer + props.value}>
+          <a style={{ color: "#000000" }} href={blockExplorer + props.value}>
             <Blockies seed={props.value.toLowerCase()} size={8} scale={2} />
           </a>
         ) : (
@@ -70,7 +70,7 @@ export default function Address(props) {
         copyable={{ text: props.value }}
       >
         {clickable ? (
-          <a style={{ color: "#FFFFFF" }} href={blockExplorer + props.value}>
+          <a style={{ color: "#000000" }} target="_blank" href={blockExplorer + props.value}>
             {displayAddress}
           </a>
         ) : (
@@ -82,7 +82,7 @@ export default function Address(props) {
     text = (
       <Text copyable={{ text: props.value }}>
         {clickable ? (
-          <a style={{ color: "#FFFFFF" }} href={blockExplorer + props.value}>
+          <a style={{ color: "rgb(24, 47, 255)" }} target="_blank" href={blockExplorer + props.value}>
             {displayAddress}
           </a>
         ) : (

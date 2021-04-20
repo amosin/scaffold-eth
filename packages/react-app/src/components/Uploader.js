@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Upload, message } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, InboxOutlined } from "@ant-design/icons";
 
 import { useUploader } from "../hooks";
 
@@ -15,8 +15,11 @@ const Uploader = () => {
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
+      {loading ? <LoadingOutlined /> : <InboxOutlined style={{ fontSize: 65 }}/>}
+      <div style={{ marginTop: 8 }}>
+      <p className="ant-upload-text">Click or drag file to this area to upload</p>
+      <p className="ant-upload-hint">select media on your device</p>
+      <p></p></div>
     </div>
   );
 

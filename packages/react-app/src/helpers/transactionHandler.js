@@ -13,15 +13,15 @@ export async function transactionHandler(c) {
           <>
           <p>You are using {network}</p>
             <p>
-              NFT Yard is built on xDai: please change your MetaMask Network to
+              NFT Yard is built on Polygon (Matic): please change your MetaMask Network to
               point to the{" "}
-              <a href="https://www.xdaichain.com/" target="_blank">
-                xDai Chain
+              <a href="https://docs.matic.network/docs/develop/metamask/config-matic/" target="_blank">
+                Polygon Network
               </a>
             </p>
             <p>
               You will need to create a custom RPC with the following URL:{" "}
-              <b>https://dai.poa.network</b>
+              <b>https://rpc-mainnet.maticvigil.com/.</b>
             </p>
           </>
         ),
@@ -30,21 +30,21 @@ export async function transactionHandler(c) {
 
     function showXDaiModal(network) {
       Modal.info({
-        title: "You need some xDai to make this transaction!",
+        title: "You need some MATIC to make this transaction!",
         content: (
           <span>
             <p>You are using {network}</p>
             {" "}
-            NFT Yard runs on xDAI.{" "}
-            <a target="_blank" href={"https://xdai.io"}>
+            NFT Yard runs on Polygon (Matic).{" "}
+            <a target="_blank" href={"https://wallet.matic.network/"}>
               Take it to the bridge
             </a>{" "}
-            (to transfer DAI from mainnet).{" "}
+            (to transfer Matic from mainnet).{" "}
             <a
               target="_blank"
-              href={"https://www.xdaichain.com/for-users/get-xdai-tokens"}
+              href={"https://docs.matic.network/docs/develop/metamask/config-matic/"}
             >
-              Learn more about using xDai
+              Learn more about using Matic
             </a>
           </span>
         ),
@@ -72,7 +72,7 @@ export async function transactionHandler(c) {
       let m =
         "You need more than " +
         ethers.utils.formatEther(c["payment"]) +
-        " xDai to make this transaction";
+        " MATIC to make this transaction";
       console.log(m);
       throw m;
     }
@@ -80,7 +80,7 @@ export async function transactionHandler(c) {
     if (parseFloat(ethers.utils.formatEther(balance)) > 0.001) {
       if (injectedNetwork.chainId === localNetwork.chainId) {
         console.log(
-          "Got xDai + on the right network, so kicking it old school"
+          "Got Matic + on the right network, so kicking it old school"
         );
 
         let contract = new ethers.Contract(
@@ -102,7 +102,7 @@ export async function transactionHandler(c) {
         return result;
       } else {
         chainWarning(injectedNetwork.name, injectedNetwork.chainId);
-        throw "Got xDai, but Metamask is on the wrong network";
+        throw "Got Matic, but Metamask is on the wrong network";
       }
     } else if (process.env.REACT_APP_USE_GSN === "true") {
       if (
@@ -153,7 +153,7 @@ export async function transactionHandler(c) {
       }
     } else {
       showXDaiModal(injectedNetwork.name);
-      throw "Need XDai";
+      throw "Need Matic";
     }
   } catch (e) {
     if (e.message.indexOf("Relay not ready") >= 0) {
