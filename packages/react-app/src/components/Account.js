@@ -11,7 +11,7 @@ import { RelayProvider } from '@opengsn/gsn';
 //import Portis from "@portis/web3";
 const Web3HttpProvider = require('web3-providers-http');
 
-const INFURA_ID = '28351e34c3814fa09a8768cdf9372c6e'; // MY INFURA_ID, SWAP IN YOURS!
+const INFURA_ID = 'bbb7b1753a164c54aecd7fdf18e86465'; // MY INFURA_ID, SWAP IN YOURS!
 
 const web3Modal = new Web3Modal({
   network: 'mainnet', // optional
@@ -107,8 +107,8 @@ export default function Account(props) {
         burner = new BurnerProvider('https://dai.poa.network');
       } else if (process.env.REACT_APP_NETWORK_NAME === 'sokol') {
         burner = new BurnerProvider(
-          'https://kovan.infura.io/v3/9ea7e149b122423991f56257b882261c'
-        ); //new ethers.providers.InfuraProvider("kovan", "9ea7e149b122423991f56257b882261c")
+          'https://kovan.infura.io/v3/6267047f3de141149cde8157eb747010'
+        ); //new ethers.providers.InfuraProvider("kovan", "6267047f3de141149cde8157eb747010")
       } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
         burner = new BurnerProvider('https://rpc-mumbai.maticvigil.com');
       } else {

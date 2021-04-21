@@ -16,6 +16,7 @@ import { transactionHandler } from "./helpers";
 export default function NiftyShop(props) {
   const [buying, setBuying] = useState(false);
   const [priceForm] = Form.useForm();
+  const gasPrice = props.gasPrice;
 
   const writeContracts = useContractLoader(props.injectedProvider);
   const metaWriteContracts = useContractLoader(
@@ -68,6 +69,7 @@ export default function NiftyShop(props) {
           signatureFunctionArgs,
           getSignatureTypes,
           getSignatureArgs,
+          gasPrice,
         };
 
         console.log(txConfig);
@@ -91,6 +93,7 @@ export default function NiftyShop(props) {
           contractName,
           regularFunction,
           regularFunctionArgs,
+          gasPrice,
         };
 
         console.log(txConfig);
@@ -142,6 +145,7 @@ export default function NiftyShop(props) {
       regularFunction,
       regularFunctionArgs,
       payment,
+      gasPrice,
     };
 
     console.log(txConfig);

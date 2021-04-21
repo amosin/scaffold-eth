@@ -227,6 +227,8 @@ export default function ViewNft(props) {
       hash,
       parseInt(data.nft.count),
     ];
+    
+    const gasPrice = props.gasPrice;
 
     let mintNftConfig = {
       ...props.transactionConfig,
@@ -237,6 +239,7 @@ export default function ViewNft(props) {
       signatureFunctionArgs,
       getSignatureTypes,
       getSignatureArgs,
+      gasPrice,
     };
 
     console.log(mintNftConfig);
@@ -331,12 +334,13 @@ export default function ViewNft(props) {
                 mainnetProvider={props.mainnetProvider}
                 injectedProvider={props.injectedProvider}
                 transactionConfig={props.transactionConfig}
+                gasPrice={props.gasPrice}
               />
             }
             title="Burn Token"
           >
             <Button type="danger" style={{ margin: 4, marginBottom: 12 }}>
-              <SendOutlined /> <FireOutlined />
+              <FireOutlined /> Burn
             </Button>
           </Popover>
         );
@@ -497,7 +501,7 @@ export default function ViewNft(props) {
           <Descriptions.Item label="Creator">
             {data.nft.creator.id}
           </Descriptions.Item>
-          <Descriptions.Item label="drawingHash">{hash}</Descriptions.Item>
+          <Descriptions.Item label="fileHash">{hash}</Descriptions.Item>
           <Descriptions.Item label="id">{data.nft.nftNumber}</Descriptions.Item>
           <Descriptions.Item label="jsonUrl">
             {data.nft.jsonUrl}
@@ -528,6 +532,7 @@ export default function ViewNft(props) {
             injectedGsnSigner={props.injectedGsnSigner}
             signingProvider={props.injectedProvider}
             localProvider={props.kovanProvider}
+            gasPrice={props.gasPrice}
             contractAddress={
               props.readKovanContracts
                 ? props.readKovanContracts["NiftyYard"]["address"]

@@ -59,7 +59,7 @@ export default function Holdings(props) {
     _data.forEach(async (token) => {
       if (isBlocklisted(token.nft.jsonUrl)) return;
       let _token = token;
-      _token.network = "xDai";
+      _token.network = "mumbai";
       _token.nft.metadata = await getMetadata(token.nft.jsonUrl);
       //setTokens((tokens) => [...tokens, _token]);
       let _newToken = {};
@@ -108,7 +108,7 @@ export default function Holdings(props) {
     let tokenList = _tokens.map((i) => i.id);
     let mainTokenList = _mainTokens.map((i) => i.id);
     setHoldings([...tokenList, ...mainTokenList]);
-    console.log(_tokens);
+    //console.log(_tokens);
   };
 
   const handleFilter = () => {
@@ -134,7 +134,7 @@ export default function Holdings(props) {
   useEffect(() => {
     const getHoldings = async (_data) => {
       let _blockNumber = parseInt(_data.metaData.value);
-      console.log(blockNumber, _blockNumber);
+      //console.log(blockNumber, _blockNumber);
       if (_blockNumber >= blockNumber) {
         setData(_data);
         setBlockNumber(_blockNumber);
@@ -166,7 +166,7 @@ export default function Holdings(props) {
       return `Error! ${error.message}`;
     }
   }
-
+  console.log(data)
   return (
     <div className="holdings">
       <Row>
@@ -248,7 +248,7 @@ export default function Holdings(props) {
                   </Link>
                   <Divider style={{ margin: "10px 0" }} />
                   <Row justify={"space-between"}>
-                    {tokens[id].network === "xDai" ? (
+                    {tokens[id].network === "mumbai" ? (
                       <>
                         <Popover
                           content={
@@ -299,6 +299,23 @@ export default function Holdings(props) {
                           transactionConfig={props.transactionConfig}
                           buttonSize="small"
                         /> */}
+                        <Button
+                          type="primary"
+                          style={{
+                            margin: 8,
+                            background: "#722ed1",
+                            borderColor: "#722ed1",
+                          }}
+                          onClick={() => {
+                            console.log("item", id);
+                            window.open(
+                              "https://testnets.opensea.io/assets/mumbai/0x186c4c038e04b56ad63bfff71b8149dc49e9b88b/" +
+                              id
+                            );
+                          }}
+                        >
+                          <RocketOutlined /> View on OpenSea
+                        </Button>
                       </>
                     ) : (
                         <Button

@@ -68,11 +68,7 @@ export default function AllNfts(props) {
 
   if (loading) return <Loader />;
   if (error) return `Error! ${error.message}`;
-  
 
-  // data.nfts.forEach(nft => {
-  //   console.log(nft);
-  // });
 
   return (
     <div className="allnfts-main">

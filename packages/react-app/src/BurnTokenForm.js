@@ -15,12 +15,14 @@ export default function BurnTokenForm(props) {
     let contractName = "NiftyYardToken";
     let regularFunction = "burnToken";
     let regularFunctionArgs = [props.tokenId, props.nftUrl];
+    const gasPrice = props.gasPrice;
 
     let txConfig = {
       ...props.transactionConfig,
       contractName,
       regularFunction,
       regularFunctionArgs,
+      gasPrice,
     };
 
     console.log(txConfig);

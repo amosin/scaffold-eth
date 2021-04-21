@@ -7,6 +7,9 @@ import { default as Transactor } from "./Transactor";
 export async function transactionHandler(c) {
   try {
     function chainWarning(network, chainId) {
+      if (network === "homestead") {
+        network = "Ethereum Mainnet";
+      }
       Modal.warning({
         title: "MetaMask Network Mismatch",
         content: (
@@ -90,15 +93,21 @@ export async function transactionHandler(c) {
         );
 
         let metaData = {};
+
+
+
+
+        metaData["gasPrice"] = c["gasPrice"];
+
         if (c["payment"]) {
           metaData["value"] = c["payment"];
         }
-        console.log('r w here?')
+        //console.log('r w here?')
         let result = await contract[c["regularFunction"]](
           ...c["regularFunctionArgs"],
           metaData
         );
-        console.log("Regular RESULT!!!!!!", result);
+        //console.log("Regular RESULT!!!!!!", result);
         return result;
       } else {
         chainWarning(injectedNetwork.name, injectedNetwork.chainId);

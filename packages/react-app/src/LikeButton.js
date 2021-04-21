@@ -14,6 +14,8 @@ export default function LikeButton(props) {
   );
   const readContracts = useContractLoader(props.localProvider);
 
+  const gasPrice = props.gasPrice;
+
   const [likes, setLikes] = useState();
   const [hasLiked, setHasLiked] = useState();
 
@@ -92,6 +94,7 @@ export default function LikeButton(props) {
                   signatureFunctionArgs,
                   getSignatureTypes,
                   getSignatureArgs,
+                  gasPrice,
                 };
 
                 console.log(likeConfig);

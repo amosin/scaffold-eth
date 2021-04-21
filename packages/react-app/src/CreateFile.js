@@ -40,6 +40,8 @@ export default function CreateFile(props) {
   const [attributeValue, setAttributeValue] = useState([]);
   const [imageUrl, setImageUrl] = useAtom(imageUrlAtom);
 
+  const gasPrice = props.gasPrice;
+
   const mintNft = async (nftUrl, jsonUrl, limit) => {
     let contractName = "NiftyYard";
     let regularFunction = "createNft";
@@ -83,6 +85,7 @@ export default function CreateFile(props) {
       signatureFunctionArgs,
       getSignatureTypes,
       getSignatureArgs,
+      gasPrice,
     };
 
     console.log(createNftConfig);
@@ -250,7 +253,7 @@ export default function CreateFile(props) {
         
         
         <Form.Item
-         label={<span style={{marginTop: 15}}> <span>Description</span><InfoPop item="Description" textAlign="left"/></span>}
+         label={<span style={{marginTop: 18}}> <span>Description</span><InfoPop item="Description" textAlign="left"/></span>}
          labelAlign = "left"
           name="userDescription"
           rules={[
@@ -285,8 +288,8 @@ export default function CreateFile(props) {
         <Form.List name="attributes">        
         {(fields, { add, remove }) => (
           <>
-          <span style={{color: '#73ad21'}}>Custom Attributes</span>
-          <InfoPop item="Custom Attributes" textAlign="left"/>
+          <span style={{color: '#73ad21'}}>Custom Properties</span>
+          <InfoPop item="Custom Properties" textAlign="left"/>
             {fields.map(field => (
               <Space key={field.key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                 <Form.Item
@@ -294,7 +297,7 @@ export default function CreateFile(props) {
                   {...field}
                   name={[field.name, 'trait_type']}
                   fieldKey={[field.fieldKey, 'trait_type']}
-                  rules={[{ required: true, message: 'Missing attribute' }]}
+                  rules={[{ required: true, message: 'Missing Property' }]}
                 >
                   <Input 
                   onChange={(e) => setAttribute(e.target.value)}
@@ -317,7 +320,7 @@ export default function CreateFile(props) {
             ))}
             <Form.Item>
               <Button type="dashed" shape="round" ghost="true" onClick={() => add()} block icon={<PlusOutlined />}>
-                Add Custom Attribute
+                Add Custom Property
               </Button>
             </Form.Item>
           </>

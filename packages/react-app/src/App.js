@@ -94,7 +94,17 @@ function App() {
   const [injectedProvider, setInjectedProvider] = useState();
   const [metaProvider, setMetaProvider] = useState();
   const price = 1;
-  const gasPrice = 1001010001;
+  const gasPrice = 2000000000;
+
+
+  // function setGasPrice(gasPrice){
+  //   gasPrice = gasPrice * 1000000000;
+  //   console.log(gasPrice)
+  // }
+
+  // fetch('https://gasstation-mainnet.matic.network')
+  // .then(response => response.json())
+  // .then(json => setGasPrice(json.fastest))
 
   // Mainnet contract:
   const readContracts = useContractLoader(localProvider);

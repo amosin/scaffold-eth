@@ -23,8 +23,8 @@ const ipfsConfigInfura = {
   protocol: 'https',
 };
 const ipfsConfig = {
-  host: 'ipfs.infura.io',
-  port: '5001',
+  host: 'ipfs.nftyard.io',
+  port: '443',
   protocol: 'https',
   timeout: 2500,
 };
