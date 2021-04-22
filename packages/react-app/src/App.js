@@ -54,7 +54,7 @@ if (process.env.REACT_APP_NETWORK_NAME) {
       'https://sokol.poa.network'
     );
   } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
-    networkBanner = <div className="network-banner">Network: Mumbai</div>;
+    networkBanner = <div className="network-banner"> Network: Mumbai </div>;
     console.log('THIS IS MUMBAI NETWORK');
     localProvider = new ethers.providers.JsonRpcProvider(
       'https://rpc-mumbai.maticvigil.com'

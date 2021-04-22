@@ -82,7 +82,7 @@ export default function Address(props) {
     text = (
       <Text copyable={{ text: props.value }}>
         {clickable ? (
-          <a style={{ color: "rgb(24, 47, 255)" }} target="_blank" href={blockExplorer + props.value}>
+          <a style={{ color: "#6c757d" }} target="_blank" href={blockExplorer + props.value}>
             {displayAddress}
           </a>
         ) : (

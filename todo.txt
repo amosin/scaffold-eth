@@ -15,16 +15,18 @@ X - where is the price of things?
 X - price on my assets has xDai symbol
 
 
-
+X Front Page equal squares
 
 
 
 X- Fix Help
 X- search Infura
 
-kinf ok- IPFS NODE on Digital Ocean
-- Google Analytics
 
+X  IPFS NODE on Digital Ocean
+
+- My Assets and Holdings - equal squares
+- Google Analytics
 
 - ADD MATIC RAMP
 - remove console log

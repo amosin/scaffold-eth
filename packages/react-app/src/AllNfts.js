@@ -7,6 +7,7 @@ import { Row } from "antd";
 import { Loader } from "./components";
 import { ethers } from 'ethers';
 import LikeButton from "./LikeButton.js";
+import { Container } from "winston";
 
 export default function AllNfts(props) {
   let [allNfts, setAllNfts] = useState([]);
@@ -72,7 +73,7 @@ export default function AllNfts(props) {
 
   return (
     <div className="allnfts-main">
-      <h1 style={{ padding: 0, textAlign: "center", listStyle: "none", color: "white"}}> LATEST MINTED NFTs </h1>
+      <h1 style={{ padding: 0, textAlign: "center", listStyle: "none", color: "white", margin: 20}}> LATEST MINTED NFTs </h1>
       <div className="nfts-grid">
       
         <ul style={{ padding: 0, textAlign: "center", listStyle: "none" }}>
@@ -81,6 +82,7 @@ export default function AllNfts(props) {
                 .sort((a, b) => b - a)
                 .map((nft) => (
                   <li
+                    className="eachCard"
                     key={nfts[nft].id}
                     style={{
                       display: "inline-block",
@@ -89,28 +91,39 @@ export default function AllNfts(props) {
                       padding: 10,
                       border: "1px solid #e5e5e6",
                       borderRadius: "10px",
-                      fontWeight: "bold"
+                      fontWeight: "bold",
+                      transition: 'box-shadow .3s',
                     }}
                   >
-                    <Link to={"assets/" + nfts[nft].id} style={{ color: "white" }}>
+                    <Link to={"assets/" + nfts[nft].id} style={{ textDecoration: 'none' }}>
+                      <div style={{
+                        height: 300,
+                        width: 300,
+                        textAlign: 'center',
+                      }}>
                       <img
                         src={nfts[nft].metadata.image}
                         alt={nfts[nft].metadata.name}
                         width="300"
                         style={{
-                          border: "1px solid #e5e5e6",
+                          objectFit: 'contain',
+                          height: 'auto',
+                          width: 'auto',
+                          maxWidth: '100%',
+                          maxHeight: '100%',
                           borderRadius: "10px"
                         }}
                       />
+                      </div>
                   <Row
                   align="middle"
                   style={{ textAlign: "center", justifyContent: "center", width:"180" }}
                   >
                   <h3
-                    style={{ color: "white", margin: "10px 0px 5px 0px", fontWeight: "700" }}
+                    style={{ color: "white", margin: "10px 0px 5px 0px", fontWeight: "700", fontSize: 18, textTransform: 'uppercase' }}
                   >
                     {nfts[nft].metadata.name.length > 18
-                      ? nfts[nft].metadata.name.slice(0, 15).concat("...")
+                      ? nfts[nft].metadata.name.slice(0, 16).concat("...")
                       : nfts[nft].metadata.name}
                   </h3>
                   </Row>
