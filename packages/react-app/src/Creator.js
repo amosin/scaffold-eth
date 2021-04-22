@@ -104,23 +104,28 @@ export default function Creator(props) {
               size={25}
               className="creator_blockie"
             />
-            <h2 style={{ margin: 10 }}>{address.slice(0, 12)}</h2>
+            <h2 style={{ margin: 10 }}><span style={{color: "rgb(108, 117, 125)"}}>Creator:</span> {address.slice(0, 12)}</h2>
             <Row>
               <Col span={12}>
                 <p style={{ margin: 0 }}>
-                  <b>Nfts:</b>{" "}
+                  <b>Creations:</b>{" "}
                   {data.creators.length ? data.creators[0].nftCount : 0}
                 </p>
               </Col>
               <Col span={12}>
                 <p style={{ margin: 0 }}>
-                  <b>Total sales:</b> $
+                  <b>Total Sales: </b> 
                   {nfts
                     .filter((nft) => nft.sales.length)
                     .map((nft) => nft.sales)
                     .map((e) => e.flatMap((e) => Number.parseInt(e.price, 0)))
                     .flatMap((e) => e)
                     .reduce((a, b) => a + b, 0) / 1e18}
+                    <img
+                    src="https://gateway.pinata.cloud/ipfs/QmbYA7QhqFTLzVSAzE9ymfVvdE1hwBskmXE4X4EK9FevMa"
+                    alt="MATIC"
+                    style={{ marginLeft: 5, width: 20 }}
+                    />
                 </p>
               </Col>
             </Row>
@@ -148,29 +153,37 @@ export default function Creator(props) {
                     border: "1px solid #e5e5e6",
                     borderRadius: "10px",
                     fontWeight: "bold",
-                    height: "auto",
+                    transition: 'box-shadow .3s',
                   }}
                 >
                   <Link
                     to={{ pathname: "/assets/" + nft.id }}
                     style={{ color: "black" }}
                   >
-                    <div className="assetImage">
+                    <div className="assetImage" style={{
+                        height: 150,
+                        width: 150,
+                        textAlign: 'center',
+                      }}>
                       <img
                       src={nft.metadata.image}
                       alt={nft.metadata.name}
                       width="300"
                       style={{
-                        border: "1px solid #e5e5e6",
-                        borderRadius: "10px",
+                        objectFit: 'contain',
+                        height: 'auto',
+                        width: 'auto',
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        borderRadius: "10px"
                       }}
                     />
                     </div>
                     <h3
-                      style={{ margin: "10px 0px 5px 0px", fontWeight: "700", color: "#ffffff" }}
+                      style={{ color: "white", margin: "10px 0px 5px 0px", fontWeight: "700", fontSize: 15, textTransform: 'uppercase' }}
                     >
                       {nft.metadata.name.length > 18
-                        ? nft.metadata.name.slice(0, 15).concat("...")
+                        ? nft.metadata.name.slice(0, 10).concat("...")
                         : nft.metadata.name}
                     </h3>
 

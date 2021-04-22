@@ -35,6 +35,7 @@ export default function CreateFile(props) {
   const [name, setName] = useState("");
   const [userDescription, setDescription] = useState("");
   const [externalUrl, setExternalUrl] = useState("");
+  const [collectionName, setCollectionName] = useState("");
   const [number, setNumber] = useState(0);
   const [attribute, setAttribute] = useState([]);
   const [attributeValue, setAttributeValue] = useState([]);
@@ -110,7 +111,36 @@ export default function CreateFile(props) {
         trait_type: "Limit",
         value: values.limit.toString(),
       },
+      {
+        trait_type: "Collection Name",
+        value: values.collectionName,
+      },
     ];
+
+    if (values.collectionName){
+      currentNft["attributes"] = [
+        {
+          trait_type: "Limit",
+          value: values.limit.toString(),
+        },
+        {
+          trait_type: "Collection",
+          value: values.collectionName,
+        },
+      ];
+    } else {
+      currentNft["attributes"] = [
+        {
+          trait_type: "Limit",
+          value: values.limit.toString(),
+        },
+        {
+          trait_type: "Collection",
+          value: "NFT Yard V1",
+        },
+      ];
+    }
+
     if (values.attributes) {
       values.attributes.forEach(attrib => currentNft["attributes"].push(attrib));
     }
@@ -257,7 +287,7 @@ export default function CreateFile(props) {
          labelAlign = "left"
           name="userDescription"
           rules={[
-            { required: true, message: "Give your NFT a Description." },
+            { required: false, message: "Give your NFT a Description." },
           ]}
         >
           
@@ -268,8 +298,8 @@ export default function CreateFile(props) {
           />      
         </Form.Item>
 
-        <Form.Item
-        label={<span style={{marginTop: 20}}> <span>Link to your own NFT Website (Optional)</span><InfoPop item="External Url" textAlign="left"/></span>}
+        {/* <Form.Item
+        label={<span style={{marginTop: 20}}> <span>Link to your own NFT Website (OPTIONAL)</span><InfoPop item="External Url" textAlign="left"/></span>}
          labelAlign = "left"
           name="externalUrl"
           rules={[
@@ -279,16 +309,30 @@ export default function CreateFile(props) {
   
           <Input
             onChange={(e) => setExternalUrl(e.target.value)}
-            placeholder={"https://mywebsite.com/nft_address"}
+            placeholder={"Example: https://mywebsite.com/nft_address"}
+            style={{ fontSize: 16 }}
+          />  
+        </Form.Item> */}
+
+        <Form.Item
+        label={<span style={{marginTop: 20}}> <span>Collection Name</span><InfoPop item="Collection Name" textAlign="left"/></span>}
+         labelAlign = "left"
+          name="collectionName"
+          rules={[
+            { required: false, message: "Group your NFTs into collection" },
+          ]}
+        >
+          <Input
+            onChange={(e) => setCollectionName(e.target.value)}
+            placeholder={"My First NFT Collection"}
             style={{ fontSize: 16 }}
           />  
         </Form.Item>
 
-        <br></br>
         <Form.List name="attributes">        
         {(fields, { add, remove }) => (
           <>
-          <span style={{color: '#73ad21'}}>Custom Properties</span>
+          <span style={{color: '#73ad21', fontSize: 16}}>Custom Properties</span>
           <InfoPop item="Custom Properties" textAlign="left"/>
             {fields.map(field => (
               <Space key={field.key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
@@ -373,7 +417,7 @@ export default function CreateFile(props) {
        <div  className="createfile-right">
       {top}
       </div>
-      <p style={{fontSize: 14}}>Image, Video, Audio, or 3D Model</p>
+      <p style={{fontSize: 14}}>You can Only Upload Image Files For Now.</p>
       <InfoPop item="Upload" textAlign="left"/>
       <Uploader />
     </div>

@@ -10,6 +10,8 @@ const blocklist = [
   "QmQZmDkMiv8EsrMwmb8Wt5REEp3SmoMFJJ6UAL8YNsKFnd",
   "QmWaSkL3MaYvnYUuWsRbrJyFmH7pirUFRYoNUiAF9FEojN",
   "QmU65N3U9hBHh2j4nocUERYpbkdytHhdbE4W3WCrzaK3aY",
+  "QmQGsHF2pJj5UjCxxjePE2ZyXEhV693MWqBMn8rA9eVeVB",
+  "QmSxLgWyVaYWT3ZDmQhTHJjqb3PgANKfP2MY5p6eR95UTQ",
 ];
 
 export default function isBlocklisted(hash) {

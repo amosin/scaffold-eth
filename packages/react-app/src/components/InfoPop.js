@@ -19,7 +19,7 @@ import {
     } else if (item === "Custom Properties") {
         return (
             <div>
-            <p>Custom properties are the attrivutes of your NFT. You can add whatever you like here. </p>
+            <p>Custom properties are the attributes of your NFT. You can add whatever you like here. </p>
              <p>Those properties will show on Opensea as the follow example:</p> 
             <img src={propertiesExample} alt="Properties Example" width="340"/> 
             <p>On this example we have <b>BLOODLINE</b> as the attribute name and <b>Nakamoto</b> the value.</p>
@@ -31,6 +31,12 @@ import {
             <img src={artExample} alt="Art Properties Example" width="340"/> 
           </div>
           );
+    } else if (item === "Collection Name") {
+      return (
+          <div>
+          <p>This will help group your NFTs into Categories. Also it will show on OpenSea as a Collection Property</p>
+        </div>
+        );
     } else if (item === "Supply") {
         return (
             <div>

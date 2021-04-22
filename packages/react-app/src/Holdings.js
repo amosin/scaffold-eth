@@ -177,7 +177,7 @@ export default function Holdings(props) {
         </Col>
         <Col span={12}>
           <p style={{ margin: 0 }}>
-            <b>My Nfts: </b>
+            <b>My Creation: </b>
             {holdings && tokens
               ? holdings.filter(
                 (id) =>
@@ -208,36 +208,43 @@ export default function Holdings(props) {
                   style={{
                     display: "inline-block",
                     verticalAlign: "top",
-                    margin: 4,
-                    padding: 5,
+                    margin: 10,
+                    padding: 10,
                     border: "1px solid #e5e5e6",
                     borderRadius: "10px",
                     fontWeight: "bold",
+                    transition: 'box-shadow .3s',
                   }}
                 >
                   <Link
                     to={"assets/" + tokens[id].nft.id}
                     style={{ color: "black" }}
                   >
+                    <div className="assetImage" style={{
+                        height: 200,
+                        width: 200,
+                        textAlign: 'center',
+                      }}>
                     <img
                       src={tokens[id].nft.metadata.image}
                       alt={tokens[id].nft.metadata.name}
                       width="300"
                       style={{
-                        border: "1px solid #e5e5e6",
-                        borderRadius: "10px",
+                        objectFit: 'contain',
+                        height: 'auto',
+                        width: 'auto',
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        borderRadius: "10px"
                       }}
                     />
+                    </div>
                     <h3
-                      style={{
-                        margin: "10px 0px 5px 0px",
-                        fontWeight: "700",
-                        color: "white",
-                      }}
+                      style={{ color: "white", margin: "10px 0px 5px 0px", fontWeight: "700", fontSize: 15, textTransform: 'uppercase' }}
                     >
                       {tokens[id].nft.metadata.name.length > 18
                         ? tokens[id].nft.metadata.name
-                          .slice(0, 15)
+                          .slice(0, 10)
                           .concat("...")
                         : tokens[id].nft.metadata.name}
                     </h3>
@@ -265,7 +272,8 @@ export default function Holdings(props) {
                           <Button
                             size="small"
                             type="secondary"
-                            style={{ margin: 4, marginBottom: 12 }}
+                            style={{ 
+                              margin: 4, marginBottom: 4, fontSize: 10 }}
                           >
                             <SendOutlined /> Send
                             </Button>
@@ -301,8 +309,10 @@ export default function Holdings(props) {
                         /> */}
                         <Button
                           type="primary"
+                          size="small"
                           style={{
-                            margin: 8,
+                            margin: 2,
+                            fontSize: 10,
                             background: "#722ed1",
                             borderColor: "#722ed1",
                           }}

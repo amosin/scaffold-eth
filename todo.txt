@@ -4,8 +4,7 @@ X - ADD ALL THE THING TO SHOW UP NICELLY ON OpenSea Base URL Description etc... 
 X - add description and external URL (option) to create tab
 
 X - Set GAS PRICE 
-- Mainnet Smart COntract needs to have THING TO SHOW UP NICELLY ON OpenSea and BASE URI etc... like the above
-- Removed Send Ownership Holdings.js
+
 X - Remove xDai stuff
 X - Check Wallet
 
@@ -25,11 +24,19 @@ X- search Infura
 
 X  IPFS NODE on Digital Ocean
 
-- My Assets and Holdings - equal squares
-- Google Analytics
-
-- ADD MATIC RAMP
-- remove console log
-- Add Description on View FIle
+X - My Assets and Holdings - equal squares
 
 
+
+
+Mainnet
+- Google Analytics - mainnet
+- remove console log - Mainnet
+- change Opensea and Blockchain explorer to Mainnet
+
+
+
+- ADD MATIC RAMP - nExt version
+- Add Description on View FIle - next version
+- Mainnet Smart Contract needs to have THING TO SHOW UP NICELLY ON OpenSea and BASE URI etc... like the above
+- Removed Send Ownership Holdings.js
