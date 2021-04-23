@@ -48,6 +48,7 @@
     "newdeployxdai": "cd packages/buidler && npx buidler run scripts/newdeploy.js --network xdai",
     "newdeploymainnet": "cd packages/buidler && npx buidler run scripts/newdeploy.js --network mainnet",
     "newdeploymumbai": "cd packages/buidler && npx buidler run scripts/newdeploy.js --network mumbai && npx buidler run scripts/publish.js",
+    "newdeploymatic": "cd packages/buidler && npx buidler run scripts/newdeploy.js --network matic && npx buidler run scripts/publish.js",
     "analyze": "source-map-explorer 'packages/react-app/build/static/js/*.js'",
     "flattentoken": "cd packages/buidler && npx buidler flatten NiftyToken.sol",
     "flatten": "cd packages/buidler && npx buidler flatten ",
@@ -55,7 +56,8 @@
     "setregistry": "cd packages/buidler && npx buidler run scripts/setRegistry.js --network xdai",
     "sidechaindeploy": "cd packages/buidler && npx buidler run scripts/newdeploy.js --network sidechain && npx buidler run scripts/publish.js",
     "testFee": "cd packages/buidler && npx buidler run scripts/testFeeaddr.js --network sidechain",
-    "initMumbai": "cd packages/buidler && npx buidler run scripts/testFeeaddr.js --network mumbai"
+    "initMumbai": "cd packages/buidler && npx buidler run scripts/testFeeaddr.js --network mumbai",
+    "initMatic": "cd packages/buidler && npx buidler run scripts/testFeeaddr.js --network matic"
   },
   "devDependencies": {
     "@nomiclabs/buidler": "^1.3.3",

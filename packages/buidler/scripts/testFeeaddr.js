@@ -11,7 +11,7 @@ console.log("🪐 WORKING ON NETWORK: ",bre.network.name)
 //console.log(niftytoken.checkBalance())
 
 async function main() {
-    if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("mumbai")>=0 || bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
+    if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("matic")>=0|| bre.network.name.indexOf("mumbai")>=0 || bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
         const niftytoken = await NiftyYardToken.at('0x186C4C038e04b56aD63BFfF71b8149Dc49E9b88b')
         const liker = await Liker.at('0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0')
         const ativoToken = await AtivoToken.at('0x44a2D88e864b559Eaf433C79b961f92F4b68B65c')

@@ -248,6 +248,13 @@ module.exports = {
         mnemonic: DEPLOY_ACCOUNT
       },
     },
+    matic: {
+      url: 'https://rpc-mainnet.matic.network',
+      accounts: {
+        gasPrice: 20000000000,
+        mnemonic: DEPLOY_ACCOUNT
+      },
+    },
     xdai: {
       url: 'https://dai.poa.network',
       gasPrice: 1100000000,

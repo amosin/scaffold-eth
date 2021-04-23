@@ -27,12 +27,14 @@ X - My Assets and Holdings - equal squares
 X - ADD MATIC RAMP
 
 
-- THE GRAPH - Like Weight
+X - THE GRAPH - Like Weight
 
 Mainnet
 - Google Analytics - mainnet
 - remove console log - Mainnet
 - change Opensea and Blockchain explorer to Mainnet
+X - Get Matic Child Proxy address -> 0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa
+
 
 
 - Add Description on View FIle - next version

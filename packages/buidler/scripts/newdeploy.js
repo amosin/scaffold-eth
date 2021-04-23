@@ -14,13 +14,13 @@ async function main() {
   console.log("🪐 DEPLOYING ON NETWORK: ",bre.network.name)
 
 
-  if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("mumbai")>=0|| bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
+  if(bre.network.name.indexOf("sidechain")>=0 || bre.network.name.indexOf("matic")>=0|| bre.network.name.indexOf("mumbai")>=0|| bre.network.name.indexOf("kovan")>=0|| bre.network.name.indexOf("xdai")>=0){
     const Liker = await deploy("Liker")
     const NiftyRegistry = await deploy("NiftyRegistry")
     const NiftyYard = await deploy("NiftyYard")
     const AtivoToken = await deploy("AtivoToken")
     // parameters _feeaddr + childChainManager
-    const NiftyYardToken = await deploy("NiftyYardToken",["0xF1B471055629E172a59C488a50F38BFc668B1A76", "0xb5505a6d998549090530911180f38aC5130101c6"])
+    const NiftyYardToken = await deploy("NiftyYardToken",["PayableFee", "0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa"])
   
 
     // USE ChildChainManagerProxy
