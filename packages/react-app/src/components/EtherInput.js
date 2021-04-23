@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "antd";
 
 export default function AddressInput(props) {
-  const [mode, setMode] = useState(props.price ? "USD" : "ETH");
+  const [mode, setMode] = useState(props.price ? "USD" : "MATIC");
   const [display, setDisplay] = useState();
   const [value, setValue] = useState();
 
@@ -15,7 +15,7 @@ export default function AddressInput(props) {
         style={{ cursor: "pointer" }}
         onClick={() => {
           if (mode === "USD") {
-            setMode("ETH");
+            setMode("MATIC");
             setDisplay(currentValue);
           } else {
             setMode("USD");
@@ -41,7 +41,7 @@ export default function AddressInput(props) {
     addonAfter = option("USD 🔀");
   } else {
     prefix = "Ξ";
-    addonAfter = option("ETH 🔀");
+    addonAfter = option("MATIC 🔀");
   }
 
   return (

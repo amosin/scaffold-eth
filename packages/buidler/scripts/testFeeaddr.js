@@ -34,9 +34,9 @@ async function main() {
         // console.log(transaction2)
         // console.log('ok')
         // console.log('ok')
-        // await ativoToken.manualMint('0xc783df8a850f42e7F7e57013759C285caa701eB6', '10000000000000000000')
-        // console.log('ok')
-        // console.log('ok')
+        await ativoToken.manualMint('0xd3be66b3BD84426E129654E558082Dc2eae3e866', '20000000000000000000')
+        console.log('ok')
+        console.log('ok')
         const weighterc20 = await liker.weighterc20()
         console.log(weighterc20)
 
@@ -56,17 +56,17 @@ async function main() {
         //   {fromBlock: 0}
         // );
 
-        const result = await niftytoken.getPastEvents(
-          'TransferWithMetadata',
-          {fromBlock: 12805118}
-        );
-        console.log('\n Number of Events: ' + result.length)
-        result.forEach(element => {
-          console.log(element.returnValues);
-          // if (element.returnValues.nftUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
-          //   console.log('NFT GONE')
-          // }
-        });
+        // const result = await niftytoken.getPastEvents(
+        //   'TransferWithMetadata',
+        //   {fromBlock: 12805118}
+        // );
+        // console.log('\n Number of Events: ' + result.length)
+        // result.forEach(element => {
+        //   console.log(element.returnValues);
+        //   // if (element.returnValues.nftUrl == "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk") {
+        //   //   console.log('NFT GONE')
+        //   // }
+        // });
         
         // Burn
         // const resultT = await niftytoken.burnToken("4", "QmQ3TMhN1P8Ybuddzo1Uo5sEPXweWGDuMXGACxjYkHFghk");

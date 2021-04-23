@@ -23,11 +23,11 @@ X- search Infura
 
 
 X  IPFS NODE on Digital Ocean
-
 X - My Assets and Holdings - equal squares
+X - ADD MATIC RAMP
 
 
-
+- THE GRAPH - Like Weight
 
 Mainnet
 - Google Analytics - mainnet
@@ -35,8 +35,6 @@ Mainnet
 - change Opensea and Blockchain explorer to Mainnet
 
 
-
-- ADD MATIC RAMP - nExt version
 - Add Description on View FIle - next version
 - Mainnet Smart Contract needs to have THING TO SHOW UP NICELLY ON OpenSea and BASE URI etc... like the above
 - Removed Send Ownership Holdings.js

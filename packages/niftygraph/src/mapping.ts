@@ -119,6 +119,7 @@ export function handlenewFile(event: newFile): void {
   nft.nftNumber = event.params.id;
   nft.creator = creator.id;
   nft.likers = new Array<string>();
+  nft.likersWeight = new Array<string>();
   nft.limit = event.params.limit;
   nft.jsonUrl = event.params.jsonUrl;
   nft.createdAt = event.block.timestamp;
@@ -358,6 +359,6 @@ export function handleliked(event: liked): void {
   likersWeight.push(event.params.weight.toHexString());
   likers.push(event.params.liker.toHexString());
   file.likers = likers;
+  file.likersWeight = likersWeight;
   file.save();
 }
-
