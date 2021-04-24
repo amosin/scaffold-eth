@@ -7,10 +7,10 @@ import React, { useState } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
-import { Faucet, Ramp } from './components';
+//import { Faucet, Ramp } from './components';
 import { useContractLoader } from './hooks';
 import NftyWallet from './NftyWallet.js';
-import detectEthereumProvider from '@metamask/detect-provider'
+//import detectEthereumProvider from '@metamask/detect-provider'
 
 if (!process.env.REACT_APP_GRAPHQL_ENDPOINT) {
   throw new Error(

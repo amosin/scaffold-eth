@@ -30,12 +30,16 @@ X - ADD MATIC RAMP
 X - THE GRAPH - Like Weight
 
 Mainnet
-- Google Analytics - mainnet
-- remove console log - Mainnet
-- change Opensea and Blockchain explorer to Mainnet
+X x- Google Analytics - mainnet
+
+x - change Opensea and Blockchain explorer to Mainnet
 X - Get Matic Child Proxy address -> 0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa
 
 
+
+- remove console log - Mainnet
+
+--------
 
 - Add Description on View FIle - next version
 - Mainnet Smart Contract needs to have THING TO SHOW UP NICELLY ON OpenSea and BASE URI etc... like the above
