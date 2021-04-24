@@ -46,7 +46,7 @@ export default function Footer({ showDrawer }) {
       <ul className="footer-nav">
         <li>
           <a
-            href="https://t.me/Ativo_Finance"
+            href="https://t.me/nftyard"
             target="_blank"
             rel="noopener noreferrer"
           >
