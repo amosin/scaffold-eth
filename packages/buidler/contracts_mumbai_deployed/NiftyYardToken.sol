@@ -3535,7 +3535,7 @@ contract NiftyYardToken is
         return abi.encode(tokenURI(tokenId));
     }
 
-    function contractURI() public view returns (string memory) {
+    function contractURI() public pure returns (string memory) {
         return "https://nftyard.io/metadata/nftyard_v1";
     }
 }

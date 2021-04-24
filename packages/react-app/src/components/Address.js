@@ -38,7 +38,7 @@ export default function Address(props) {
     displayAddress = props.value;
   }
 
-  let blockExplorer = "https://explorer-mumbai.maticvigil.com/address/";
+  let blockExplorer = "https://explorer-mainnet.maticvigil.com/address/";
   if (props.blockExplorer) {
     blockExplorer = props.blockExplorer;
   }

@@ -11,10 +11,10 @@ function handleBuyClick() {
 
 let transak = new transakSDK({
   apiKey: '925d92ed-b9d7-4eb8-a145-d4878ee65ddb',  // Your API Key (Required)
-  environment: 'STAGING', // STAGING/PRODUCTION (Required)
+  environment: 'PRODUCTION', // STAGING/PRODUCTION (Required)
   defaultCryptoCurrency: 'MATIC',
   walletAddress: '', // Your customer wallet address
-  themeColor: '000000', // App theme color in hex
+  themeColor: '06061b', // App theme color in hex
   email: '', // Your customer email address (Optional)
   redirectURL: '',
   hostURL: window.location.origin, // Required field

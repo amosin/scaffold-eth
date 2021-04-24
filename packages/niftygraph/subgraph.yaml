@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: NiftyYard
-    network: mumbai
+    network: matic
     source:
-      address: '0xCf26e26615B6b3302f8a1150D76EE4d0b83d9FBd'
+      address: '0xDF13a4470524668EDE2B10B110280A585EEa2057'
       abi: NiftyYard
-      startBlock: 12770837
+      startBlock: 13640431
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -35,11 +35,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: NiftyYardToken
-    network: mumbai
+    network: matic
     source:
-      address: '0x186C4C038e04b56aD63BFfF71b8149Dc49E9b88b'
+      address: '0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1'
       abi: NiftyYardToken
-      startBlock: 12770837
+      startBlock: 13640431
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -73,7 +73,7 @@ dataSources:
 #    source:
 #      address: "0xc02697c417DdAcfbe5EdbF23eDad956BC883F4fb"
 #      abi: NiftyMain
-#      startBlock: 10609660
+#      startBlock: 13640431
 #    mapping:
 #      kind: ethereum/events
 #      apiVersion: 0.0.4
@@ -94,7 +94,7 @@ dataSources:
 #      file: ./src/mapping.ts
   # - kind: ethereum/contract
   #   name: NiftyMediator
-  #   network: mumbai
+  #   network: matic
   #   source:
   #     address: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28'
   #     abi: NiftyMediator
@@ -118,11 +118,11 @@ dataSources:
   #     file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Liker
-    network: mumbai
+    network: matic
     source:
-      address: '0xaE7f2014ca5ECCb017D3D6147Cfe477643DbbaE0'
+      address: '0xfaab63d33C98f9c0D9D57a0833E56E4184283385'
       abi: Liker
-      startBlock: 12770837
+      startBlock: 12770826
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

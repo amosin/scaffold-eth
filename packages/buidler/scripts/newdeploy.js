@@ -20,7 +20,7 @@ async function main() {
     const NiftyYard = await deploy("NiftyYard")
     const AtivoToken = await deploy("AtivoToken")
     // parameters _feeaddr + childChainManager
-    const NiftyYardToken = await deploy("NiftyYardToken",["PayableFee", "0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa"])
+    const NiftyYardToken = await deploy("NiftyYardToken",["0x222De28527BF6543b3eb9fF0F7D022eBA666114F", "0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa"])
   
 
     // USE ChildChainManagerProxy

@@ -86,7 +86,7 @@ export const NETWORKS = {
     gasPrice:2000000000,
     rpcUrl: "https://rpc-mainnet.maticvigil.com",
     faucet: "https://faucet.matic.network/",
-    blockExplorer: "https://explorer-mainnet.maticvigil.com//",
+    blockExplorer: "https://explorer-mainnet.maticvigil.com/",
   },
   mumbai: {
     name: "mumbai",
@@ -95,6 +95,6 @@ export const NETWORKS = {
     price: 1,
     gasPrice:1000000000,
     rpcUrl: "https://rpc-mumbai.maticvigil.com",
-    blockExplorer: "https://explorer-mumbai.maticvigil.com//",
+    blockExplorer: "https://explorer-mumbai.maticvigil.com/",
   }
 };

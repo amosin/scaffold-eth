@@ -109,7 +109,7 @@ export default function LikeButton(props) {
                         target="_blank"
                         rel="noopener noreferrer"
                         href={
-                          "https://explorer-mumbai.maticvigil.com/tx/" + result.hash
+                          "https://explorer-mainnet.maticvigil.com/tx/" + result.hash
                         }
                       >
                         view transaction.

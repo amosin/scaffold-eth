@@ -413,7 +413,7 @@ export default function ViewNft(props) {
                   onClick={() => {
                     console.log("item", item);
                     window.open(
-                      "https://testnets.opensea.io/assets/mumbai/0x186c4c038e04b56ad63bfff71b8149dc49e9b88b/" +
+                      "https://opensea.io/assets/matic/0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1/" +
                         item.id
                     );
                   }}
@@ -435,7 +435,7 @@ export default function ViewNft(props) {
                   <a
                     style={{ padding: 8, fontSize: 32 }}
                     href={
-                      "https://explorer-mumbai.maticvigil.com/tokens/0x186c4c038e04b56ad63bfff71b8149dc49e9b88b/instance/" +
+                      "https://explorer-mainnet.maticvigil.com/tokens/0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1/instance/" +
                       item.id + "/token-transfers"
                     }
                     target="_blank"

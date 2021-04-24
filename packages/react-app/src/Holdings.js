@@ -319,7 +319,7 @@ export default function Holdings(props) {
                           onClick={() => {
                             console.log("item", id);
                             window.open(
-                              "https://testnets.opensea.io/assets/mumbai/0x186c4c038e04b56ad63bfff71b8149dc49e9b88b/" +
+                              "https://opensea.io/assets/matic/0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1/" +
                               id
                             );
                           }}
@@ -338,7 +338,7 @@ export default function Holdings(props) {
                           onClick={() => {
                             console.log("item", id);
                             window.open(
-                              "https://opensea.io/assets/0xc02697c417ddacfbe5edbf23edad956bc883f4fb/" +
+                              "https://opensea.io/assets/matic/0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1/" +
                               id
                             );
                           }}
