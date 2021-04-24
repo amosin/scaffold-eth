@@ -36,6 +36,8 @@ x - change Opensea and Blockchain explorer to Mainnet
 X - Get Matic Child Proxy address -> 0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa
 
 
+X - add mime type to metadata
+
 
 - remove console log - Mainnet
 

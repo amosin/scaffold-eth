@@ -100,6 +100,8 @@ export default function CreateFile(props) {
     console.log("Success:", values);
     console.log("imageUrl", imageUrl);
 
+    let mimeType = imageUrl.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0];
+
     setSending(true);
 
     let imageBuffer = Buffer.from(imageUrl.split(",")[1], "base64");
@@ -178,6 +180,8 @@ export default function CreateFile(props) {
     } else {
       currentNft["external_url"] = "https://nftyard.io/" + imageHash;
     }
+
+    currentNft["mimeType"] = mimeType;
 
     props.setNft(currentNft);
     console.log("Nft:", props.nft);
