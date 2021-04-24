@@ -23,10 +23,9 @@ const ipfsConfigInfura = {
   protocol: 'https',
 };
 const ipfsConfig = {
-  host: 'ipfs.nftyard.io',
-  port: '443',
+  host: 'ipfs.infura.io',
+  port: '5001',
   protocol: 'https',
-  timeout: 2500,
 };
 
 export default function NftyWallet(props) {

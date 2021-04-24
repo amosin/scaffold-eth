@@ -413,7 +413,7 @@ export default function ViewNft(props) {
                   onClick={() => {
                     console.log("item", item);
                     window.open(
-                      "https://opensea.io/assets/matic/0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1/" +
+                      process.env.REACT_APP_NETWORK_OPENSEA +
                         item.id
                     );
                   }}
@@ -435,7 +435,7 @@ export default function ViewNft(props) {
                   <a
                     style={{ padding: 8, fontSize: 32 }}
                     href={
-                      "https://explorer-mainnet.maticvigil.com/tokens/0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1/instance/" +
+                      process.env.REACT_APP_NETWORK_EXPLORER + "/tokens/" + process.env.REACT_APP_NETWORK_TOKENADDR + "/instance/" +
                       item.id + "/token-transfers"
                     }
                     target="_blank"

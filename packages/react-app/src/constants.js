@@ -94,7 +94,7 @@ export const NETWORKS = {
     chainId: 80001,
     price: 1,
     gasPrice:1000000000,
-    rpcUrl: "https://rpc-mumbai.maticvigil.com",
+    rpcUrl: "https://rpc-mumbai.maticvigil.com/v1/3a8f9d1dc28e7f1196d07f45e60efb19c3488e2e",
     blockExplorer: "https://explorer-mumbai.maticvigil.com/",
   }
 };

@@ -36,7 +36,7 @@ export default function Help() {
             Symbol: <b>MATIC</b>
           </li>
           <li>
-            Block Explorer URL: <b>https://explorer.matic.network</b>
+            Block Explorer URL: <b>https://explorer-mainnet.maticvigil.com/</b>
           </li>
         </ul>
         <Row justify="center">

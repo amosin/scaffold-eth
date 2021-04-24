@@ -57,14 +57,14 @@ if (process.env.REACT_APP_NETWORK_NAME) {
     networkBanner = <div className="network-banner"> Network: Mumbai </div>;
     console.log('THIS IS MUMBAI NETWORK');
     localProvider = new ethers.providers.JsonRpcProvider(
-      'https://rpc-mumbai.maticvigil.com'
+      'https://rpc-mumbai.maticvigil.com/v1/3a8f9d1dc28e7f1196d07f45e60efb19c3488e2e'
     );
     kovanProvider = new ethers.providers.JsonRpcProvider(
-      'https://rpc-mumbai.maticvigil.com'
+      'https://rpc-mumbai.maticvigil.com/v1/3a8f9d1dc28e7f1196d07f45e60efb19c3488e2e'
     );
   } else if (process.env.REACT_APP_NETWORK_NAME === 'matic') {
     networkBanner = <div className="network-banner">Network: Polygon</div>;
-    console.log('THIS IS MUMBAI NETWORK');
+    console.log('THIS IS MATIC NETWORK');
     localProvider = new ethers.providers.JsonRpcProvider(
       'https://rpc-mainnet.maticvigil.com'
     );

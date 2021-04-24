@@ -110,7 +110,7 @@ export default function Account(props) {
           'https://kovan.infura.io/v3/6267047f3de141149cde8157eb747010'
         ); //new ethers.providers.InfuraProvider("kovan", "6267047f3de141149cde8157eb747010")
       } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
-        burner = new BurnerProvider('https://rpc-mumbai.maticvigil.com');
+        burner = new BurnerProvider('https://rpc-mumbai.maticvigil.com/v1/3a8f9d1dc28e7f1196d07f45e60efb19c3488e2e');
       } else {
         burner = new BurnerProvider('http://localhost:8546'); //
       }
@@ -251,7 +251,7 @@ export default function Account(props) {
             '9ea7e149b122423991f56257b882261c'
           );
         } else if (process.env.REACT_APP_NETWORK_NAME === 'mumbai') {
-          origProvider = new Web3HttpProvider('https://rpc-mumbai.maticvigil.com');
+          origProvider = new Web3HttpProvider('https://rpc-mumbai.maticvigil.com/v1/3a8f9d1dc28e7f1196d07f45e60efb19c3488e2e');
         } else {
           origProvider = new ethers.providers.JsonRpcProvider(
             'http://localhost:8546'

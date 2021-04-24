@@ -1,0 +1,23 @@
+
+#common
+REACT_APP_NETWORK_COLOR=#f6c343
+REACT_APP_USE_GSN=false
+
+# MUMBAI
+REACT_APP_NETWORK_NAME=mumbai
+REACT_APP_GRAPHQL_ENDPOINT=https://api.thegraph.com/subgraphs/name/ativofinance/nftyardmumbai
+REACT_APP_GRAPHQL_ENDPOINT_MAINNET=https://api.thegraph.com/subgraphs/name/ativofinance/nftyardmumbai
+REACT_APP_NETWORK_EXPLORER=https://explorer-mumbai.maticvigil.com
+REACT_APP_NETWORK_TOKENADDR=0x186c4c038e04b56ad63bfff71b8149dc49e9b88b
+REACT_APP_NETWORK_OPENSEA=https://testnets.opensea.io/assets/mumbai/0x186c4c038e04b56ad63bfff71b8149dc49e9b88b/
+REACT_APP_NETWORK_RPC=https://rpc-mumbai.maticvigil.com/v1/3a8f9d1dc28e7f1196d07f45e60efb19c3488e2e
+
+
+## MAINNET
+#REACT_APP_NETWORK_NAME=matic
+#REACT_APP_GRAPHQL_ENDPOINT=https://api.thegraph.com/subgraphs/name/ativofinance/nftyard-matic
+#REACT_APP_GRAPHQL_ENDPOINT_MAINNET=https://api.thegraph.com/subgraphs/name/ativofinance/nftyard-matic
+#REACT_APP_NETWORK_EXPLORER=https://explorer-mainnet.maticvigil.com
+#REACT_APP_NETWORK_TOKENADDR=0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1
+#REACT_APP_NETWORK_OPENSEA=https://opensea.io/assets/matic/0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1/
+REACT_APP_NETWORK_RPC=https://rpc-mainnet.maticvigil.com/v1/3a8f9d1dc28e7f1196d07f45e60efb19c3488e2
