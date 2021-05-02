@@ -35,6 +35,7 @@ import UpgradeNftButton from "./UpgradeNftButton.js";
 import { useQuery } from "react-apollo";
 import { NFT_QUERY, NFT_MAIN_QUERY } from "./apollo/queries";
 import ApolloClient, { InMemoryCache } from "apollo-boost";
+import {ReactTitle, MetaTags} from 'react-meta-tags';
 
 const mainClient = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT_MAINNET,
@@ -626,20 +627,28 @@ export default function ViewNft(props) {
   );
 
   return (
-    <div style={{ textAlign: "center" }}>
-      {top}
-      <div
-        style={{
-          backgroundColor: "#666666",
-          width: size[0],
-          margin: "0 auto",
-          border: "1px solid #999999",
-          boxShadow: "2px 2px 8px #AAAAAA",
-        }}
-      >
-        <img src={nftJson.image} style={{ width: "100%", display: "block"}}/>
+    <div className="wrapper">
+      <ReactTitle title={"NFTYard: " + nftJson.name}/>
+          <MetaTags>
+            <meta name="description" content={nftJson.description} />
+            <meta property="og:title" content={nftJson.name} />
+            <meta property="og:image" content={nftJson.image} />
+          </MetaTags>
+      <div style={{ textAlign: "center" }}>
+        {top}
+        <div
+          style={{
+            backgroundColor: "#666666",
+            width: size[0],
+            margin: "0 auto",
+            border: "1px solid #999999",
+            boxShadow: "2px 2px 8px #AAAAAA",
+          }}
+        >
+          <img src={nftJson.image} style={{ width: "100%", display: "block"}}/>
+        </div>
+        {bottom}
       </div>
-      {bottom}
     </div>
   );
 }

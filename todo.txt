@@ -43,6 +43,9 @@ X - add mime type to metadata
 
 --------
 
+- Infinite Scrow
+- Token
+- RAMP
 - Add Description on View FIle - next version
 - Support olher types of MEDIA
 - Mainnet Smart Contract needs to have THING TO SHOW UP NICELLY ON OpenSea and BASE URI etc... like the above

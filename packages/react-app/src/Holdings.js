@@ -13,7 +13,9 @@ import { SendOutlined, RocketOutlined } from "@ant-design/icons";
 import { Loader } from "./components";
 import SendNftForm from "./SendNftForm.js";
 import TransferOwnershipForm from "./TransferOwnershipForm"
-import UpgradeNftButton from "./UpgradeNftButton.js";
+//import UpgradeNftButton from "./UpgradeNftButton.js";
+
+import {ReactTitle, MetaTags} from 'react-meta-tags';
 
 const mainClient = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT_MAINNET,
@@ -169,6 +171,10 @@ export default function Holdings(props) {
   console.log(data)
   return (
     <div className="holdings">
+      <ReactTitle title="NFT Yard: HOLDINGS"/>
+          <MetaTags>
+            <meta name="description" content="NFT Factory and Marketplace built on Ethereum L2s where Gas prices are low" />
+          </MetaTags>
       <Row>
         <Col span={12}>
           <p style={{ margin: 0 }}>

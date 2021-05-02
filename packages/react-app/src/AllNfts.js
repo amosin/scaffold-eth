@@ -5,9 +5,11 @@ import { NFTS_QUERY } from "./apollo/queries";
 import { isBlocklisted } from "./helpers";
 import { Row } from "antd";
 import { Loader } from "./components";
-import { ethers } from 'ethers';
-import LikeButton from "./LikeButton.js";
-import { Container } from "winston";
+// import { ethers } from 'ethers';
+// import LikeButton from "./LikeButton.js";
+// import { Container } from "winston";
+
+import {ReactTitle, MetaTags} from 'react-meta-tags';
 
 export default function AllNfts(props) {
   let [allNfts, setAllNfts] = useState([]);
@@ -73,6 +75,10 @@ export default function AllNfts(props) {
 
   return (
     <div className="allnfts-main">
+            <ReactTitle title="NFT Yard: NFT Factory and Marketplace on Ethereum L2s"/>
+          <MetaTags>
+            <meta name="description" content="NFT Factory and Marketplace built on Ethereum L2s where Gas prices are low" />
+          </MetaTags>
       <h1 style={{ padding: 0, textAlign: "center", listStyle: "none", color: "white", margin: 20}}> LATEST MINTED NFTs </h1>
       <div className="nfts-grid">
       

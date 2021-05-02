@@ -15,6 +15,7 @@ import { useContractReader, useLocalStorage } from './hooks';
 import ViewNft from './ViewNft.js';
 
 
+
 const Web3HttpProvider = require('web3-providers-http');
 
 const ipfsConfigInfura = {
@@ -26,7 +27,7 @@ const ipfsConfig = {
   host: 'ipfs.nftyard.io',
   port: '443',
   protocol: 'https',
-  timeout: 2500,
+  timeout: 25000,
 };
 
 export default function NftyWallet(props) {

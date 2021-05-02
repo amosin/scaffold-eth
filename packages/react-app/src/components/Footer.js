@@ -11,7 +11,7 @@ function handleBuyClick() {
 
 let transak = new transakSDK({
   apiKey: '925d92ed-b9d7-4eb8-a145-d4878ee65ddb',  // Your API Key (Required)
-  environment: 'PRODUCTION', // STAGING/PRODUCTION (Required)
+  environment: 'STAGING', // STAGING/PRODUCTION (Required)
   defaultCryptoCurrency: 'MATIC',
   walletAddress: '', // Your customer wallet address
   themeColor: '06061b', // App theme color in hex
@@ -24,21 +24,21 @@ let transak = new transakSDK({
 });
 
 
-// // To get all the events
-// transak.on(transak.ALL_EVENTS, (data) => {
-//   console.log(data)
-// });
+// To get all the events
+transak.on(transak.ALL_EVENTS, (data) => {
+  console.log(data)
+});
 
-// // This will trigger when the user closed the widget
-// transak.on(transak.EVENTS.TRANSAK_WIDGET_CLOSE, (orderData) => {
-// transak.close();
-// });
+// This will trigger when the user closed the widget
+transak.on(transak.EVENTS.TRANSAK_WIDGET_CLOSE, (orderData) => {
+transak.close();
+});
 
-// // This will trigger when the user marks payment is made.
-// transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-// console.log(orderData);
-// transak.close();
-// });
+// This will trigger when the user marks payment is made.
+transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+console.log(orderData);
+transak.close();
+});
 
 export default function Footer({ showDrawer }) {
   return (

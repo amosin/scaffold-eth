@@ -9,6 +9,8 @@ import { SearchOutlined } from "@ant-design/icons";
 import Blockies from "react-blockies";
 import { AddressInput, Loader } from "./components";
 
+import {ReactTitle, MetaTags} from 'react-meta-tags';
+
 export default function Creator(props) {
   const { address } = useParams();
   const [nfts, setNfts] = useState([]);
@@ -96,6 +98,10 @@ export default function Creator(props) {
  
   return (
     <div className="accountsCotent">
+      <ReactTitle title="NFT Yard: MY ASSETS"/>
+          <MetaTags>
+            <meta name="description" content="NFT Factory and Marketplace built on Ethereum L2s where Gas prices are low" />
+          </MetaTags>
       <div>
         <Row style={{ textAlign: "center" }}>
           <Col span={12} offset={6}>

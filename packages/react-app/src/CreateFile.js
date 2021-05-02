@@ -23,6 +23,7 @@ import { useAtom } from "jotai";
 import { Uploader } from "./components";
 import { imageUrlAtom } from "./hooks/Uploader";
 import { MinusCircleTwoTone, PlusOutlined } from '@ant-design/icons';
+import {ReactTitle, MetaTags} from 'react-meta-tags';
 
 const Hash = require("ipfs-only-hash");
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
@@ -418,6 +419,10 @@ export default function CreateFile(props) {
 
   return (
     <div  className="createfile">
+      <ReactTitle title="NFT Yard: CREATE NFT"/>
+          <MetaTags>
+            <meta name="description" content="NFT Factory and Marketplace built on Ethereum L2s where Gas prices are low" />
+          </MetaTags>
        <div  className="createfile-right">
       {top}
       </div>
