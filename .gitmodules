@@ -1,0 +1,6 @@
+[submodule "packages/nftyard_front"]
+	path = packages/nftyard_front
+	url = https://github.com/ativofinance/nftyard_front.git
+[submodule "packages/react-app"]
+	path = packages/react-app
+	url = https://github.com/ativofinance/nftyard_front.git
