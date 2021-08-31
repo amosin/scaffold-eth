@@ -20,12 +20,17 @@ type File @entity {
   likersWeight: [String!]
   limit: BigInt!
   count: BigInt
-  tokens: [Token!] @derivedFrom(field: "nft")
+  tokens: [Token!]!
   sales: [Sale!] @derivedFrom(field: "nft")
+  likes: [Like!] @derivedFrom(field: "file")
   createdAt: BigInt
-  mintPrice: BigInt
+  mintPrice: BigInt!
   mintPriceSetAt: BigInt
   mintPriceNonce: BigInt
+  bestPrice: BigInt!
+  bestPriceSource: String
+  bestPriceSetAt: BigInt
+  likeCount: BigInt
 }
 
 type Token @entity {
@@ -34,7 +39,7 @@ type Token @entity {
   owner: Bytes!
   createdAt: BigInt!
   network: Network!
-  price: BigInt
+  price: BigInt!
   priceSetAt: BigInt
   transfers: [TokenTransfer!] @derivedFrom(field: "token")
   sales: [Sale!] @derivedFrom(field: "token")
@@ -70,7 +75,7 @@ type TokenTransfer @entity {
   from: Bytes!
   to: Bytes!
   createdAt: BigInt!
-  network: Network!
+  network: Network
 }
 
 type RelayPrice @entity {
@@ -94,10 +99,22 @@ type Total @entity {
   creators: BigInt
 }
 
+type NftLookup @entity {
+  id: ID!
+  nftId: String!
+}
+
 type Ownership @entity {
   id: ID!
   owner: Bytes!
   newOwner: Bytes!
   ownerApproval: Boolean!
   newOwnerAcknowledgement: Boolean!
+}
+
+type Like @entity {
+  id: ID!
+  file: File!
+  liker: Bytes!
+  createdAt: BigInt!
 }

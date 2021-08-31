@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: NiftyYard
-    network: matic
+    network: xdai
     source:
-      address: '0xDF13a4470524668EDE2B10B110280A585EEa2057'
+      address: '0x7EAD8282158Dd6312906a77eb6C3d59606cBEB98'
       abi: NiftyYard
-      startBlock: 13640431
+      startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -35,11 +35,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: NiftyYardToken
-    network: matic
+    network: xdai
     source:
-      address: '0x2Dd7eA1b9c67115EaC74248ba8E024f1d72A15b1'
+      address: '0xa8Fa8fFac0904aa020415807eE6516E887D69770'
       abi: NiftyYardToken
-      startBlock: 13640431
+      startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -94,7 +94,7 @@ dataSources:
 #      file: ./src/mapping.ts
   # - kind: ethereum/contract
   #   name: NiftyMediator
-  #   network: matic
+  #   network: xdai
   #   source:
   #     address: '0x29640fDdec628bb54abcba66BFA38f0aEFcE4a28'
   #     abi: NiftyMediator
@@ -118,21 +118,23 @@ dataSources:
   #     file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Liker
-    network: matic
+    network: xdai
     source:
-      address: '0xfaab63d33C98f9c0D9D57a0833E56E4184283385'
+      address: '0x0FAf8a8DCFB769EDE2b5797087E624956693F0CA'
       abi: Liker
-      startBlock: 12770826
+      startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
+        - NftLookup
+        - Like
         - File
       abis:
         - name: Liker
           file: ./abis/Liker.json
       eventHandlers:
         - event: liked(uint256,address,uint256,uint256,address,uint256,string)
-          handler: handleliked
+          handler: handleLikedFile
       file: ./src/mapping.ts

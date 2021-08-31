@@ -5,15 +5,15 @@ import {
   json,
   JSONValueKind,
   log,
-  Bytes,
+  TypedMap
 } from "@graphprotocol/graph-ts";
 import {
   NiftyYard,
   newFile,
   SetPriceCall,
   SetPriceFromSignatureCall,
-  newFilePrice,
   ownershipChange,
+  newFilePrice
 } from "../generated/NiftyYard/NiftyYard";
 import {
   NiftyYardToken,
@@ -41,7 +41,8 @@ import {
   RelayPrice,
   Total,
   MetaData,
-  Ownership
+  NftLookup,
+  Like
 } from "../generated/schema";
 
 function updateMetaData(metric: String, value: String): void {
@@ -81,6 +82,42 @@ function incrementTotal(metric: String, timestamp: BigInt): void {
 
   stats.save();
 }
+
+function checkBestPrice(file: File | null): File | null {
+
+  if(file !== null) {
+    if(file.mintPrice.isZero()) {
+      file.bestPrice = BigInt.fromI32(0)
+      file.bestPriceSource = null
+      file.bestPriceSetAt = null
+    } else {
+      file.bestPrice = file.mintPrice
+      file.bestPriceSource = 'file'
+      file.bestPriceSetAt = file.mintPriceSetAt
+    }
+
+    for (let i = 0, len=file.tokens.length; i < len; i++) {
+        let tokens = file.tokens
+        let id = tokens[i]
+        let token = Token.load(id)
+
+        if(token.price > BigInt.fromI32(0)) {
+          if(file.bestPrice.isZero()) {
+            file.bestPrice = token.price
+            file.bestPriceSource = id
+            file.bestPriceSetAt = token.priceSetAt
+          } else if (token.price < file.bestPrice) {
+            file.bestPrice = token.price as BigInt
+            file.bestPriceSource = id
+            file.bestPriceSetAt = token.priceSetAt
+          }
+      }
+    }
+  }
+
+  return file
+}
+
 
 export function handlenewFile(event: newFile): void {
   let creator = Creator.load(event.params.creator.toHexString());
@@ -124,8 +161,17 @@ export function handlenewFile(event: newFile): void {
   nft.jsonUrl = event.params.jsonUrl;
   nft.createdAt = event.block.timestamp;
 
+  nft.tokens = []
+  nft.mintPrice = BigInt.fromI32(0)
+  nft.bestPrice = BigInt.fromI32(0)
+  nft.likeCount = BigInt.fromI32(0)
+
   nft.save();
   creator.save();
+
+  let nftLookup = new NftLookup(nft.nftNumber.toString())
+  nftLookup.nftId = nft.id
+  nftLookup.save()
 
   incrementTotal("nfts", event.block.timestamp);
   updateMetaData("blockNumber", event.block.number.toString());
@@ -138,9 +184,24 @@ function _handleSetPrice(
 ): void {
   let file = File.load(nftUrl);
 
+  file.mintPriceNonce = file.mintPriceNonce + BigInt.fromI32(1);
   file.mintPrice = price;
   file.mintPriceSetAt = timestamp;
-  file.mintPriceNonce = file.mintPriceNonce + BigInt.fromI32(1);
+  
+  if(price > BigInt.fromI32(0)) {
+
+    if(file.bestPrice.isZero()) {
+      file.bestPrice = price
+      file.bestPriceSource = 'file'
+      file.bestPriceSetAt = timestamp
+    } else if (price <= file.bestPrice) {
+      file.bestPrice = price
+      file.bestPriceSource = 'file'
+      file.bestPriceSetAt = timestamp
+    }
+  } else {
+    file = checkBestPrice(file)
+  }
 
   file.save();
 }
@@ -158,44 +219,83 @@ export function handleSetPrice(call: SetPriceCall): void {
 }
 
 export function handleNewNftPrice(event: newFilePrice): void {
-  let file = File.load(event.params.fileUrl);
-
-  file.mintPrice = event.params.price;
-  file.mintPriceSetAt = event.block.timestamp;
-  file.mintPriceNonce = file.mintPriceNonce + BigInt.fromI32(1);
-
-  file.save();
+  _handleSetPrice(event.params.fileUrl, event.params.price, event.block.timestamp)
   updateMetaData("blockNumber", event.block.number.toString());
 }
 
 export function handleNewTokenPrice(event: newTokenPrice): void {
   let token = Token.load(event.params.id.toString());
-
+  let file = File.load(token.nft)
   token.price = event.params.price;
   token.priceSetAt = event.block.timestamp;
 
   token.save();
+
+  if(token.price > BigInt.fromI32(0)) {
+    if(file.bestPrice.isZero()) {
+      file.bestPrice = token.price
+      file.bestPriceSource = token.id
+      file.bestPriceSetAt = token.priceSetAt
+    } else if (token.price < file.bestPrice) {
+      file.bestPrice = token.price
+      file.bestPriceSource = token.id
+      file.bestPriceSetAt = token.priceSetAt
+    }
+  } else if(file.bestPrice > BigInt.fromI32(0)) {
+      file = checkBestPrice(file)
+  }
+
+  file.save()
   updateMetaData("blockNumber", event.block.number.toString());
 }
 
 export function handleSetTokenPrice(call: SetTokenPriceCall): void {
   let token = Token.load(call.inputs._tokenId.toString());
 
+  let file = File.load(token.nft)
   token.price = call.inputs._price;
   token.priceSetAt = call.block.timestamp;
 
   token.save();
+
+  if(token.price > BigInt.fromI32(0)) {
+    if(file.bestPrice.isZero()) {
+      file.bestPrice = token.price
+      file.bestPriceSource = token.id
+      file.bestPriceSetAt = token.priceSetAt
+    } else if (token.price < file.bestPrice) {
+      file.bestPrice = token.price
+      file.bestPriceSource = token.id
+      file.bestPriceSetAt = token.priceSetAt
+    }
+  } else if(file.bestPrice > BigInt.fromI32(0)) {
+      file = checkBestPrice(file)
+  }
+
+  file.save()
+
   updateMetaData("blockNumber", call.block.number.toString());
 }
 
 export function handleMintedNft(event: mintedNft): void {
+  
   let file = File.load(event.params.nftUrl);
 
-  if (file == null) {
-    file = new File(event.params.nftUrl);
+  file.count = file.count.plus(BigInt.fromI32(1));
+
+  if (file.count == file.limit && file.limit != BigInt.fromI32(1)) {
+
+    file.mintPrice = BigInt.fromI32(0)
+    file.mintPriceSetAt = event.block.timestamp
+
+    if(file.bestPrice > BigInt.fromI32(0)) {
+      file = checkBestPrice(file)
+    }
   }
 
-  file.count = file.count.plus(BigInt.fromI32(1));
+  let tokenArray = file.tokens
+  tokenArray.push(event.params.id.toString())
+  file.tokens = tokenArray
 
   let token = new Token(event.params.id.toString());
 
@@ -203,6 +303,7 @@ export function handleMintedNft(event: mintedNft): void {
   token.owner = event.params.to;
   token.createdAt = event.block.timestamp;
   token.network = "xdai";
+  token.price = BigInt.fromI32(0)
 
   file.save();
   token.save();
@@ -218,9 +319,18 @@ export function handleTransfer(event: Transfer): void {
 
   if (token !== null) {
     token.owner = event.params.to;
-    token.price = null;
-    token.priceSetAt = null;
-    token.save();
+    if(token.price > BigInt.fromI32(0)) {
+      token.price = BigInt.fromI32(0)
+      token.priceSetAt = event.block.timestamp
+      token.save()
+
+      let file = File.load(token.nft)
+      file = checkBestPrice(file)
+      file.save()
+
+    } else {
+      token.save()
+    }
     updateMetaData("blockNumber", event.block.number.toString());
   }
 
@@ -242,8 +352,6 @@ export function handleTransfer(event: Transfer): void {
     Address.fromString("0xc02697c417DdAcfbe5EdbF23eDad956BC883F4fb")
   ) {
     transfer.network = "mainnet";
-  } else {
-    transfer.network = "local";
   }
 
   transfer.save();
@@ -274,17 +382,14 @@ export function handleBoughtNft(event: boughtNft): void {
       sale.saleType = "primary";
       sale.creatorTake = event.transaction.value;
       sale.seller = creator.address;
+      creator.earnings = creator.earnings + event.transaction.value
     } else {
       sale.saleType = "secondary";
       sale.creatorTake =
         event.transaction.value.times(BigInt.fromI32(1)) / BigInt.fromI32(100);
       sale.seller = transfer.from;
+      creator.earnings = creator.earnings + sale.creatorTake
     }
-  }
-
-  if (token !== null) {
-    token.price = BigInt.fromI32(0);
-    token.save();
   }
 
   sale.token = tokenId;
@@ -296,6 +401,7 @@ export function handleBoughtNft(event: boughtNft): void {
   sale.transfer = event.transaction.hash.toHex();
 
   sale.save();
+  creator.save();
 
   incrementTotal("sales", event.block.timestamp);
   updateMetaData("blockNumber", event.block.number.toString());
@@ -352,13 +458,28 @@ export function handleownershipChange(event: ownershipChange): void {
   file.save();
 }
 
-export function handleliked(event: liked): void {
-  let file = File.load(event.params.fileUrl);
-  let likers = file.likers;
-  let likersWeight = file.likersWeight;
-  likersWeight.push(event.params.weight.toHexString());
-  likers.push(event.params.liker.toHexString());
-  file.likers = likers;
-  file.likersWeight = likersWeight;
-  file.save();
+// export function handleliked(event: liked): void {
+//   let file = File.load(event.params.fileUrl);
+//   let likers = file.likers;
+//   let likersWeight = file.likersWeight;
+//   likersWeight.push(event.params.weight.toHexString());
+//   likers.push(event.params.liker.toHexString());
+//   file.likers = likers;
+//   file.likersWeight = likersWeight;
+//   file.save();
+// }
+
+export function handleLikedFile (event: liked): void {
+
+  let nftLookup = NftLookup.load(event.params.target.toString())
+  let file = File.load(nftLookup.nftId)
+  file.likeCount = file.likeCount + BigInt.fromI32(1)
+  file.save()
+
+  let newLike = new Like(event.transaction.hash.toHex() + "-" + event.logIndex.toString())
+  newLike.liker = event.params.liker
+  newLike.file = nftLookup.nftId
+  newLike.createdAt = event.block.timestamp
+  newLike.save()
+
 }
